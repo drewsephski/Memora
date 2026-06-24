@@ -25,6 +25,7 @@
         "LOGTAIL_SOURCE_TOKEN",
         "AI_CITATIONS_PROJECT_ID",
         "MEMORA_API_KEY",
+        "MEMORA_API_URL",
         "SUPAVEC_API_KEY"
       ]
     },
