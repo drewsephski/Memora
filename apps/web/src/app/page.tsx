@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Header } from "@/components/sections/header";
 import { Hero } from "@/components/sections/hero";
-// import { FeaturedSection } from "@/components/sections/featured-section";
 // import { WhyIBuit } from "@/components/sections/why-i-built";
 // import { WhatIsRag } from "@/components/sections/what-is-rag";
 import { UseCases } from "@/components/sections/use-cases";
@@ -24,7 +23,6 @@ export default async function Home() {
     <main>
       <Header />
       <Hero />
-      {/* <FeaturedSection /> */}
       {/* <WhyIBuit /> */}
       {/* <WhatIsRag /> */}
       <UseCases />

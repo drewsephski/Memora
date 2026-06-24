@@ -116,19 +116,12 @@ export function SalesCoachingFAQ() {
             Our team is here to help you understand how Memora can transform
             your sales coaching
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <div className="flex justify-center">
             <a
               href="mailto:hello@memoralabs.dev"
               className="inline-flex items-center px-6 py-3 bg-blue-500 hover:bg-blue-600 text-white font-medium rounded-lg transition-colors"
             >
               Email Our Team
-            </a>
-            <a
-              href="https://cal.com/taishik/15-mins-meeting"
-              target="_blank"
-              className="inline-flex items-center px-6 py-3 border border-border hover:bg-muted text-foreground font-medium rounded-lg transition-colors"
-            >
-              Schedule a Demo
             </a>
           </div>
         </motion.div>

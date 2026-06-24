@@ -174,17 +174,6 @@ export function SalesCoachingHero() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-start">
             {/* Left Column - Content */}
             <div className="flex flex-col items-start">
-              <a
-                href="https://www.producthunt.com/posts/memora?embed=true&utm_source=badge-top-post-badge&utm_medium=badge&utm_souce=badge-memora"
-                target="_blank"
-              >
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src="https://api.producthunt.com/widgets/embed-image/v1/top-post-badge.svg?post_id=871672&theme=neutral&period=daily&t=1739785669388"
-                  alt="Memora - The&#0032;open&#0032;source&#0032;RAG&#0032;as&#0032;a&#0032;service&#0032;platform | Product Hunt"
-                  className="w-[250px] h-[54px]"
-                />
-              </a>
               <SalesCoachingHeroTitles />
               <SalesCoachingHeroCTA />
             </div>

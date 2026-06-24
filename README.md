@@ -5,7 +5,6 @@
 # [Memora](https://memoralabs.dev) by Memora Labs — Build powerful RAG applications with any data source, at any scale.
 
 > ⚡ RAG-as-a-Service by [Memora Labs](https://memoralabs.dev) — spin up vector search + chat API in <5 min  
-> 📈 630▲ on Product Hunt  
 > _Formerly Supavec_
 
 [![](https://dcbadge.limes.pink/api/server/https://discord.gg/MS9CjPeXF4)](https://discord.gg/MS9CjPeXF4)

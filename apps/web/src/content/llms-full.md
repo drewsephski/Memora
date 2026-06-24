@@ -1,7 +1,6 @@
 # Memora - RAG as a service platform
 
 ## Memora: RAG API Service
-[![Memora - RAG as a service platform | Product Hunt](https://api.producthunt.com/widgets/embed-image/v1/top-post-badge.svg?post_id=871672&theme=neutral&period=daily&t=1739785669388)](https://www.producthunt.com/posts/memora?embed=true&utm_source=badge-top-post-badge&utm_medium=badge&utm_souce=badge-memora)
 
 # Bring Your Own Data to Any LLM—Instant RAG API
 
