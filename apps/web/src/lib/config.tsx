@@ -1,4 +1,3 @@
-import { Icons } from "@/components/icons";
 import {
   BrainIcon,
   Code2,
@@ -10,7 +9,6 @@ import {
   UsersIcon,
   Wrench,
   ZapIcon,
-  Linkedin,
   PhoneCall,
   MessageSquare,
   Shield,
@@ -78,10 +76,6 @@ export const siteConfig = {
     "Vector Search",
     "LLM Memory",
   ],
-  links: {
-    twitter: "https://x.com/memoralabs",
-    discord: "https://discord.gg/MS9CjPeXF4",
-  },
   hero: {
     title: "Bring your data. Memora remembers the rest.",
     description:
@@ -219,20 +213,6 @@ export const siteConfig = {
     },
   ],
   footer: {
-    socialLinks: [
-      {
-        icon: <Icons.twitter className="size-5" />,
-        url: "https://x.com/memoralabs",
-      },
-      {
-        icon: <Icons.discord className="size-5" />,
-        url: "https://discord.gg/MS9CjPeXF4",
-      },
-      {
-        icon: <Linkedin className="size-5" />,
-        url: "https://memoralabs.dev",
-      },
-    ],
     // links: [
     //   { text: "Pricing", url: "#" },
     //   { text: "Contact", url: "#" },

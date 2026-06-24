@@ -86,20 +86,6 @@ export function Footer({ className }: { className?: string }) {
             </h2>
           </div>
 
-          <ul className="flex gap-x-5 gap-y-2 text-muted-foreground md:items-center">
-            {siteConfig.footer.socialLinks.map((link, index) => (
-              <li key={index}>
-                <a
-                  target="_blank"
-                  href={link.url}
-                  className="flex h-5 w-5 items-center justify-center text-muted-foreground transition-all duration-100 ease-linear hover:text-foreground hover:underline hover:underline-offset-4"
-                >
-                  {link.icon}
-                </a>
-              </li>
-            ))}
-          </ul>
-
           <p className="text-sm font-medium tracking-tight text-muted-foreground">
             {siteConfig.footer.bottomText}
           </p>

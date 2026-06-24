@@ -15,12 +15,6 @@ const stats = [
     icon: <BrainCircuit className="size-5" />,
     link: `${process.env.NEXT_PUBLIC_APP_URL}/login`,
   },
-  {
-    title: "100+",
-    subtitle: "Discord Members",
-    icon: <Icons.discord className="size-5" />,
-    link: "https://discord.gg/MS9CjPeXF4",
-  },
 ];
 
 export function Statistics() {
@@ -33,7 +27,7 @@ export function Statistics() {
             "radial-gradient(circle at bottom center, hsl(var(--secondary) / 0.6), hsl(var(--background)))",
         }}
       >
-        <div className="grid grid-cols-1 sm:grid-cols-3">
+        <div className="grid grid-cols-1 sm:grid-cols-2">
           {stats.map((stat) => (
             <a
               href={stat.link || "#"}

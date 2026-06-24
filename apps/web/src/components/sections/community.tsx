@@ -1,11 +1,8 @@
 "use client";
 
-import { Icons } from "@/components/icons";
 import { Section } from "@/components/section";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Button } from "@/components/ui/button";
 import { Ripple } from "@/components/ui/ripple";
-import { siteConfig } from "@/lib/config";
 import { cn } from "@/lib/utils";
 
 const contributors = [
@@ -56,18 +53,6 @@ export function Community({ className }: { className?: string }) {
                 </Avatar>
               </div>
             ))}
-          </div>
-          <div className="flex justify-center">
-            <Button
-              asChild
-              variant="secondary"
-              className="flex items-center gap-2"
-            >
-              <a target="_blank" href={siteConfig.links.discord}>
-                <Icons.discord className="h-5 w-5" />
-                Join our community
-              </a>
-            </Button>
           </div>
         </div>
       </div>

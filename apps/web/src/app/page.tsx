@@ -5,12 +5,10 @@ import { Hero } from "@/components/sections/hero";
 // import { WhatIsRag } from "@/components/sections/what-is-rag";
 import { UseCases } from "@/components/sections/use-cases";
 import { HowToUse } from "@/components/sections/how-to-use";
-import { Testimonials } from "@/components/sections/testimonials";
 import { Community } from "@/components/sections/community";
 import { CTA } from "@/components/sections/cta";
 import { Footer } from "@/components/sections/footer";
 import { Pricing } from "@/components/sections/pricing";
-import { SenjaTestimonials } from "@/components/sections/senja-testimonials";
 import { Statistics } from "@/components/sections/statistics";
 
 export const metadata: Metadata = {
@@ -26,10 +24,8 @@ export default async function Home() {
       {/* <WhyIBuit /> */}
       {/* <WhatIsRag /> */}
       <UseCases />
-      <SenjaTestimonials />
       <HowToUse />
       <Statistics />
-      <Testimonials />
       <Pricing className="mt-[-49px] bg-background relative z-10" />
       <Community />
       <CTA />
