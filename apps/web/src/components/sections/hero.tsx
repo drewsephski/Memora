@@ -16,7 +16,7 @@ import { siteConfig } from "@/lib/config";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
 import { Check, Copy, Sparkles } from "lucide-react";
-import Link from "next/link";
+import { AuthCtaLink } from "@/components/auth-cta-link";
 import { lazy, Suspense, useEffect, useState } from "react";
 import { toast } from "sonner";
 
@@ -101,8 +101,7 @@ function HeroCTA() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.8, duration: 0.8, ease }}
       >
-        <Link
-          href="/login"
+        <AuthCtaLink
           className={cn(
             buttonVariants({ variant: "default" }),
             "w-full sm:w-auto text-background flex gap-2 rounded-lg"
@@ -110,7 +109,7 @@ function HeroCTA() {
         >
           <Icons.logo className="h-6 w-6" />
           {siteConfig.hero.cta}
-        </Link>
+        </AuthCtaLink>
       </motion.div>
 
       {/* Code snippet */}

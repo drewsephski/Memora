@@ -6,8 +6,8 @@ import { buttonVariants } from "../ui/button";
 import { Icons } from "../icons";
 import { APP_NAME } from "@/app/consts";
 import { cn } from "@/lib/utils";
-import Link from "next/link";
 import { usePostHog } from "posthog-js/react";
+import { AuthCtaLink } from "@/components/auth-cta-link";
 
 export function SenjaTestimonials() {
   const senjaContainerRef = useRef<HTMLDivElement>(null);
@@ -48,8 +48,7 @@ export function SenjaTestimonials() {
             style={{ display: "block", width: "100%" }}
           ></div>
           <div className="bg-background py-8 w-full flex justify-center items-center mt-[-76px] relative z-10 rounded-none">
-            <Link
-              href="/login"
+            <AuthCtaLink
               onClick={handleTryForFreeClick}
               className={cn(
                 buttonVariants({ variant: "default" }),
@@ -58,7 +57,7 @@ export function SenjaTestimonials() {
             >
               <Icons.logo className="size-6" />
               Try {APP_NAME} for free
-            </Link>
+            </AuthCtaLink>
           </div>
         </div>
       </div>

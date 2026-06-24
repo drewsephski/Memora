@@ -17,6 +17,7 @@ import { posthog } from "posthog-js";
 import { ButtonColorful } from "@/components/ui/button-colorful";
 import { useRouter } from "next/navigation";
 import { APP_NAME } from "@/app/consts";
+import { getAuthCtaHref, useAuth } from "@/hooks/use-auth";
 import meDialog from "..//me-dialog.png";
 import Image from "next/image";
 
@@ -72,12 +73,13 @@ export const PushDialog = ({
 
 function ProfileForm() {
   const router = useRouter();
+  const { user } = useAuth();
 
   return (
     <div className="flex flex-col items-center gap-y-3">
       <ButtonColorful
         className="z-10"
-        label="Create your Chat with PDF app"
+        label={user ? "Dashboard" : "Create your Chat with PDF app"}
         onClick={() => {
           posthog.capture(
             "Click Dialog CTA in Chat with PDF example",
@@ -88,7 +90,10 @@ function ProfileForm() {
           );
 
           router.push(
-            "https://memoralabs.dev/login?src=examples-chat-with-pdf"
+            getAuthCtaHref(
+              !!user,
+              "https://memoralabs.dev/login?src=examples-chat-with-pdf"
+            )
           );
         }}
       />

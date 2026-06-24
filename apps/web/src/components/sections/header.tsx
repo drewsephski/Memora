@@ -1,7 +1,7 @@
 "use client";
 
+import { AuthCtaLink } from "@/components/auth-cta-link";
 import { MobileDrawer } from "@/components/mobile-drawer";
-import { useAuth } from "@/hooks/use-auth";
 import { buttonVariants } from "@/components/ui/button";
 import {
   NavigationMenu,
@@ -19,8 +19,6 @@ import { HiPhoneArrowUpRight } from "react-icons/hi2";
 import { Layers3 } from "lucide-react";
 
 export function Header() {
-  const { isLoggedIn } = useAuth();
-
   return (
     <header className="sticky top-0 h-[var(--header-height)] z-50 p-0 bg-background/60 backdrop-blur">
       <div className="flex justify-between items-center container mx-auto p-2">
@@ -107,31 +105,16 @@ export function Header() {
             </NavigationMenuList>
           </NavigationMenu>
 
-          {isLoggedIn ? (
-            <Link
-              href="/dashboard"
-              className={cn(
-                buttonVariants({ variant: "default" }),
-                "h-8 text-primary-foreground rounded-lg group tracking-tight font-medium"
-              )}
-            >
-              Dashboard
-            </Link>
-          ) : (
-            <Link
-              href="/login"
-              className={cn(
-                buttonVariants({ variant: "default" }),
-                "h-8 text-primary-foreground rounded-lg group tracking-tight font-medium"
-              )}
-            >
-              {siteConfig.cta}
-            </Link>
-          )}
+          <AuthCtaLink
+            className={cn(
+              buttonVariants({ variant: "default" }),
+              "h-8 text-primary-foreground rounded-lg group tracking-tight font-medium"
+            )}
+          />
         </div>
 
         <div className="mt-2 cursor-pointer block lg:hidden">
-          <MobileDrawer isLoggedIn={isLoggedIn} />
+          <MobileDrawer />
         </div>
       </div>
       <hr className="absolute w-full bottom-0" />

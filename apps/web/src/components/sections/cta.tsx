@@ -1,7 +1,7 @@
+import { AuthCtaLink } from "@/components/auth-cta-link";
 import { Section } from "@/components/section";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import Link from "next/link";
 
 export function CTA() {
   return (
@@ -15,15 +15,13 @@ export function CTA() {
           Start building with your own data in minutes.
         </p>
         <div className="flex justify-center">
-          <Link
-            href="/login"
+          <AuthCtaLink
             className={cn(
               buttonVariants({ variant: "default" }),
               "flex items-center gap-2"
             )}
-          >
-            Get Started Free
-          </Link>
+            loggedOutLabel="Get Started Free"
+          />
         </div>
       </div>
     </Section>

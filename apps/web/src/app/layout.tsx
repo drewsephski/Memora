@@ -6,7 +6,11 @@ import { GoogleAnalytics } from "@next/third-parties/google";
 import { GeistMono } from "geist/font/mono";
 import { GeistSans } from "geist/font/sans";
 import { ThemeProvider } from "@/components/theme-provider";
+import { AuthProvider } from "@/hooks/use-auth";
+import { getAuthUser } from "@/utils/supabase/get-user";
 import { CSPostHogProvider } from "./providers";
+
+export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   title: {
@@ -19,11 +23,13 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const user = await getAuthUser();
+
   return (
     <html
       lang="en"
@@ -32,15 +38,17 @@ export default function RootLayout({
     >
       <CSPostHogProvider>
         <body className="min-h-screen bg-background antialiased w-full mx-auto scroll-smooth font-sans">
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
-          >
-            {children}
-            <Toaster richColors />
-          </ThemeProvider>
+          <AuthProvider initialUser={user}>
+            <ThemeProvider
+              attribute="class"
+              defaultTheme="system"
+              enableSystem
+              disableTransitionOnChange
+            >
+              {children}
+              <Toaster richColors />
+            </ThemeProvider>
+          </AuthProvider>
         </body>
       </CSPostHogProvider>
       <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS!} />

@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import { PlayCircle, Upload, ArrowRight } from "lucide-react";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import Link from "next/link";
+import { AuthCtaLink } from "@/components/auth-cta-link";
 
 const ease = [0.16, 1, 0.3, 1];
 
@@ -89,8 +89,7 @@ export function SalesCoachingCTA() {
               Try Live Demo
             </a>
 
-            <Link
-              href="/login"
+            <AuthCtaLink
               className={cn(
                 buttonVariants({ variant: "ghost", size: "lg" }),
                 "text-lg px-8 py-4 flex gap-2 rounded-lg transition-all duration-200"
@@ -98,7 +97,7 @@ export function SalesCoachingCTA() {
             >
               <Upload className="h-5 w-5" />
               Build My Coaching App
-            </Link>
+            </AuthCtaLink>
           </motion.div>
 
           {/* Risk-free message */}

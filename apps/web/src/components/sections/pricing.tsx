@@ -94,7 +94,7 @@ function PricingTier({
   tier: (typeof siteConfig.pricing)[0];
   billingCycle: "monthly" | "yearly";
 }) {
-  const { isLoggedIn, user } = useAuth();
+  const { user, ctaHref } = useAuth();
   const [loadingTier, setLoadingTier] = useState<string | null>(null);
   const router = useRouter();
   const posthog = usePostHog();
@@ -108,8 +108,8 @@ function PricingTier({
 
       setLoadingTier(tierName);
 
-      if (!isLoggedIn) {
-        router.push("/login");
+      if (!user) {
+        router.push(ctaHref);
         return;
       }
 

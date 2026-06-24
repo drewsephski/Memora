@@ -1,3 +1,4 @@
+import { AuthCtaLink } from "@/components/auth-cta-link";
 import { APP_NAME } from "@/app/consts";
 import { Section } from "@/components/section";
 import { siteConfig } from "@/lib/config";
@@ -104,9 +105,10 @@ export async function HowToUse({ className }: { className?: string }) {
             Ready to transform your search experience?
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
-            <Link href="/login" className="inline-flex items-center justify-center rounded-md bg-primary px-6 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/90 transition-colors">
-              Start for free
-            </Link>
+            <AuthCtaLink
+              className="inline-flex items-center justify-center rounded-md bg-primary px-6 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/90 transition-colors"
+              loggedOutLabel="Start for free"
+            />
             <Link href={siteConfig.links.docs} className="inline-flex items-center justify-center rounded-md border border-border bg-background px-6 py-2 text-sm font-medium hover:bg-muted transition-colors">
               View documentation
             </Link>

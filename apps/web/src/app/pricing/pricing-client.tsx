@@ -10,7 +10,7 @@ import { Check, Loader2 } from "lucide-react";
 import { useState } from "react";
 import { subscribe } from "./subscribe";
 import { toast } from "sonner";
-import { createClient } from "@/utils/supabase/client";
+import { useAuth } from "@/hooks/use-auth";
 import { useRouter } from "next/navigation";
 import { usePostHog } from "posthog-js/react";
 
@@ -90,7 +90,7 @@ export function PricingClient() {
   );
   const [loadingTier, setLoadingTier] = useState<string | null>(null);
   const router = useRouter();
-  const supabase = createClient();
+  const { user, ctaHref } = useAuth();
   const posthog = usePostHog();
 
   const handleTabChange = (tab: "yearly" | "monthly") => {
@@ -106,10 +106,8 @@ export function PricingClient() {
 
       setLoadingTier(tierName);
 
-      const { data } = await supabase.auth.getUser();
-
-      if (!data.user) {
-        router.push("/login");
+      if (!user) {
+        router.push(ctaHref);
         return;
       }
 
@@ -119,7 +117,7 @@ export function PricingClient() {
         tier: tierName,
         billing_cycle: billingCycle,
         price_id: priceId,
-        user_id: data.user.id,
+        user_id: user?.id,
       });
     } catch (error) {
       console.error("Subscription error:", error);

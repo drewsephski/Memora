@@ -5,7 +5,7 @@ import { Section } from "@/components/section";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
-import Link from "next/link";
+import { AuthCtaLink } from "@/components/auth-cta-link";
 import { PlayCircle, Upload } from "lucide-react";
 
 const ease = [0.16, 1, 0.3, 1];
@@ -76,8 +76,7 @@ function SalesCoachingHeroCTA() {
           <PlayCircle className="h-5 w-5" />
           Try Live Demo
         </a>
-        <Link
-          href="/login"
+        <AuthCtaLink
           className={cn(
             buttonVariants({ variant: "ghost", size: "lg" }),
             "w-full sm:w-auto text-foreground font-medium transition-colors"
@@ -85,7 +84,7 @@ function SalesCoachingHeroCTA() {
         >
           <Upload className="h-4 w-4" />
           Build My Coaching App
-        </Link>
+        </AuthCtaLink>
       </motion.div>
     </div>
   );

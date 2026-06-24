@@ -3,12 +3,14 @@
 import { ButtonColorful } from "@/components/ui/button-colorful";
 import { RetroGrid } from "@/components/ui/retro-grid";
 import { APP_NAME } from "@/app/consts";
+import { getAuthCtaHref, useAuth } from "@/hooks/use-auth";
 import { usePostHog } from "posthog-js/react";
 import { useRouter } from "next/navigation";
 
 export const CTA = () => {
   const posthog = usePostHog();
   const router = useRouter();
+  const { user } = useAuth();
 
   return (
     <section className="text-center border-x border-b rounded-b">
@@ -26,7 +28,7 @@ export const CTA = () => {
         </div>
         <ButtonColorful
           className="mt-6 z-10"
-          label="Create your AI app"
+          label={user ? "Dashboard" : "Create your AI app"}
           onClick={() => {
             posthog.capture(
               "Click CTA in AI app example",
@@ -36,7 +38,12 @@ export const CTA = () => {
               }
             );
 
-            router.push("https://memoralabs.dev/login?src=examples-ai-app");
+            router.push(
+              getAuthCtaHref(
+                !!user,
+                "https://memoralabs.dev/login?src=examples-ai-app"
+              )
+            );
           }}
         />
         <RetroGrid />

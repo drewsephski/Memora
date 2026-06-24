@@ -1,3 +1,4 @@
+import { AuthCtaLink } from "@/components/auth-cta-link";
 import { buttonVariants } from "@/components/ui/button";
 import {
   Drawer,
@@ -15,7 +16,7 @@ import { IoMenuSharp } from "react-icons/io5";
 import { HiPhoneArrowUpRight } from "react-icons/hi2";
 import { Layers3 } from "lucide-react";
 
-export function MobileDrawer({ isLoggedIn }: { isLoggedIn: boolean }) {
+export function MobileDrawer() {
   return (
     <Drawer>
       <DrawerTrigger>
@@ -72,27 +73,12 @@ export function MobileDrawer({ isLoggedIn }: { isLoggedIn: boolean }) {
           >
             API Docs
           </a>
-          {isLoggedIn ? (
-            <Link
-              href="/dashboard"
-              className={cn(
-                buttonVariants({ variant: "default" }),
-                "rounded-full group"
-              )}
-            >
-              Dashboard
-            </Link>
-          ) : (
-            <Link
-              href="/login"
-              className={cn(
-                buttonVariants({ variant: "default" }),
-                "rounded-full group"
-              )}
-            >
-              {siteConfig.cta}
-            </Link>
-          )}
+          <AuthCtaLink
+            className={cn(
+              buttonVariants({ variant: "default" }),
+              "rounded-full group"
+            )}
+          />
         </DrawerFooter>
       </DrawerContent>
     </Drawer>
