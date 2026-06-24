@@ -9,34 +9,38 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-if not os.environ.get("SUPAVEC_BASE_URL"):
-    print("ERROR: SUPAVEC_BASE_URL environment variable is not set!")
+MEMORA_BASE_URL = os.environ.get("MEMORA_BASE_URL") or os.environ.get(
+    "SUPAVEC_BASE_URL"
+)
+MEMORA_API_KEY = os.environ.get("MEMORA_API_KEY") or os.environ.get(
+    "SUPAVEC_API_KEY"
+)
+
+if not MEMORA_BASE_URL:
+    print("ERROR: MEMORA_BASE_URL environment variable is not set!")
     exit(1)
 
 if not os.environ.get("OPENAI_API_KEY"):
     print("ERROR: OPENAI_API_KEY environment variable is not set!")
     exit(1)
 
-if not os.environ.get("SUPAVEC_API_KEY"):
-    print("ERROR: SUPAVEC_API_KEY environment variable is not set!")
+if not MEMORA_API_KEY:
+    print("ERROR: MEMORA_API_KEY environment variable is not set!")
     exit(1)
 
 if not os.environ.get("FILE_ID"):
     print("ERROR: FILE_ID environment variable is not set!")
     exit(1)
 
-SUPAVEC_BASE_URL = os.environ.get("SUPAVEC_BASE_URL")
-
 FILE_ID = os.environ.get("FILE_ID")
-SUPAVEC_API_KEY = os.environ.get("SUPAVEC_API_KEY")
 
 
 def search_documents(query, file_ids, k=3):
-    """Call the Supavec /search endpoint to get relevant documents."""
-    url = f"{SUPAVEC_BASE_URL}/search"
+    """Call the Memora /search endpoint to get relevant documents."""
+    url = f"{MEMORA_BASE_URL}/search"
     headers = {
         "Content-Type": "application/json",
-        "authorization": SUPAVEC_API_KEY,
+        "authorization": MEMORA_API_KEY,
     }
     payload = {
         "query": query,
@@ -55,11 +59,11 @@ def search_documents(query, file_ids, k=3):
 
 
 def chat_with_documents(query, file_ids, k=3):
-    """Call the Supavec /chat endpoint to get an answer."""
-    url = f"{SUPAVEC_BASE_URL}/chat"
+    """Call the Memora /chat endpoint to get an answer."""
+    url = f"{MEMORA_BASE_URL}/chat"
     headers = {
         "Content-Type": "application/json",
-        "authorization": SUPAVEC_API_KEY,
+        "authorization": MEMORA_API_KEY,
     }
     payload = {"query": query, "file_ids": file_ids, "k": k, "stream": False}
 

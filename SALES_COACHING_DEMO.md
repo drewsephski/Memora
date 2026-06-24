@@ -2,7 +2,7 @@
 
 ## Overview
 
-The Sales Coaching AI Example showcases how Supavec's Retrieval-Augmented Generation (RAG) technology can power intelligent sales coaching applications. This example implements the workflow described in the use case document, providing a complete end-to-end example of AI-powered sales analysis.
+The Sales Coaching AI Example showcases how Memora's Retrieval-Augmented Generation (RAG) technology can power intelligent sales coaching applications. This example implements the workflow described in the use case document, providing a complete end-to-end example of AI-powered sales analysis.
 
 ## Features
 
@@ -37,9 +37,9 @@ The Sales Coaching AI Example showcases how Supavec's Retrieval-Augmented Genera
    - File validation for .srt/.vtt formats
    - URL parsing for Fireflies integration
 
-2. **Supavec Integration** (Production)
+2. **Memora Integration** (Production)
    ```
-   Transcript → Supavec Embed → Vector Index → Query → LLM Analysis → Insights
+   Transcript → Memora Embed → Vector Index → Query → LLM Analysis → Insights
    ```
 
 3. **Analysis Engine**
@@ -110,18 +110,18 @@ The example includes a production-ready API route at `/api/examples/sales-coachi
    const transcript = await fetchFirefliesTranscript(meetingId);
    ```
 
-2. **Supavec Embedding**
+2. **Memora Embedding**
    ```typescript
-   const embeddingResponse = await fetch(`${SUPAVEC_API_URL}/embed`, {
+   const embeddingResponse = await fetch(`${MEMORA_API_URL}/embed`, {
      method: 'POST',
-     headers: { 'Authorization': `Bearer ${SUPAVEC_API_KEY}` },
+     headers: { 'Authorization': `Bearer ${MEMORA_API_KEY}` },
      body: JSON.stringify({ workspace_id, documents })
    });
    ```
 
 3. **RAG Query Processing**
    ```typescript
-   const queryResponse = await fetch(`${SUPAVEC_API_URL}/query`, {
+   const queryResponse = await fetch(`${MEMORA_API_URL}/query`, {
      method: 'POST',
      body: JSON.stringify({ workspace_id, query: coachingPrompt, top_k: 5 })
    });
@@ -132,9 +132,9 @@ The example includes a production-ready API route at `/api/examples/sales-coachi
 For production deployment, configure:
 
 ```env
-SUPAVEC_API_URL=https://api.supavec.com
-SUPAVEC_API_KEY=your_api_key
-SUPAVEC_WORKSPACE_ID=your_workspace_id
+MEMORA_API_URL=https://api.memoralabs.dev
+MEMORA_API_KEY=your_api_key
+MEMORA_WORKSPACE_ID=your_workspace_id
 FIREFLIES_API_TOKEN=your_fireflies_token
 ```
 
@@ -220,15 +220,15 @@ Update the demo with your brand:
 This is a demonstration version with the following limitations:
 
 - **Mock Data**: Uses simulated analysis results
-- **No Real API Calls**: Fireflies and Supavec integration is stubbed
+- **No Real API Calls**: Fireflies and Memora integration is stubbed
 - **Sample Insights**: Pre-generated coaching recommendations
 - **Limited File Types**: Only .srt and .vtt supported
 
-For production use, integrate with actual Supavec and Fireflies APIs as shown in the example API route.
+For production use, integrate with actual Memora and Fireflies APIs as shown in the example API route.
 
 ## Next Steps
 
-1. **API Integration**: Connect to real Supavec and Fireflies services
+1. **API Integration**: Connect to real Memora and Fireflies services
 2. **Data Storage**: Implement call history and coaching metrics
 3. **Team Features**: Add multi-user support and team dashboards
 4. **Advanced Analytics**: Include trend analysis and performance tracking
@@ -237,9 +237,9 @@ For production use, integrate with actual Supavec and Fireflies APIs as shown in
 
 ## Support
 
-For questions about implementing this demo or integrating with Supavec:
+For questions about implementing this demo or integrating with Memora:
 
-- **Documentation**: [docs.supavec.com](https://docs.supavec.com)
-- **Discord**: [Join our community](https://go.supavec.com/discord)
-- **GitHub**: [supavec/supavec](https://github.com/taishikato/supavec)
-- **Email**: support@supavec.com 
+- **Documentation**: [docs.memora.com](https://docs.memoralabs.dev)
+- **Discord**: [Join our community](https://discord.gg/MS9CjPeXF4)
+- **GitHub**: [memora/memora](https://github.com/memora-labs/memora)
+- **Email**: support@memora.com 

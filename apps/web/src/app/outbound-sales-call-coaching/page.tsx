@@ -13,7 +13,7 @@ import { Header } from "@/components/sections/header";
 import { Footer } from "@/components/sections/footer";
 
 export const metadata: Metadata = {
-  title: "AI Sales Call Coaching - Turn Every Call Into a Playbook | Supavec",
+  title: "AI Sales Call Coaching - Turn Every Call Into a Playbook | Memora",
   description:
     "Transform sales call transcripts into actionable coaching briefs automatically. Get wins, objections, next steps, and coaching cues in seconds.",
 };

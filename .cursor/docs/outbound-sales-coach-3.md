@@ -1,4 +1,4 @@
-# Supavec Landing Page Improvements
+# Memora Landing Page Improvements
 
 Below is a punch-list of improvements, grouped by Conversion, Copy & Content, Visual / UX, and Technical / SEO. Skim the headers first, then cherry-pick the items that resonate.
 
@@ -8,10 +8,10 @@ Below is a punch-list of improvements, grouped by Conversion, Copy & Content, Vi
 
 | Area | Issue | Suggested Fix |
 |------|-------|---------------|
-| Above-the-fold trust | No immediate proof that agencies already use Supavec | Add a slim "Trusted by" bar (3–5 small logos or first-name/agency badges) directly under the CTAs. |
+| Above-the-fold trust | No immediate proof that agencies already use Memora | Add a slim "Trusted by" bar (3–5 small logos or first-name/agency badges) directly under the CTAs. |
 | Primary CTA clarity | Two CTAs ("3-min demo" and "Run my transcript") feel equal weight ⇒ choice paralysis | a) Make one the primary (high-contrast button) and the other a ghost link.<br>b) Label with an outcome: "Get 3-min Demo" → "Watch 3-min Demo" / "Run Free Transcript" → "Generate My Free Brief". |
 | Micro-conversion | No email capture for lukewarm visitors | Between Pain↔Promise and 3-Step Process, embed a light "ROI Calculator" form (email + avg. calls per week) → instant savings estimate. |
-| Social proof depth | Testimonials are generic | Swap placeholders for short, numbers-anchored quotes ("Supavec cut review time from 40 min to 8 min per call" – Sarah, RevOps Lead @ XYZ). Faces > logos > text-only. |
+| Social proof depth | Testimonials are generic | Swap placeholders for short, numbers-anchored quotes ("Memora cut review time from 40 min to 8 min per call" – Sarah, RevOps Lead @ XYZ). Faces > logos > text-only. |
 | Pricing scent | Zero hint of cost | Even a "Starts at $XX / 100 calls" anchor price filters tire kickers and stops hidden-price anxiety. |
 
 ---
@@ -51,7 +51,7 @@ Below is a punch-list of improvements, grouped by Conversion, Copy & Content, Vi
 | Largest Contentful Paint (LCP) | Above-the-fold hero image may be >150 kB | Convert to WebP & lazy-load anything below the fold. |
 | Schema markup | FAQ & How-To schema boosts SERP visibility | Add FAQPage & SoftwareApplication structured data. |
 | Alt & aria labels | Accessibility & SEO | Provide descriptive alt tags for the transcript/brief image ("Screenshot showing call transcript converted into coaching brief"). |
-| Meta title / description | Not shown in screenshot | Use primary keyword: "AI Sales Call Coaching for Agencies – Supavec". |
+| Meta title / description | Not shown in screenshot | Use primary keyword: "AI Sales Call Coaching for Agencies – Memora". |
 | Viewport animations | If using heavy JS for counters/accordion, throttle or use CSS-only where possible. | |
 
 ---

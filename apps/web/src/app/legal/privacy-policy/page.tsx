@@ -13,11 +13,11 @@ export default function PrivacyPolicy() {
       <section className="mb-8">
         <h2 className="text-2xl font-bold mb-4">Introduction</h2>
         <p className="mb-4">
-          Welcome to Supavec (&ldquo;we,&rdquo; &ldquo;our,&rdquo; or
+          Welcome to Memora (&ldquo;we,&rdquo; &ldquo;our,&rdquo; or
           &ldquo;us&rdquo;). We are committed to protecting your privacy and
           handling your data with transparency and care. This Privacy Policy
           explains how we collect, use, disclose, and safeguard your information
-          when you use our platform, website (https://www.supavec.com), and
+          when you use our platform, website (https://memoralabs.dev), and
           related services (collectively, the &ldquo;Service&rdquo;).
         </p>
         <p className="mb-4">
@@ -118,7 +118,7 @@ export default function PrivacyPolicy() {
         </p>
         <p className="mb-4">
           You can request deletion of your account and associated data at any
-          time by contacting us at taishi@supavec.com.
+          time by contacting us at hello@memoralabs.dev.
         </p>
       </section>
 
@@ -211,7 +211,7 @@ export default function PrivacyPolicy() {
           <li>The right to withdraw consent</li>
         </ul>
         <p className="mb-4">
-          To exercise these rights, please contact us at taishi@supavec.com.
+          To exercise these rights, please contact us at hello@memoralabs.dev.
         </p>
       </section>
 
@@ -267,19 +267,19 @@ export default function PrivacyPolicy() {
           <li>
             By email:{" "}
             <a
-              href="mailto:taishi@supavec.com"
+              href="mailto:hello@memoralabs.dev"
               className="text-blue-600 hover:underline"
             >
-              taishi@supavec.com
+              hello@memoralabs.dev
             </a>
           </li>
           <li>
             Through our Discord community:{" "}
             <a
-              href="https://go.supavec.com/discord"
+              href="https://discord.gg/MS9CjPeXF4"
               className="text-blue-600 hover:underline"
             >
-              https://go.supavec.com/discord
+              https://discord.gg/MS9CjPeXF4
             </a>
           </li>
         </ul>

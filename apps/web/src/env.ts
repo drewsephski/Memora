@@ -1,6 +1,11 @@
 import { createEnv } from "@t3-oss/env-nextjs";
 import { z } from "zod";
 
+// Backward compatibility during Supavec → Memora migration
+if (!process.env.MEMORA_API_KEY && process.env.SUPAVEC_API_KEY) {
+  process.env.MEMORA_API_KEY = process.env.SUPAVEC_API_KEY;
+}
+
 export const env = createEnv({
   server: {
     SUPABASE_SERVICE_ROLE_KEY: z.string().min(1),
@@ -8,9 +13,9 @@ export const env = createEnv({
     LOOPS_API_KEY: z.string().min(1),
     STRIPE_SECRET_KEY: z.string().min(1),
     STRIPE_SIGNATURE_SECRET: z.string().min(1),
-    OPENAI_API_KEY: z.string().min(1),
+    OPENROUTER_API_KEY: z.string().min(1),
     API_ROUTE_SECRET: z.string().min(1),
-    SUPAVEC_API_KEY: z.string().min(1),
+    MEMORA_API_KEY: z.string().min(1),
   },
   client: {
     NEXT_PUBLIC_SUPABASE_URL: z

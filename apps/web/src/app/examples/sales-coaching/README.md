@@ -1,11 +1,11 @@
 # Sales Coaching AI Example
 
-A comprehensive sales coaching demonstration powered by Supavec RAG that analyzes call transcripts and provides actionable coaching insights.
+A comprehensive sales coaching demonstration powered by Memora RAG that analyzes call transcripts and provides actionable coaching insights.
 
 ## ✨ Features
 
 - **Real-time Transcript Analysis**: Upload .srt/.vtt files for instant analysis
-- **Supavec RAG Integration**: Uses real vector embeddings and semantic search
+- **Memora RAG Integration**: Uses real vector embeddings and semantic search
 - **AI-Powered Coaching Insights**: Generates wins, risks, and action items
 - **Confidence Scoring**: Each insight includes a confidence percentage
 - **Interactive UI**: Modern interface with color-coded insight cards
@@ -13,7 +13,7 @@ A comprehensive sales coaching demonstration powered by Supavec RAG that analyze
 ## 🚀 How It Works
 
 1. **Upload**: User uploads a sales call transcript (.srt or .vtt file)
-2. **Embed**: Transcript is chunked and embedded using Supavec's `/upload_text` endpoint
+2. **Embed**: Transcript is chunked and embedded using Memora's `/upload_text` endpoint
 3. **Query**: Multiple coaching-specific queries are run against the embedded content
 4. **Analyze**: AI generates structured coaching insights with quotes and tips
 5. **Display**: Results are shown in an intuitive dashboard format
@@ -25,8 +25,8 @@ A comprehensive sales coaching demonstration powered by Supavec RAG that analyze
 The example demonstrates a complete RAG workflow:
 
 ```typescript
-// 1. Upload transcript to Supavec
-const fileId = await uploadTranscriptToSupavec(transcript, fileName);
+// 1. Upload transcript to Memora
+const fileId = await uploadTranscriptToMemora(transcript, fileName);
 
 // 2. Query for coaching insights
 const coachingQueries = [
@@ -38,7 +38,7 @@ const coachingQueries = [
 
 // 3. Generate insights from search results
 for (const query of coachingQueries) {
-  const searchResult = await searchSupavec(query, fileId);
+  const searchResult = await searchMemora(query, fileId);
   const insight = generateInsightFromResults(query, searchResult);
 }
 ```
@@ -48,8 +48,8 @@ for (const query of coachingQueries) {
 Add these to your `.env.local`:
 
 ```bash
-SUPAVEC_API_URL="https://api.supavec.com"
-SUPAVEC_API_KEY="your_supavec_api_key_here"
+MEMORA_API_URL="https://api.memoralabs.dev"
+MEMORA_API_KEY="your_memora_api_key_here"
 ```
 
 ### File Structure
@@ -60,7 +60,7 @@ src/app/examples/sales-coaching/
 ├── README.md             # This documentation
 └── /api/
     └── analyze/
-        └── route.ts       # API endpoint with Supavec integration
+        └── route.ts       # API endpoint with Memora integration
 ```
 
 ## 📊 Insight Types
@@ -98,8 +98,8 @@ Each insight includes:
    # Copy environment variables
    cp .env.example .env.local
    
-   # Add your Supavec API key
-   SUPAVEC_API_KEY="your_api_key_here"
+   # Add your Memora API key
+   MEMORA_API_KEY="your_api_key_here"
    ```
 
 2. **Start Development Server**:
@@ -115,8 +115,8 @@ Each insight includes:
 ## 📋 Production Deployment
 
 ### Required Services
-- **Supavec Instance**: For vector embeddings and search
-- **OpenAI API**: For generating coaching insights (via Supavec)
+- **Memora Instance**: For vector embeddings and search
+- **OpenAI API**: For generating coaching insights (via Memora)
 - **Next.js Application**: For the web interface
 
 ### Performance Considerations
@@ -144,7 +144,7 @@ const COACHING_QUERIES = [
 
 ### Modifying Insight Generation
 ```typescript
-function generateInsightFromResults(query: string, searchResults: SupavecSearchResponse) {
+function generateInsightFromResults(query: string, searchResults: MemoraSearchResponse) {
   // Customize how insights are generated from search results
   // Modify templates, scoring, or classification logic
 }
@@ -157,7 +157,7 @@ function generateInsightFromResults(query: string, searchResults: SupavecSearchR
 
 ## 📚 Learn More
 
-- [Supavec Documentation](https://docs.supavec.com/)
+- [Memora Documentation](https://docs.memoralabs.dev/)
 - [Sales Coaching Best Practices](#)
 - [RAG Implementation Guide](#)
 

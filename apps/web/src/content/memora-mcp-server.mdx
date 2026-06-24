@@ -1,13 +1,13 @@
 ---
-title: "Introducing Supavec MCP Server: Fetch relevant content from Supavec in LLMs"
+title: "Introducing Memora MCP Server: Fetch relevant content from Memora in LLMs"
 date: "2025-03-05"
 author: "Taishi"
 tags: ["Product updates"]
-description: "Supavec MCP Server is a new way to fetch relevant content from Supavec in LLMs"
-image: "/images/supavec-banner.png"
+description: "Memora MCP Server is a new way to fetch relevant content from Memora in LLMs"
+image: "/images/memora-banner.png"
 ---
 
-Supavec MCP Server is a new way to fetch relevant content from Supavec in LLMs.
+Memora MCP Server is a new way to fetch relevant content from Memora in LLMs.
 
 ## What is MCP?
 
@@ -24,13 +24,13 @@ MCP creates a standard way for information to flow between systems, so AI can ac
 
 It's still a work in progress though — definitely not perfect yet. But I think it's pretty promising for making AI actually useful in day-to-day life. 
 
-## Fetch relevant content to your question from Supavec with LLMs
+## Fetch relevant content to your question from Memora with LLMs
 
-Let's look at a simple example of how to use Supavec MCP servers on Claude Desktop app.
+Let's look at a simple example of how to use Memora MCP servers on Claude Desktop app.
 
 ### 1. Download the MCP server
 
-First, you need to download the MCP server from the [GitHub repository](https://github.com/supavec/mcp-server).
+First, you need to download the MCP server from the [GitHub repository](https://github.com/memora/mcp-server).
 
 ### 2. Build the MCP server
 
@@ -38,9 +38,9 @@ First, you need to download the MCP server from the [GitHub repository](https://
 npm i && npm run build
 ```
 
-### 3. Get your Supavec API key
+### 3. Get your Memora API key
 
-Sign up at [Supavec](https://www.supavec.com) and get your API key.
+Sign up at [Memora](https://memoralabs.dev) and get your API key.
 
 ### 4. Add the MCP Server to Claude for Desktop
 
@@ -49,11 +49,11 @@ Add the following to your `~/Library/Application\Support/Claude/claude_desktop_c
 ```json
 {
   "mcpServers": {
-    "supavec": {
+    "memora": {
       "command": "node",
-      "args": ["path/to/supavec-mcp-server/build/index.js"],
+      "args": ["path/to/memora-mcp-server/build/index.js"],
       "env": {
-          "SUPAVEC_API_KEY": "<your api key>"
+          "MEMORA_API_KEY": "<your api key>"
       }
     }
   }
@@ -62,7 +62,7 @@ Add the following to your `~/Library/Application\Support/Claude/claude_desktop_c
 
 ### 5. Let's try it out!
 
-Open the Claude Desktop app and ask it to fetch relevant content from Supavec. Here I'm trying to figure out where I was flying to from my boarding pass stored on Supavec.
+Open the Claude Desktop app and ask it to fetch relevant content from Memora. Here I'm trying to figure out where I was flying to from my boarding pass stored on Memora.
 
 One thing you should know is that you need to pass the `file_id` to the prompt.
 
@@ -79,4 +79,4 @@ You can find them in the [MCP GitHub repository](https://github.com/modelcontext
 
 ## Got a questions?
 
-Let me know on [Discord](https://go.supavec.com/discord) or [email](mailto:taishi@supavec.com) if you have any questions or issues using Supavec MCP Server :)
+Let me know on [Discord](https://discord.gg/MS9CjPeXF4) or [email](mailto:hello@memoralabs.dev) if you have any questions or issues using Memora MCP Server :)

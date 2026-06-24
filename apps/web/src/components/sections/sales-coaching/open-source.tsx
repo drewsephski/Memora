@@ -11,7 +11,7 @@ const features = [
     icon: <Shield className="h-8 w-8" />,
     title: "Self-Host Option",
     description:
-      "Deploy Supavec in your own VPC—client data never leaves your infrastructure",
+      "Deploy Memora in your own VPC—client data never leaves your infrastructure",
     color: "from-blue-500 to-indigo-500",
   },
   {
@@ -70,7 +70,7 @@ export function SalesCoachingOpenSource() {
             </div>
 
             <blockquote className="text-2xl font-medium text-foreground max-w-4xl mx-auto">
-              Supavec is MIT-licensed and can run in your own VPC—so client data
+              Memora is MIT-licensed and can run in your own VPC—so client data
               never leaves your walls.
             </blockquote>
           </motion.div>

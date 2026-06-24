@@ -14,7 +14,7 @@ export const CTA = () => {
     <section className="text-center border-x border-b rounded-b">
       <div className="relative flex h-[400px] w-full flex-col items-center justify-center overflow-hidden rounded-lg bg-background md:shadow-xl">
         <p className="text-sm z-10 font-semibold tracking-tight text-balance text-muted-foreground text-center">
-          Ready to build youir own?
+          Ready to build your own?
         </p>
         <h2 className="mt-2 text-4xl z-10 font-semibold tracking-tight text-foreground sm:text-5xl text-center">
           Build your AI app in minutes
@@ -36,7 +36,7 @@ export const CTA = () => {
               }
             );
 
-            router.push("https://www.supavec.com/login?src=examples-ai-app");
+            router.push("https://memoralabs.dev/login?src=examples-ai-app");
           }}
         />
         <RetroGrid />

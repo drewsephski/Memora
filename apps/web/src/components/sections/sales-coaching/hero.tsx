@@ -48,7 +48,7 @@ function SalesCoachingHeroTitles() {
           ease,
         }}
       >
-        Upload a Zoom or Fireflies transcript and, in seconds, Supavec surfaces
+        Upload a Zoom or Fireflies transcript and, in seconds, Memora surfaces
         wins, objections, next steps, and coaching cues—so your agency spends
         more time closing and less time replaying recordings. All powered by our
         open-source RAG engine—deploy in your own VPC or use ours.
@@ -175,13 +175,13 @@ export function SalesCoachingHero() {
             {/* Left Column - Content */}
             <div className="flex flex-col items-start">
               <a
-                href="https://www.producthunt.com/posts/supavec?embed=true&utm_source=badge-top-post-badge&utm_medium=badge&utm_souce=badge-supavec"
+                href="https://www.producthunt.com/posts/memora?embed=true&utm_source=badge-top-post-badge&utm_medium=badge&utm_souce=badge-memora"
                 target="_blank"
               >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src="https://api.producthunt.com/widgets/embed-image/v1/top-post-badge.svg?post_id=871672&theme=neutral&period=daily&t=1739785669388"
-                  alt="Supavec - The&#0032;open&#0032;source&#0032;RAG&#0032;as&#0032;a&#0032;service&#0032;platform | Product Hunt"
+                  alt="Memora - The&#0032;open&#0032;source&#0032;RAG&#0032;as&#0032;a&#0032;service&#0032;platform | Product Hunt"
                   className="w-[250px] h-[54px]"
                 />
               </a>

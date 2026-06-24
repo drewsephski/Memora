@@ -57,9 +57,9 @@ const solutions = [
 export function SalesCoachingPainPromise() {
   return (
     <Section
-      id="why-choose-supavec"
-      title="Why Sales Agencies Choose Supavec"
-      description="Supavec helps B2B sales agencies turn raw call data into clear, coach-ready actions—without extra headcount or vendor lock-in."
+      id="why-choose-memora"
+      title="Why Sales Agencies Choose Memora"
+      description="Memora helps B2B sales agencies turn raw call data into clear, coach-ready actions—without extra headcount or vendor lock-in."
       align="center"
     >
       <div className="relative px-6 pb-6 lg:px-12 lg:pb-12 border-x">
@@ -112,7 +112,7 @@ export function SalesCoachingPainPromise() {
             </div>
           </motion.div>
 
-          {/* Supavec Fix */}
+          {/* Memora Fix */}
           <motion.div
             initial={{ opacity: 0, x: 20 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -122,7 +122,7 @@ export function SalesCoachingPainPromise() {
           >
             <div className="space-y-4">
               <h3 className="text-3xl font-bold text-emerald-600 dark:text-emerald-400">
-                Supavec Fix
+                Memora Fix
               </h3>
             </div>
 

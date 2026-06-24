@@ -8,7 +8,7 @@ const stats = [
     title: "600+",
     subtitle: "Stars on GitHub",
     icon: <Icons.github className="size-5" />,
-    link: "https://github.com/taishikato/supavec",
+    link: "https://github.com/memora-labs/memora",
   },
   {
     title: "200k+",
@@ -20,7 +20,7 @@ const stats = [
     title: "100+",
     subtitle: "Discord Members",
     icon: <Icons.discord className="size-5" />,
-    link: "https://go.supavec.com/discord",
+    link: "https://discord.gg/MS9CjPeXF4",
   },
 ];
 

@@ -1,18 +1,18 @@
-# Supavec - The open source RAG as a service platform llms-full.txt
+# Memora - The open source RAG as a service platform llms-full.txt
 
-## Supavec: RAG API Service
-[![Supavec - The open source RAG as a service platform | Product Hunt](https://api.producthunt.com/widgets/embed-image/v1/top-post-badge.svg?post_id=871672&theme=neutral&period=daily&t=1739785669388)](https://www.producthunt.com/posts/supavec?embed=true&utm_source=badge-top-post-badge&utm_medium=badge&utm_souce=badge-supavec)
+## Memora: RAG API Service
+[![Memora - The open source RAG as a service platform | Product Hunt](https://api.producthunt.com/widgets/embed-image/v1/top-post-badge.svg?post_id=871672&theme=neutral&period=daily&t=1739785669388)](https://www.producthunt.com/posts/memora?embed=true&utm_source=badge-top-post-badge&utm_medium=badge&utm_souce=badge-memora)
 
 # Bring Your Own Data to Any LLM—Instant RAG API
 
 Ingest calls, docs, or tickets in minutes and retrieve laser-accurate context at query time. Open-source, scalable, and ready for production.
 
-[Get Started](https://www.supavec.com/login)
+[Get Started](https://memoralabs.dev/login)
 
 GET STARTED IN SECONDS
 
 ```
-curl -X POST https://api.supavec.com/upload_text \
+curl -X POST https://api.memoralabs.dev/upload_text \
   -H "Authorization: Bearer YOUR_KEY" \
   -H "Content-Type: application/json" \
   -d '{"contents": "your text here"}'
@@ -36,9 +36,9 @@ Keep legal or HR PDFs on-prem. Employees query through Slack, results reference 
 
 Sync your docs repo hourly. Ship an AI search bar that returns code snippets and links in under 300 ms.
 
-[Try Supavec for free](https://www.supavec.com/login)
+[Try Memora for free](https://memoralabs.dev/login)
 
-## How to use Supavec
+## How to use Memora
 
 ### Step 1: Create your workspace
 
@@ -58,13 +58,13 @@ Start for free | View documentation
 
 ## Statistics
 
-- Stars on GitHub: https://github.com/taishikato/supavec
+- Stars on GitHub: https://github.com/memora-labs/memora
 - Embeddings generated: Available via login
-- Discord Members: https://go.supavec.com/discord
+- Discord Members: https://discord.gg/MS9CjPeXF4
 
 ## Pricing
 
-Simple pricing for every developer. Choose a plan that fits your API usage needs, from experimenting to building production-ready applications with Supavec's powerful vector embedding capabilities.
+Simple pricing for every developer. Choose a plan that fits your API usage needs, from experimenting to building production-ready applications with Memora's powerful vector embedding capabilities.
 
 ### Free Plan
 $0/year
@@ -95,7 +95,7 @@ $1,490/year ($124.17/month when billed yearly)
 
 We're grateful for the amazing open-source community that helps make our project better every day. Contributors include Neco, Marie Otaki, Blair Bodnar, Magio, and Taishi kato.
 
-[Become a contributor](https://github.com/taishikato/supavec)
+[Become a contributor](https://github.com/memora-labs/memora)
 
 ## Frequently Asked Questions
 
@@ -113,21 +113,21 @@ We accept all major credit cards, PayPal, and bank transfers for annual plans. A
 
 ## Sales Coaching AI Example
 
-Upload a call transcript or paste a Fireflies URL to get instant coaching insights powered by Supavec RAG. This is a demonstration of the Supavec + LLM workflow. In production, this would connect to the Fireflies API, embed transcript chunks via Supavec's /embed endpoint, and query for insights using the /query endpoint with customizable coaching prompts.
+Upload a call transcript or paste a Fireflies URL to get instant coaching insights powered by Memora RAG. This is a demonstration of the Memora + LLM workflow. In production, this would connect to the Fireflies API, embed transcript chunks via Memora's /embed endpoint, and query for insights using the /query endpoint with customizable coaching prompts.
 
 ## Chat with PDF Example
 
-Upload a PDF document to chat with it and get instant answers powered by Supavec RAG. This is a demonstration of the Supavec + LLM workflow. In production, this would connect to your document storage, embed document chunks via Supavec's /embed endpoint, and query for relevant information using the /query endpoint with customizable chat prompts.
+Upload a PDF document to chat with it and get instant answers powered by Memora RAG. This is a demonstration of the Memora + LLM workflow. In production, this would connect to your document storage, embed document chunks via Memora's /embed endpoint, and query for relevant information using the /query endpoint with customizable chat prompts.
 
 ## Blog Posts
 
-### Supavec Performance Update: 90,000x Faster Queries
+### Memora Performance Update: 90,000x Faster Queries
 March 20, 2025 • Taishi
 
-We recently made a significant database optimization to Supavec that has dramatically improved query performance. What started as an investigation into slow API responses ended with a solution that made our document retrieval 90,985 times faster.
+We recently made a significant database optimization to Memora that has dramatically improved query performance. What started as an investigation into slow API responses ended with a solution that made our document retrieval 90,985 times faster.
 
 #### Identifying the Problem
-As more users joined Supavec and started uploading documents, we noticed our API response times gradually degrading. The culprit was filtering documents using metadata(jsonb)->>file_id patterns, forcing PostgreSQL to perform full sequential scans.
+As more users joined Memora and started uploading documents, we noticed our API response times gradually degrading. The culprit was filtering documents using metadata(jsonb)->>file_id patterns, forcing PostgreSQL to perform full sequential scans.
 
 #### Our Solution
 We implemented a two-part solution:
@@ -142,28 +142,28 @@ We implemented a two-part solution:
 
 This means significantly faster API response times, better handling of concurrent requests, and improved scalability as document collections grow.
 
-### Introducing Supavec MCP Server: Fetch relevant content from Supavec in LLMs
+### Introducing Memora MCP Server: Fetch relevant content from Memora in LLMs
 March 5, 2025 • Taishi
 
-Supavec MCP Server is a new way to fetch relevant content from Supavec in LLMs using Model Context Protocol (MCP). MCP is a protocol that connects AI to external data sources like Google Drive and websites.
+Memora MCP Server is a new way to fetch relevant content from Memora in LLMs using Model Context Protocol (MCP). MCP is a protocol that connects AI to external data sources like Google Drive and websites.
 
 #### What is MCP?
 Model Context Protocol (MCP) is a universal plug that connects AI to third-party data and tools, solving the problem of AI being isolated from real data.
 
-#### How to use Supavec MCP Server:
+#### How to use Memora MCP Server:
 1. Download the MCP server from GitHub
 2. Build with npm i && npm run build
-3. Get your Supavec API key
+3. Get your Memora API key
 4. Add the MCP Server to Claude Desktop configuration
-5. Use it to fetch relevant content from your Supavec data
+5. Use it to fetch relevant content from your Memora data
 
 ## Terms of Service
 
 ### 1. Introduction
-Welcome to Supavec. These Terms of Service govern your access to and use of the Supavec platform, website, APIs, and services. By accessing or using the Service, you agree to be bound by these Terms.
+Welcome to Memora. These Terms of Service govern your access to and use of the Memora platform, website, APIs, and services. By accessing or using the Service, you agree to be bound by these Terms.
 
 ### 2. Definitions
-- "Supavec", "we", "us", or "our" refers to Supavec, the provider of the Service
+- "Memora", "we", "us", or "our" refers to Memora, the provider of the Service
 - "You" or "your" refers to the individual or entity using the Service
 - "Content" refers to any data, text, files, information, or materials you upload, process, or store
 - "RAG" refers to Retrieval-Augmented Generation, the AI technology used in our Service
@@ -172,16 +172,16 @@ Welcome to Supavec. These Terms of Service govern your access to and use of the 
 To use certain features, you must register for an account. You agree to provide accurate, current, and complete information and maintain account security. The Service is not intended for individuals under 18.
 
 ### 4. Service Description
-Supavec is an open-source RAG platform that helps developers integrate AI with their data. Users can upload documents via API and query them using natural language. Our core technology is available as open source under the MIT license, with a cloud-hosted version offering additional features.
+Memora is an open-source RAG platform that helps developers integrate AI with their data. Users can upload documents via API and query them using natural language. Our core technology is available as open source under the MIT license, with a cloud-hosted version offering additional features.
 
 ### 5. Pricing and Payment
 We offer a free tier with limited features and paid subscription plans with additional features. All payments are non-refundable except as expressly set forth in these Terms.
 
 ### 6. Your Content
-You retain all rights to your Content. By uploading Content, you grant Supavec a license to use, copy, store, transmit, and process your Content solely to provide the Service. Content must not infringe on others' rights, violate laws, contain harmful code, or be otherwise objectionable.
+You retain all rights to your Content. By uploading Content, you grant Memora a license to use, copy, store, transmit, and process your Content solely to provide the Service. Content must not infringe on others' rights, violate laws, contain harmful code, or be otherwise objectionable.
 
 ### 7. Intellectual Property Rights
-The Service and its original content are owned by Supavec and protected by international intellectual property laws. Portions of our software are available under the MIT license.
+The Service and its original content are owned by Memora and protected by international intellectual property laws. Portions of our software are available under the MIT license.
 
 ### 8. Acceptable Use
 Use the Service only for lawful purposes. Do not use it to harm others, interfere with the Service, gain unauthorized access, or develop competing products.
@@ -193,10 +193,10 @@ The Service may integrate with third-party services governed by their own terms 
 THE SERVICE IS PROVIDED "AS IS" WITHOUT WARRANTIES OF ANY KIND.
 
 ### 11. Limitation of Liability
-IN NO EVENT SHALL SUPAVEC BE LIABLE FOR INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES.
+IN NO EVENT SHALL MEMORA LABS BE LIABLE FOR INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES.
 
 ### 12. Indemnification
-You agree to defend and indemnify Supavec from claims arising from your violation of these Terms or use of the Service.
+You agree to defend and indemnify Memora from claims arising from your violation of these Terms or use of the Service.
 
 ### 13. Term and Termination
 These Terms remain in effect while you use the Service. Either party may terminate the agreement, with surviving provisions continuing after termination.
@@ -204,7 +204,7 @@ These Terms remain in effect while you use the Service. Either party may termina
 ### 14-18. Additional Provisions
 The Terms may be modified with notice. They're governed by Delaware law, with disputes resolved through binding arbitration. No class actions are permitted.
 
-Contact us at taishi@supavec.com or https://go.supavec.com/discord for questions.
+Contact us at hello@memoralabs.dev or https://discord.gg/MS9CjPeXF4 for questions.
 
 ## Privacy Policy
 
@@ -246,7 +246,7 @@ We may share information with:
 - Stripe: Payment processing
 
 ### Your Rights
-Depending on your location, you may have rights to access, correct, delete, restrict processing, or port your data. Contact us at taishi@supavec.com to exercise these rights.
+Depending on your location, you may have rights to access, correct, delete, restrict processing, or port your data. Contact us at hello@memoralabs.dev to exercise these rights.
 
 ### Additional Information
 - Not intended for children under 18
@@ -254,13 +254,13 @@ Depending on your location, you may have rights to access, correct, delete, rest
 - California residents have specific rights under CCPA
 - We may update this policy with notice
 
-Contact us at taishi@supavec.com or https://go.supavec.com/discord for questions about privacy.
+Contact us at hello@memoralabs.dev or https://discord.gg/MS9CjPeXF4 for questions about privacy.
 
 ## Contact Information
 
-- Email: taishi@supavec.com
-- Discord: https://go.supavec.com/discord
-- GitHub: https://github.com/taishikato/supavec
-- Website: https://www.supavec.com
+- Email: hello@memoralabs.dev
+- Discord: https://discord.gg/MS9CjPeXF4
+- GitHub: https://github.com/memora-labs/memora
+- Website: https://memoralabs.dev
 
-Supavec is the open-source alternative to Carbon AI, built with Supabase, Bun, Next.js, Vercel, Railway, and TypeScript. We make it easy to connect your data to AI through our open-source RAG platform. 
+Memora is the open-source alternative to Carbon AI, built with Supabase, Bun, Next.js, Vercel, Railway, and TypeScript. We make it easy to connect your data to AI through our open-source RAG platform. 

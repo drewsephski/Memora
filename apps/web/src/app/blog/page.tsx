@@ -46,9 +46,9 @@ export default function BlogPage() {
 
   return (
     <div className="w-full mx-auto">
-      <h1 className="text-4xl font-bold mb-2">Supavec Blog</h1>
+      <h1 className="text-4xl font-bold mb-2">Memora Blog</h1>
       <p className="text-muted-foreground mb-8">
-        Articles, tutorials, and updates from the Supavec team
+        Articles, tutorials, and updates from the Memora team
       </p>
 
       <h2 className="text-3xl font-bold mb-8">Blog Posts</h2>

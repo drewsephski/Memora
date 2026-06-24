@@ -1,6 +1,6 @@
-# RAG Evaluation with RAGAS and Supavec
+# RAG Evaluation with RAGAS and Memora
 
-This script implements a basic RAG evaluation using the RAGAS framework with Supavec API endpoints.
+This script implements a basic RAG evaluation using the RAGAS framework with Memora API endpoints.
 
 ## Setup
 
@@ -19,21 +19,21 @@ This script implements a basic RAG evaluation using the RAGAS framework with Sup
    Create a `.env` file in the eval directory or set the following environment variables:
    
    ```bash
-   export SUPAVEC_BASE_URL="https://api.supavec.com"
+   export MEMORA_BASE_URL="https://api.memoralabs.dev"
    export OPENAI_API_KEY="your-openai-api-key-here"
-   export SUPAVEC_API_KEY="your-supavec-api-key-here"
+   export MEMORA_API_KEY="your-memora-api-key-here"
    export FILE_ID="your-uploaded-file-id"
    ```
    
    **Required Environment Variables:**
-   - `SUPAVEC_BASE_URL`: The base URL for Supavec API endpoints
+   - `MEMORA_BASE_URL`: The base URL for Memora API endpoints
    - `OPENAI_API_KEY`: Your OpenAI API key (used for RAGAS evaluation)
-   - `SUPAVEC_API_KEY`: Your Supavec API key
-   - `FILE_ID`: The file ID of your uploaded document in Supavec
+   - `MEMORA_API_KEY`: Your Memora API key
+   - `FILE_ID`: The file ID of your uploaded document in Memora
 
 ## What the Script Does
 
-1. **Calls Supavec API endpoints:**
+1. **Calls Memora API endpoints:**
    - Uses `/search` endpoint to retrieve relevant document chunks
    - Uses `/chat` endpoint to generate answers based on the retrieved context
 
@@ -71,7 +71,7 @@ Starting RAG evaluation with RAGAS...
 Processing query 1/10: What is Taishi's full name and current role?...
 ✓ Query 1 processed successfully
 ...
-Processing query 10/10: What is Supavec and what achievement did it get...
+Processing query 10/10: What is Memora and what achievement did it get...
 ✓ Query 10 processed successfully
 
 Collected 10 evaluation samples
@@ -90,8 +90,8 @@ Factual Correctness: 0.8200
 ## Configuration
 
 The script uses environment variables for configuration:
-- `SUPAVEC_BASE_URL`: Base URL for Supavec API (required)
-- `SUPAVEC_API_KEY`: Your Supavec API key (required)
+- `MEMORA_BASE_URL`: Base URL for Memora API (required)
+- `MEMORA_API_KEY`: Your Memora API key (required)
 - `FILE_ID`: The file ID of your uploaded document (required)
 - `OPENAI_API_KEY`: Your OpenAI API key for RAGAS evaluation (required)
 
@@ -108,7 +108,7 @@ You can also modify the following in the script:
 ## Troubleshooting
 
 - **Missing environment variables**: The script will show specific error messages for missing required environment variables
-- **API connectivity**: Verify that your Supavec API key and base URL are correct
-- **File ID**: Ensure the FILE_ID corresponds to a valid uploaded file in your Supavec account
+- **API connectivity**: Verify that your Memora API key and base URL are correct
+- **File ID**: Ensure the FILE_ID corresponds to a valid uploaded file in your Memora account
 - **OpenAI API**: Make sure your OpenAI API key has sufficient credits and permissions
-- **Dependencies**: Ensure all required packages are installed correctly with `pip install -r requirements.txt` 
+- **Dependencies**: Ensure all required packages are installed correctly with `pip install -r requirements.txt`

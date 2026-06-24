@@ -1,4 +1,4 @@
-# Stripe Integration for Supavec
+# Stripe Integration for Memora
 
 This directory contains the code for the billing page and Stripe integration. Follow these steps to set up Stripe integration:
 

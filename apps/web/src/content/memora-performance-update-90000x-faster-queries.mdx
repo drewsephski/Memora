@@ -1,17 +1,17 @@
 ---
-title: "Supavec Performance Update: 90,000x Faster Queries"
+title: "Memora Performance Update: 90,000x Faster Queries"
 date: "2025-03-20"
 author: "Taishi"
 tags: ["Product updates"]
-description: "We recently made a significant database optimization to Supavec that has dramatically improved query performance. What started as an investigation into slow API responses ended with a solution that made our document retrieval 90,985 times faster."
-image: "/images/supavec-banner.png"
+description: "We recently made a significant database optimization to Memora that has dramatically improved query performance. What started as an investigation into slow API responses ended with a solution that made our document retrieval 90,985 times faster."
+image: "/images/memora-banner.png"
 ---
 
-We recently made a significant database optimization to Supavec that has dramatically improved query performance. What started as an investigation into slow API responses ended with a solution that made our document retrieval **90,985 times faster**. I wanted to share how we identified and solved this challenge.
+We recently made a significant database optimization to Memora that has dramatically improved query performance. What started as an investigation into slow API responses ended with a solution that made our document retrieval **90,985 times faster**. I wanted to share how we identified and solved this challenge.
 
 ## Identifying the Problem
 
-As more users joined Supavec and started uploading documents, we noticed our API response times gradually degrading. After digging into the issue, we discovered that our approach to querying the `documents` table was creating a major bottleneck.
+As more users joined Memora and started uploading documents, we noticed our API response times gradually degrading. After digging into the issue, we discovered that our approach to querying the `documents` table was creating a major bottleneck.
 
 The culprit? We were filtering documents using this pattern:
 
@@ -61,9 +61,9 @@ The performance improvement exceeded our expectations:
 
 This represents a **90,985x speed improvement** in document retrieval operations!
 
-## What This Means For Supavec Users
+## What This Means For Memora Users
 
-If you're using Supavec, you'll notice several immediate benefits:
+If you're using Memora, you'll notice several immediate benefits:
 
 - Significantly faster API response times
 - Better handling of concurrent requests
@@ -107,14 +107,14 @@ This optimization is part of our ongoing commitment to building a fast, reliable
 - More efficient embedding generation
 - Advanced caching mechanisms
 
-For those interested in the technical details, the relevant pull request is [here](https://github.com/taishikato/supavec/pull/40).
+For those interested in the technical details, the relevant pull request is [here](https://github.com/memora-labs/memora/pull/40).
 
-Thanks to everyone who's been using Supavec and providing valuable feedback. As an open-source project, we're committed to transparency about our development process and excited to share these improvements with the community.
+Thanks to everyone who's been using Memora and providing valuable feedback. As an open-source project, we're committed to transparency about our development process and excited to share these improvements with the community.
 
 ## Got a questions?
 
-Let me know on [Discord](https://go.supavec.com/discord) or [email](mailto:taishi@supavec.com) if you have any questions or issues using Supavec MCP Server :)
+Let me know on [Discord](https://discord.gg/MS9CjPeXF4) or [email](mailto:hello@memoralabs.dev) if you have any questions or issues using Memora MCP Server :)
 
 ---
 
-*Supavec is the open-source alternative to Carbon AI, built with Supabase, Bun, Next.js, Vercel, Railway, and TypeScript. We make it easy to connect your data to AI through our open-source RAG platform.*
+*Memora is the open-source alternative to Carbon AI, built with Supabase, Bun, Next.js, Vercel, Railway, and TypeScript. We make it easy to connect your data to AI through our open-source RAG platform.*

@@ -7,15 +7,13 @@ import { GeistMono } from "geist/font/mono";
 import { GeistSans } from "geist/font/sans";
 import { ThemeProvider } from "@/components/theme-provider";
 import { CSPostHogProvider } from "./providers";
-import { ThemeReceiver } from "@/components/theme-receiver";
 
-import { PreviewcnDevtools } from "@/components/ui/previewcn";
 export const metadata: Metadata = {
   title: {
     template: `%s - ${APP_NAME}`,
-    default: `${APP_NAME} - The open source RAG as a Service platform.`,
+    default: `${APP_NAME} - The memory layer for your LLM`,
   },
-  metadataBase: new URL("https://www.supavec.com"),
+  metadataBase: new URL("https://memoralabs.dev"),
   alternates: {
     canonical: "/",
   },
@@ -34,7 +32,6 @@ export default function RootLayout({
     >
       <CSPostHogProvider>
         <body className="min-h-screen bg-background antialiased w-full mx-auto scroll-smooth font-sans">
-          {process.env.NODE_ENV === "development" && <PreviewcnDevtools />}
           <ThemeProvider
             attribute="class"
             defaultTheme="light"
@@ -44,7 +41,6 @@ export default function RootLayout({
             {children}
             <Toaster richColors />
           </ThemeProvider>
-          {process.env.NODE_ENV === "development" && <ThemeReceiver />}
         </body>
       </CSPostHogProvider>
       <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS!} />

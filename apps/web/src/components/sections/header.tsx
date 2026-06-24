@@ -82,7 +82,7 @@ export function Header() {
                     "h-8 tracking-tight font-medium"
                   )}
                 >
-                  <a href="https://docs.supavec.com/" target="_blank">
+                  <a href="https://docs.memoralabs.dev/" target="_blank">
                     API Docs
                   </a>
                 </NavigationMenuLink>

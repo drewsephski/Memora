@@ -127,7 +127,7 @@ export function SalesCoachingIntegrations() {
 
               <div className="pt-4">
                 <p className="text-lg font-medium text-blue-800 dark:text-blue-300">
-                  Supavec slots into the tooling you already use, with no
+                  Memora slots into the tooling you already use, with no
                   platform migration required.
                 </p>
               </div>
@@ -152,7 +152,7 @@ export function SalesCoachingIntegrations() {
             </p>
             <div className="flex justify-center">
               <a
-                href="https://docs.supavec.com"
+                href="https://docs.memoralabs.dev"
                 target="_blank"
                 className="inline-flex items-center gap-2 text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 transition-colors"
               >

@@ -288,9 +288,9 @@ export default function SalesCoachingClient() {
                 Example Implementation
               </h3>
               <p className="text-sm text-blue-700">
-                This is a demonstration of the Supavec + LLM workflow. In
+                This is a demonstration of the Memora + LLM workflow. In
                 production, this would connect to the Fireflies API, embed
-                transcript chunks via Supavec&apos;s /embed endpoint, and query
+                transcript chunks via Memora&apos;s /embed endpoint, and query
                 for insights using the /query endpoint with customizable
                 coaching prompts.
               </p>

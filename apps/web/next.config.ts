@@ -8,6 +8,20 @@ jiti("./src/env");
 
 const nextConfig: NextConfig = {
   pageExtensions: ["js", "jsx", "md", "mdx", "ts", "tsx"],
+  async redirects() {
+    return [
+      {
+        source: "/blog/supavec-mcp-server",
+        destination: "/blog/memora-mcp-server",
+        permanent: true,
+      },
+      {
+        source: "/blog/supavec-performance-update-90000x-faster-queries",
+        destination: "/blog/memora-performance-update-90000x-faster-queries",
+        permanent: true,
+      },
+    ];
+  },
   async rewrites() {
     return [
       {

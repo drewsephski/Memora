@@ -13,8 +13,8 @@ export default function TermsOfService() {
       <section className="mb-8">
         <h2 className="text-2xl font-bold mb-4">1. Introduction</h2>
         <p className="mb-4">
-          Welcome to Supavec. These Terms of Service (&ldquo;Terms&rdquo;)
-          govern your access to and use of the Supavec platform, website, APIs,
+          Welcome to Memora. These Terms of Service (&ldquo;Terms&rdquo;)
+          govern your access to and use of the Memora platform, website, APIs,
           and services (collectively, the &ldquo;Service&rdquo;). Please read
           these Terms carefully before using our Service.
         </p>
@@ -29,9 +29,9 @@ export default function TermsOfService() {
         <h2 className="text-2xl font-bold mb-4">2. Definitions</h2>
         <ul className="list-disc pl-8 mb-4">
           <li className="mb-2">
-            <strong>&ldquo;Supavec&rdquo;</strong>,{" "}
+            <strong>&ldquo;Memora&rdquo;</strong>,{" "}
             <strong>&ldquo;we&rdquo;</strong>, <strong>&ldquo;us&rdquo;</strong>
-            , or <strong>&ldquo;our&rdquo;</strong> refers to Supavec, the
+            , or <strong>&ldquo;our&rdquo;</strong> refers to Memora, the
             provider of the Service.
           </li>
           <li className="mb-2">
@@ -83,7 +83,7 @@ export default function TermsOfService() {
 
         <h3 className="text-xl font-semibold mb-3">4.1 RAG Platform</h3>
         <p className="mb-4">
-          Supavec is an open-source Retrieval-Augmented Generation (RAG)
+          Memora is an open-source Retrieval-Augmented Generation (RAG)
           platform that helps developers integrate AI with their data. Users can
           upload documents via API and query them using natural language.
         </p>
@@ -136,7 +136,7 @@ export default function TermsOfService() {
         </h3>
         <p className="mb-4">
           You retain all rights to your Content. By uploading Content to the
-          Service, you grant Supavec a worldwide, non-exclusive, royalty-free
+          Service, you grant Memora a worldwide, non-exclusive, royalty-free
           license to use, copy, store, transmit, and process your Content solely
           to the extent necessary to provide and maintain the Service.
         </p>
@@ -166,11 +166,11 @@ export default function TermsOfService() {
         </h2>
 
         <h3 className="text-xl font-semibold mb-3">
-          7.1 Supavec Intellectual Property
+          7.1 Memora Intellectual Property
         </h3>
         <p className="mb-4">
           The Service and its original content (excluding your Content),
-          features, and functionality are owned by Supavec and are protected by
+          features, and functionality are owned by Memora and are protected by
           international copyright, trademark, patent, trade secret, and other
           intellectual property laws.
         </p>
@@ -253,7 +253,7 @@ export default function TermsOfService() {
         <h3 className="text-xl font-semibold mb-3">9.2 Third-Party Links</h3>
         <p className="mb-4">
           The Service may contain links to third-party websites or resources
-          that are not owned or controlled by Supavec. We are not responsible
+          that are not owned or controlled by Memora. We are not responsible
           for the content or availability of such external sites or resources.
         </p>
       </section>
@@ -275,7 +275,7 @@ export default function TermsOfService() {
       <section className="mb-8">
         <h2 className="text-2xl font-bold mb-4">11. Limitation of Liability</h2>
         <p className="mb-4 uppercase">
-          IN NO EVENT SHALL SUPAVEC, ITS DIRECTORS, EMPLOYEES, PARTNERS, AGENTS,
+          IN NO EVENT SHALL MEMORA LABS, ITS DIRECTORS, EMPLOYEES, PARTNERS, AGENTS,
           SUPPLIERS, OR AFFILIATES BE LIABLE FOR ANY INDIRECT, INCIDENTAL,
           SPECIAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES, INCLUDING WITHOUT
           LIMITATION, LOSS OF PROFITS, DATA, USE, GOODWILL, OR OTHER INTANGIBLE
@@ -302,7 +302,7 @@ export default function TermsOfService() {
       <section className="mb-8">
         <h2 className="text-2xl font-bold mb-4">12. Indemnification</h2>
         <p className="mb-4">
-          You agree to defend, indemnify, and hold harmless Supavec and its
+          You agree to defend, indemnify, and hold harmless Memora and its
           licensors, service providers, and their respective officers,
           directors, employees, contractors, agents, licensors, suppliers,
           successors, and assigns from and against any claims, liabilities,
@@ -325,10 +325,10 @@ export default function TermsOfService() {
         <p className="mb-4">
           You may terminate your account at any time by contacting us at{" "}
           <a
-            href="mailto:taishi@supavec.com"
+            href="mailto:hello@memoralabs.dev"
             className="text-blue-600 hover:underline"
           >
-            taishi@supavec.com
+            hello@memoralabs.dev
           </a>
           .
         </p>
@@ -414,7 +414,7 @@ export default function TermsOfService() {
 
         <h3 className="text-xl font-semibold mb-3">17.1 Entire Agreement</h3>
         <p className="mb-4">
-          These Terms constitute the entire agreement between you and Supavec
+          These Terms constitute the entire agreement between you and Memora
           regarding the Service and supersede all prior agreements and
           understandings.
         </p>
@@ -456,21 +456,21 @@ export default function TermsOfService() {
           <li>
             By email:{" "}
             <a
-              href="mailto:taishi@supavec.com"
+              href="mailto:hello@memoralabs.dev"
               className="text-blue-600 hover:underline"
             >
-              taishi@supavec.com
+              hello@memoralabs.dev
             </a>
           </li>
           <li>
             Through our Discord community:{" "}
             <a
-              href="https://go.supavec.com/discord"
+              href="https://discord.gg/MS9CjPeXF4"
               className="text-blue-600 hover:underline"
               target="_blank"
               rel="noopener noreferrer"
             >
-              https://go.supavec.com/discord
+              https://discord.gg/MS9CjPeXF4
             </a>
           </li>
         </ul>

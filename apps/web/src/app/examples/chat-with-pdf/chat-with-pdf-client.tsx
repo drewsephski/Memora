@@ -259,9 +259,9 @@ export default function ChatWithPDFClient() {
                 Example Implementation
               </h3>
               <p className="text-sm text-blue-700">
-                This is a demonstration of the Supavec + LLM workflow. In
+                This is a demonstration of the Memora + LLM workflow. In
                 production, this would connect to your document storage, embed
-                document chunks via Supavec&apos;s /embed endpoint, and query
+                document chunks via Memora&apos;s /embed endpoint, and query
                 for relevant information using the /query endpoint with
                 customizable chat prompts.
               </p>

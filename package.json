@@ -1,10 +1,10 @@
 {
-  "name": "supavec",
+  "name": "memora",
   "private": true,
   "scripts": {
     "dev": "turbo dev",
     "build": "turbo build",
-    "build:api": "turbo build --filter=@supavec/api",
+    "build:api": "turbo build --filter=@memora/api",
     "lint": "turbo lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },

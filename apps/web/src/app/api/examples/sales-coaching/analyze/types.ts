@@ -1,10 +1,10 @@
-export type SupavecUploadResponse = {
+export type MemoraUploadResponse = {
   success: boolean;
   message: string;
   file_id: string;
 };
 
-export type SupavecSearchResponse = {
+export type MemoraSearchResponse = {
   success: boolean;
   documents: Array<{
     content: string;

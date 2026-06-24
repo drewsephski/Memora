@@ -52,7 +52,7 @@ Sync docs repo → serve contextual answers inside your app.
 
 ## Solutions Mapping
 
-| Use-Case | Supavec Feature | Outcome |
+| Use-Case | Memora Feature | Outcome |
 |----------|-----------------|---------|
 | **Sales Calls** | Audio-to-text, chunking, vector store, top-k retrieval | Weekly objection dashboards, faster ramp for new reps |
 | **Support** | 40+ data connectors, row-level security | 25% lower average handle time |
@@ -69,4 +69,4 @@ Sync docs repo → serve contextual answers inside your app.
 4. **Raise contrast on your stats section** so 500+, 200k+ numbers pop.
 5. **Add an SEO text block near footer**: "Open-source Retrieval-Augmented Generation (RAG) platform built on Supabase row-level security" to lock key phrases.
 
-**These moves tighten the story around one clear promise**: Supavec is the fastest route to secure, production-grade RAG for any LLM.
+**These moves tighten the story around one clear promise**: Memora is the fastest route to secure, production-grade RAG for any LLM.

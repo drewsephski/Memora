@@ -1,6 +1,6 @@
 # Local Setup Guide
 
-This guide will help you set up Supavec locally for development.
+This guide will help you set up Memora locally for development.
 
 ## Prerequisites
 
@@ -14,8 +14,8 @@ This guide will help you set up Supavec locally for development.
 1. Clone the repository
 
 ```bash
-git clone https://github.com/taishikato/supavec.git
-cd supavec
+git clone https://github.com/memora-labs/memora.git
+cd memora
 ```
 
 2. Install dependencies
@@ -167,7 +167,7 @@ bun install --force
 
 If you need help or have questions:
 
-1. Check the existing [issues](https://github.com/taishikato/supavec/issues)
+1. Check the existing [issues](https://github.com/memora-labs/memora/issues)
 2. Create a new issue if your problem hasn't been addressed
 
 ## Contributing

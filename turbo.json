@@ -18,12 +18,13 @@
         "API_ROUTE_SECRET",
         "LOOPS_API_KEY",
         "DEMO_SUPA_API_KEY",
-        "OPENAI_API_KEY",
+        "OPENROUTER_API_KEY",
         "STRIPE_SECRET_KEY",
         "STRIPE_SIGNATURE_SECRET",
         "LOGTAIL_URL",
         "LOGTAIL_SOURCE_TOKEN",
         "AI_CITATIONS_PROJECT_ID",
+        "MEMORA_API_KEY",
         "SUPAVEC_API_KEY"
       ]
     },

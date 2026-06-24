@@ -1,27 +1,28 @@
 <p align="center">
-  <img width="1000" alt="Supavec" src="https://github.com/user-attachments/assets/76e2c674-d683-487c-bf02-ac8bccf19e69" />
+  <img width="1000" alt="Memora" src="https://github.com/user-attachments/assets/76e2c674-d683-487c-bf02-ac8bccf19e69" />
 </p>
 
-# [Supavec](https://www.supavec.com) - The open-source alternative to Carbon.ai. Build powerful RAG applications with any data source, at any scale.
+# [Memora](https://memoralabs.dev) by Memora Labs — The open-source alternative to Carbon.ai. Build powerful RAG applications with any data source, at any scale.
 
-> ⚡ OSS RAG-as-a-Service — spin up vector search + chat API in <5 min  
-> 📈 630▲ on Product Hunt · 620⭐ on GitHub
+> ⚡ OSS RAG-as-a-Service by [Memora Labs](https://memoralabs.dev) — spin up vector search + chat API in <5 min  
+> 📈 630▲ on Product Hunt · 620⭐ on GitHub  
+> _Formerly Supavec_
 
-[![](https://dcbadge.limes.pink/api/server/https://discord.gg/MS9CjPeXF4)](https://discord.gg/https://discord.gg/MS9CjPeXF4)
+[![](https://dcbadge.limes.pink/api/server/https://discord.gg/MS9CjPeXF4)](https://discord.gg/MS9CjPeXF4)
 [![Analytics – Powered by PostHog](https://img.shields.io/badge/analytics-PostHog-f54d27)](https://posthog.com/)
 [![Backend – Powered by Supabase](https://img.shields.io/badge/backend-Supabase-3ECF8E)](https://supabase.com/)
 
 ## Cloud version
 
-https://www.supavec.com
+https://memoralabs.dev
 
 ## Our simple API endpoints ✨
 
-[docs.supavec.com](https://docs.supavec.com/).
+[docs.memoralabs.dev](https://docs.memoralabs.dev/).
 
 ## Related repositories
 
-- [taishikato/supavec-python-api](https://github.com/taishikato/supavec-python-api)
+- [taishikato/memora-python-api](https://github.com/memora-labs/memora-python-api)
 
 ## Built with
 
@@ -33,7 +34,7 @@ https://www.supavec.com
 
 ## API docs
 
-https://github.com/taishikato/supavec/blob/main/packages/api/README.md
+https://github.com/memora-labs/memora/blob/main/packages/api/README.md
 
 
 

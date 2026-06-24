@@ -1,15 +1,15 @@
 import { NextRequest, NextResponse } from "next/server";
 import axios from "redaxios";
-import { openai } from "@ai-sdk/openai";
 import { type Message, streamText } from "ai";
 import { getMostRecentUserMessage } from "@/app/examples/chat-with-pdf/utils";
+import { getMemoraApiKey, getMemoraApiUrl } from "@/lib/memora-env";
+import { getChatModel } from "@/lib/openrouter";
 
 type Document = {
   content: string;
 };
 
-const SUPAVEC_API_URL = process.env.SUPAVEC_API_URL ||
-  "https://api.supavec.com";
+const MEMORA_API_URL = getMemoraApiUrl();
 
 export async function POST(req: NextRequest) {
   const { messages, fileId }: { messages: Array<Message>; fileId: string } =
@@ -23,7 +23,7 @@ export async function POST(req: NextRequest) {
 
   try {
     const response = await axios.post(
-      `${SUPAVEC_API_URL}/embeddings`,
+      `${MEMORA_API_URL}/embeddings`,
       {
         query: userMessage.content,
         file_ids: [fileId],
@@ -31,13 +31,13 @@ export async function POST(req: NextRequest) {
       {
         headers: {
           "Content-Type": "application/json",
-          authorization: process.env.SUPAVEC_API_KEY!,
+          authorization: getMemoraApiKey(),
         },
       },
     );
 
     const result = streamText({
-      model: openai("gpt-4.1-nano"),
+      model: getChatModel(),
       prompt: `Answer to the query based on the provided context below:
       ${response.data.documents.map((doc: Document) => doc.content).join("\n")}
       Query: ${userMessage.content}`,

@@ -1,15 +1,13 @@
 import { NextRequest, NextResponse } from "next/server";
 import type { AnalysisResult, InsightItem } from "@/types/sales-coaching";
 import { extractTimestampFromContent, parseSrt, truncateQuote } from "./utils";
-import { openai } from "@ai-sdk/openai";
 import { generateText } from "ai";
-import type { SupavecSearchResponse, SupavecUploadResponse } from "./types";
+import { getMemoraApiKey, getMemoraApiUrl } from "@/lib/memora-env";
+import { getChatModel } from "@/lib/openrouter";
+import type { MemoraSearchResponse, MemoraUploadResponse } from "./types";
 
-const MODEL = openai("gpt-4o-mini");
-
-const SUPAVEC_API_URL = process.env.SUPAVEC_API_URL ||
-  "https://api.supavec.com";
-const SUPAVEC_API_KEY = process.env.SUPAVEC_API_KEY!;
+const MEMORA_API_URL = getMemoraApiUrl();
+const MEMORA_API_KEY = getMemoraApiKey();
 
 // Sales coaching queries for RAG
 const COACHING_QUERIES = [
@@ -25,12 +23,12 @@ const COACHING_QUERIES = [
   "What qualifying questions about decision process were missed?",
 ];
 
-async function uploadTranscriptToSupavec(
+async function uploadTranscriptToMemora(
   transcript: string,
   fileName: string,
 ): Promise<string> {
-  if (!SUPAVEC_API_KEY) {
-    throw new Error("Supavec API key not configured");
+  if (!MEMORA_API_KEY) {
+    throw new Error("Memora API key not configured");
   }
 
   const turns = parseSrt(transcript);
@@ -39,11 +37,11 @@ async function uploadTranscriptToSupavec(
     metadata: { speaker: c.speaker, start_ts: c.start },
   }));
 
-  const response = await fetch(`${SUPAVEC_API_URL}/upload_text`, {
+  const response = await fetch(`${MEMORA_API_URL}/upload_text`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      "authorization": SUPAVEC_API_KEY,
+      "authorization": MEMORA_API_KEY,
     },
     body: JSON.stringify({
       name: fileName,
@@ -55,7 +53,7 @@ async function uploadTranscriptToSupavec(
     throw new Error(`Failed to upload transcript: ${response.statusText}`);
   }
 
-  const result: SupavecUploadResponse = await response.json();
+  const result: MemoraUploadResponse = await response.json();
 
   if (!result.success) {
     throw new Error(`Upload failed: ${result.message}`);
@@ -64,19 +62,19 @@ async function uploadTranscriptToSupavec(
   return result.file_id;
 }
 
-async function searchSupavec(
+async function searchMemora(
   query: string,
   fileId: string,
-): Promise<SupavecSearchResponse> {
-  if (!SUPAVEC_API_KEY) {
-    throw new Error("Supavec API key not configured");
+): Promise<MemoraSearchResponse> {
+  if (!MEMORA_API_KEY) {
+    throw new Error("Memora API key not configured");
   }
 
-  const response = await fetch(`${SUPAVEC_API_URL}/search`, {
+  const response = await fetch(`${MEMORA_API_URL}/search`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      "authorization": SUPAVEC_API_KEY,
+      "authorization": MEMORA_API_KEY,
     },
     body: JSON.stringify({
       query: query,
@@ -99,7 +97,7 @@ async function generateInsightWithAI(
 ): Promise<string> {
   try {
     const { text } = await generateText({
-      model: MODEL,
+      model: getChatModel(),
       prompt:
         `You are an experienced sales coach analyzing a sales call transcript. Based on the conversation content below, generate a specific, actionable ${type} insight.
 
@@ -138,7 +136,7 @@ Generate the insight directly:`,
 
 async function generateInsightFromResults(
   query: string,
-  searchResults: SupavecSearchResponse,
+  searchResults: MemoraSearchResponse,
 ): Promise<InsightItem | null> {
   if (!searchResults.success || !searchResults.documents.length) {
     return null;
@@ -203,7 +201,7 @@ async function extractRelevantQuoteWithAI(
       .trim();
 
     const { text } = await generateText({
-      model: MODEL,
+      model: getChatModel(),
       prompt:
         `You are a sales coach analyzing a conversation transcript. Extract the most relevant quote that supports the given insight.
 
@@ -291,7 +289,7 @@ async function generateCoachingTipWithAI(
 ): Promise<string> {
   try {
     const { text } = await generateText({
-      model: MODEL,
+      model: getChatModel(),
       prompt:
         `You are an experienced sales trainer providing coaching tips. Based on the sales insight below, generate a specific, actionable coaching tip.
 
@@ -360,14 +358,14 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Upload transcript to Supavec
+    // Upload transcript to Memora
     const fileName = `sales-transcript-${Date.now()}.txt`;
     let fileId: string;
 
     try {
-      fileId = await uploadTranscriptToSupavec(transcriptContent, fileName);
+      fileId = await uploadTranscriptToMemora(transcriptContent, fileName);
     } catch (error) {
-      console.error("Error uploading to Supavec:", error);
+      console.error("Error uploading to Memora:", error);
       return NextResponse.json(
         { error: "Failed to upload transcript for analysis" },
         { status: 500 },
@@ -380,7 +378,7 @@ export async function POST(request: NextRequest) {
 
     for (const query of COACHING_QUERIES.slice(0, 6)) { // Limit to 6 queries for performance
       try {
-        const searchResult = await searchSupavec(query, fileId);
+        const searchResult = await searchMemora(query, fileId);
         const insight = await generateInsightFromResults(query, searchResult);
 
         if (insight) {

@@ -20,7 +20,7 @@ const tools = [
     href: "https://www.citeanalytics.com",
   },
   {
-    title: "Supa Deep Reasearch",
+    title: "Supa Deep Research",
     href: "https://www.supa-deep-research.com",
   },
 ];
@@ -38,7 +38,7 @@ const links = [
   },
   {
     title: "API Docs",
-    href: "https://go.supavec.com/docs",
+    href: "https://docs.memoralabs.dev",
     external: true,
   },
 ];
@@ -66,12 +66,12 @@ export function Footer({ className }: { className?: string }) {
       <div className="border-t pt-8 pb-4">
         <div className="text-center max-w-4xl mx-auto">
           <p className="text-sm text-muted-foreground leading-relaxed">
-            <strong className="text-foreground">Supavec</strong> is an
+            <strong className="text-foreground">Memora</strong> is an
             open-source Retrieval-Augmented Generation (RAG) platform built on
             Supabase row-level security. Our RAG-as-a-Service API enables
             developers to integrate their own data with any LLM, providing
             secure, scalable document embedding and retrieval capabilities for
-            AI applications. Unlike proprietary solutions, Supavec offers full
+            AI applications. Unlike proprietary solutions, Memora offers full
             transparency and control over your RAG infrastructure.
           </p>
         </div>

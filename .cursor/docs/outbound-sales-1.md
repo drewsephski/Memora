@@ -1,4 +1,4 @@
-# Independent Landing Page – “Outbound Sales Coaching” Use-Case for Supavec
+# Independent Landing Page – “Outbound Sales Coaching” Use-Case for Memora
 
 ---
 
@@ -7,7 +7,7 @@
 | Component       | Copy (first-draft)                                                                                                             | Notes                                                                                       |
 |----------------|-------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------|
 | **Headline**    | “Turn Every Sales Call Into a Playbook-Ready Brief—Automatically.”                                                            | Directly states benefit; speaks to process improvement (calls → actionable brief).         |
-| **Sub-headline**| “Upload a Zoom or Fireflies transcript and, in seconds, Supavec surfaces wins, objections, next steps, and coaching cues—so your agency spends more time closing and less time replaying recordings.” | Highlights speed, supported sources, and main value props (insight + time savings).        |
+| **Sub-headline**| “Upload a Zoom or Fireflies transcript and, in seconds, Memora surfaces wins, objections, next steps, and coaching cues—so your agency spends more time closing and less time replaying recordings.” | Highlights speed, supported sources, and main value props (insight + time savings).        |
 | **Primary CTA** | “See a 3-Min Demo”                                                                                                             | Keeps promise small; suits busy agency leaders.                                             |
 | **Secondary CTA**| “Run My Transcript Free”                                                                                                      | Low-commitment proof; anchors the promise.                                                  |
 | **Hero Visual** | Split screen: left—snippet of messy transcript; right—clean one-page brief with color-tagged insights.                        | Make the transformation instantly clear.                                                    |
@@ -22,14 +22,14 @@
   - Ops teams drowning in call data but lacking synthesis
 
 - **Promise**:  
-  > “Supavec gives every call a coach’s summary—no extra headcount.”
+  > “Memora gives every call a coach’s summary—no extra headcount.”
 
 ---
 
-## 3. How Supavec Works (3-Step Visual)
+## 3. How Memora Works (3-Step Visual)
 
 1. **Ingest** – Drop in a `.vtt` / `.srt` or connect Fireflies API.  
-2. **Chunk & Retrieve** – Supavec’s open-source RAG slices by speaker, batches turns, indexes instantly.  
+2. **Chunk & Retrieve** – Memora’s open-source RAG slices by speaker, batches turns, indexes instantly.  
 3. **Summarize & Coach** – LLM generates a one-page brief (wins, objections, next steps, sentiment, talk-ratio).
 
 _Use icons or minimalist illustrations for each step._
@@ -52,7 +52,7 @@ _Keep language concrete (time saved, calls handled, coaching sessions)._
 
 **Logo grid**: Zoom, Fireflies, Gong (roadmap), HubSpot  
 _Text_:  
-> “Supavec slots into the tooling you already use—no platform migration required.”
+> “Memora slots into the tooling you already use—no platform migration required.”
 
 ---
 
@@ -73,7 +73,7 @@ _(Blur sensitive words. A GIF loop works if true interactivity is heavy.)_
 
 ## 8. Open-Source & Privacy Edge
 
-> “Supavec is MIT-licensed and can run in your own VPC—so client data never leaves your walls.”
+> “Memora is MIT-licensed and can run in your own VPC—so client data never leaves your walls.”
 
 **Key Points**:
 - Self-host option  
@@ -115,7 +115,7 @@ _Re-state core benefit_ + two buttons:
 - Speak in clear, operational language
 
 ### 2. Visual Style
-- Use Supavec’s brand palette (calm blues/greens)
+- Use Memora’s brand palette (calm blues/greens)
 - One accent color to highlight insights
 
 ### 3. SEO Angle

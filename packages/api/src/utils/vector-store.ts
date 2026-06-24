@@ -1,6 +1,6 @@
 import type { Document } from "@langchain/core/documents";
-import { OpenAIEmbeddings } from "@langchain/openai";
 import { SupabaseClient } from "@supabase/supabase-js";
+import { createEmbeddings } from "./embeddings";
 
 /**
  * Stores documents directly in Supabase vector store with file_id
@@ -22,10 +22,7 @@ export async function storeDocumentsWithFileId(
     batchSize,
   });
 
-  const embeddings = new OpenAIEmbeddings({
-    modelName: "text-embedding-3-small",
-    model: "text-embedding-3-small",
-  });
+  const embeddings = createEmbeddings();
 
   // Process documents in batches to avoid overwhelming the database
   const batches = [];

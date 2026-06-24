@@ -1,16 +1,17 @@
 import { NextRequest, NextResponse } from "next/server";
 
-const SUPAVEC_API_URL = process.env.SUPAVEC_API_URL ||
-  "https://api.supavec.com";
+import { getMemoraApiKey, getMemoraApiUrl } from "@/lib/memora-env";
+
+const MEMORA_API_URL = getMemoraApiUrl();
 
 export async function POST(req: NextRequest) {
   const formData = await req.formData();
 
   try {
-    const response = await fetch(`${SUPAVEC_API_URL}/upload_file`, {
+    const response = await fetch(`${MEMORA_API_URL}/upload_file`, {
       method: "POST",
       headers: {
-        Authorization: process.env.SUPAVEC_API_KEY!,
+        Authorization: getMemoraApiKey(),
       },
       body: formData,
     });

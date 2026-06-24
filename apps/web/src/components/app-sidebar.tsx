@@ -86,13 +86,13 @@ export function AppSidebar({
       },
       {
         title: "Documentation",
-        url: "https://docs.supavec.com/",
+        url: "https://docs.memoralabs.dev/",
         icon: BookOpen,
         isExternal: true,
       },
       {
         title: "Tutorial",
-        url: "https://go.supavec.com/tutorial-video",
+        url: "https://docs.memoralabs.dev",
         icon: Video,
         isExternal: true,
       },

@@ -1,10 +1,10 @@
 import { SupabaseVectorStore } from "@langchain/community/vectorstores/supabase";
 import { Request, Response } from "express";
-import { OpenAIEmbeddings } from "@langchain/openai";
 import { z } from "zod";
 import { client } from "../utils/posthog";
 import { logApiUsageAsync } from "../utils/async-logger";
 import { supabase } from "../utils/supabase";
+import { createEmbeddings } from "../utils/embeddings";
 
 type MatchDocumentResult = {
   id: number;
@@ -136,10 +136,7 @@ export const search = async (req: Request, res: Response) => {
 
     console.log("[SEARCH] Creating vector store");
     const vectorStore = new SupabaseVectorStore(
-      new OpenAIEmbeddings({
-        modelName: "text-embedding-3-small",
-        model: "text-embedding-3-small",
-      }),
+      createEmbeddings(),
       {
         client: supabase,
         tableName: "documents",
@@ -158,10 +155,7 @@ export const search = async (req: Request, res: Response) => {
       console.log("[SEARCH] Including embeddings in response");
 
       // Generate embedding for the query
-      const embeddings = new OpenAIEmbeddings({
-        modelName: "text-embedding-3-small",
-        model: "text-embedding-3-small",
-      });
+      const embeddings = createEmbeddings();
       const embeddingArray = await embeddings.embedQuery(query);
 
       // Convert the embedding array to a string format that Postgres vector type expects

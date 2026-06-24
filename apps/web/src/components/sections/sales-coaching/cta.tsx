@@ -134,7 +134,7 @@ export function SalesCoachingCTA() {
               drives better performance.&rdquo;
             </blockquote>
             <p className="text-sm text-muted-foreground mt-2">
-              Transform your sales coaching today with Supavec
+              Transform your sales coaching today with Memora
             </p>
           </motion.div>
         </div>

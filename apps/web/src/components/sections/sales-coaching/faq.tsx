@@ -16,7 +16,7 @@ const faqs = [
   {
     question: "Can it detect multiple speakers?",
     answer:
-      "Yes, Supavec automatically identifies and separates different speakers in your calls. Our advanced diarization handles overlapping speech, background noise, and varying audio quality. Each insight is tagged with speaker attribution, so you know exactly who said what.",
+      "Yes, Memora automatically identifies and separates different speakers in your calls. Our advanced diarization handles overlapping speech, background noise, and varying audio quality. Each insight is tagged with speaker attribution, so you know exactly who said what.",
   },
   {
     question: "How do we ingest calls at scale?",
@@ -113,12 +113,12 @@ export function SalesCoachingFAQ() {
             Still have questions?
           </h3>
           <p className="text-muted-foreground">
-            Our team is here to help you understand how Supavec can transform
+            Our team is here to help you understand how Memora can transform
             your sales coaching
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a
-              href="mailto:taishi@supavec.com"
+              href="mailto:hello@memoralabs.dev"
               className="inline-flex items-center px-6 py-3 bg-blue-500 hover:bg-blue-600 text-white font-medium rounded-lg transition-colors"
             >
               Email Our Team

@@ -37,6 +37,8 @@ jobs:
         
     - name: Run RAG evaluation
       env:
+        MEMORA_BASE_URL: ${{ secrets.MEMORA_BASE_URL }}
+        MEMORA_API_KEY: ${{ secrets.MEMORA_API_KEY }}
         SUPAVEC_BASE_URL: ${{ secrets.SUPAVEC_BASE_URL }}
         SUPAVEC_API_KEY: ${{ secrets.SUPAVEC_API_KEY }}
         OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}

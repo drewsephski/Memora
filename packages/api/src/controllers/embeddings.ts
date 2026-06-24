@@ -1,10 +1,10 @@
 import { SupabaseVectorStore } from "@langchain/community/vectorstores/supabase";
 import { Request, Response } from "express";
-import { OpenAIEmbeddings } from "@langchain/openai";
 import { z } from "zod";
 import { client } from "../utils/posthog";
 import { logApiUsageAsync } from "../utils/async-logger";
 import { supabase } from "../utils/supabase";
+import { createEmbeddings } from "../utils/embeddings";
 
 const embeddingsSchema = z.object({
   query: z.string().min(1, "Query is required"),
@@ -128,10 +128,7 @@ export const getEmbeddings = async (req: Request, res: Response) => {
 
     console.log("[EMBEDDINGS] Creating vector store");
     const vectorStore = new SupabaseVectorStore(
-      new OpenAIEmbeddings({
-        modelName: "text-embedding-3-small",
-        model: "text-embedding-3-small",
-      }),
+      createEmbeddings(),
       {
         client: supabase,
         tableName: "documents",

@@ -1,13 +1,13 @@
 import { SupabaseVectorStore } from "@langchain/community/vectorstores/supabase";
 import { Response } from "express";
-import { OpenAIEmbeddings } from "@langchain/openai";
 import { client } from "../utils/posthog";
 import { logApiUsageAsync } from "../utils/async-logger";
 import { supabase } from "../utils/supabase";
 import { ValidatedChatRequest } from "../middleware/chat/validate-request";
-import { google } from "@ai-sdk/google";
 import { generateText, pipeDataStreamToResponse, streamText } from "ai";
 import { AuthenticatedRequest } from "../middleware/auth";
+import { createEmbeddings } from "../utils/embeddings";
+import { getChatModel } from "../utils/openrouter";
 
 export const chat = async (req: AuthenticatedRequest, res: Response) => {
   console.log("[CHAT] Request received");
@@ -24,10 +24,7 @@ export const chat = async (req: AuthenticatedRequest, res: Response) => {
 
     console.log("[CHAT] Creating vector store");
     const vectorStore = new SupabaseVectorStore(
-      new OpenAIEmbeddings({
-        modelName: "text-embedding-3-small",
-        model: "text-embedding-3-small",
-      }),
+      createEmbeddings(),
       {
         client: supabase,
         tableName: "documents",
@@ -83,7 +80,7 @@ ${query}
           });
 
           const result = streamText({
-            model: google("gemini-2.0-flash"),
+            model: getChatModel(),
             prompt,
             temperature: 0.1,
             maxTokens: 1024,
@@ -125,7 +122,7 @@ ${query}
 
     // Non-streaming response
     const { text: answer } = await generateText({
-      model: google("gemini-2.0-flash"),
+      model: getChatModel(),
       prompt,
       temperature: 0.1,
       maxTokens: 1024,

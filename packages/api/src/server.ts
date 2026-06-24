@@ -19,7 +19,7 @@ import { rateLimit } from "./middleware/rate-limit";
 import { client as posthogClient } from "./utils/posthog";
 
 const requiredEnvVars = [
-  "OPENAI_API_KEY",
+  "OPENROUTER_API_KEY",
   "SUPABASE_URL",
   "SUPABASE_SERVICE_ROLE_KEY",
   "UPSTASH_REDIS_REST_URL",

@@ -181,7 +181,7 @@ const DevDocsMockup = () => (
           <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
           <div className="w-3 h-3 bg-green-500 rounded-full"></div>
         </div>
-        <span className="text-gray-300 text-xs">docs.supavec.com</span>
+        <span className="text-gray-300 text-xs">docs.memoralabs.dev</span>
       </div>
       <div className="p-4 space-y-3">
         <div className="flex items-center gap-2">
@@ -237,7 +237,7 @@ export function UseCases({ className }: { className?: string }) {
     <Section id="use-cases" title="Use Cases" className={cn(className)}>
       <div className="border-x border-t">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 p-6 lg:p-12">
-          {siteConfig.whySupavec.map(
+          {siteConfig.whyMemora.map(
             ({ name, description, icon: Icon }, index) => (
               <div
                 key={index}

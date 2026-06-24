@@ -1,5 +1,5 @@
 {
-  "name": "@supavec/web",
+  "name": "@memora/web",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -17,10 +17,11 @@
     "deploy": "bun run _with-env bun run _deploy"
   },
   "dependencies": {
-    "@ai-sdk/openai": "^1.1.5",
+    "@ai-sdk/openai": "1.1.5",
     "@ai-sdk/react": "^1.1.17",
     "@headlessui/react": "^2.2.0",
     "@heroicons/react": "^2.2.0",
+    "@memora/common": "workspace:*",
     "@next/third-parties": "15.3.3",
     "@opentelemetry/api": "^1.9.0",
     "@radix-ui/react-avatar": "^1.1.2",
@@ -42,7 +43,6 @@
     "@stripe/stripe-js": "^5.7.0",
     "@supabase/ssr": "^0.5.2",
     "@supabase/supabase-js": "^2.47.10",
-    "@supavec/common": "workspace:*",
     "@t3-oss/env-nextjs": "^0.12.0",
     "ai": "^4.1.45",
     "class-variance-authority": "^0.7.1",

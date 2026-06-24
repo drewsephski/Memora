@@ -21,7 +21,7 @@ export const WhatIsRag = () => {
           </p>
         </div>
         <a
-          href="https://docs.supavec.com/#what-is-rag"
+          href="https://docs.memoralabs.dev/#what-is-rag"
           className={cn(buttonVariants({ variant: "link" }), "px-0 mt-3")}
         >
           Learn more.

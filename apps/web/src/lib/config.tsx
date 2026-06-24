@@ -67,23 +67,30 @@ export enum SUBSCRIPTION_TIER {
 }
 
 export const siteConfig = {
-  name: "Supavec",
-  description: "Connect your data to LLMs, no matter the source.",
+  name: "Memora",
+  companyName: "Memora Labs",
+  description: "The memory layer for your LLM — open-source context infrastructure.",
   cta: "Get Started",
   url: process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000",
-  keywords: ["Rag As A Service", "Tool Integration", "Workflow Automation"],
+  keywords: [
+    "RAG API",
+    "Context API",
+    "Vector Search",
+    "LLM Memory",
+    "Open Source",
+  ],
   links: {
-    twitter: "https://x.com/supavec_ai",
-    discord: "https://go.supavec.com/discord",
-    github: "https://github.com/taishikato/supavec",
+    twitter: "https://x.com/memoralabs",
+    discord: "https://discord.gg/MS9CjPeXF4",
+    github: "https://github.com/memora-labs/memora",
   },
   hero: {
-    title: "Bring Your Own Data to Any LLM—Instant RAG API",
+    title: "Bring your data. Memora remembers the rest.",
     description:
-      "Ingest calls, docs, or tickets in minutes and retrieve laser-accurate context at query time. Open-source, scalable, and ready for production.",
+      "Ingest calls, docs, or tickets in minutes and retrieve laser-accurate context for any LLM. Open-source, multi-tenant, and production-ready.",
     cta: "Get Started",
   },
-  whySupavec: [
+  whyMemora: [
     {
       name: "Sales Call Insights",
       description:
@@ -160,7 +167,7 @@ export const siteConfig = {
           process.env.NEXT_PUBLIC_STRIPE_PRICE_FREE_YEARLY ||
           "price_free_yearly",
       },
-      description: "Try Supavec with limited usage.",
+      description: "Try Memora with limited usage.",
       features: [
         "100 API calls per month",
         "All supported file types",
@@ -217,19 +224,19 @@ export const siteConfig = {
     socialLinks: [
       {
         icon: <Icons.github className="size-5" />,
-        url: "https://github.com/taishikato/supavec",
+        url: "https://github.com/memora-labs/memora",
       },
       {
         icon: <Icons.twitter className="size-5" />,
-        url: "https://x.com/supavec_ai",
+        url: "https://x.com/memoralabs",
       },
       {
         icon: <Icons.discord className="size-5" />,
-        url: "https://go.supavec.com/discord",
+        url: "https://discord.gg/MS9CjPeXF4",
       },
       {
         icon: <Linkedin className="size-5" />,
-        url: "https://go.supavec.com/linkedin",
+        url: "https://memoralabs.dev",
       },
     ],
     // links: [
@@ -237,7 +244,7 @@ export const siteConfig = {
     //   { text: "Contact", url: "#" },
     // ],
     bottomText: "All rights reserved.",
-    brandText: "Supavec",
+    brandText: "Memora Labs",
   },
 };
 

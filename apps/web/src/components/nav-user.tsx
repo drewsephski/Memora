@@ -56,10 +56,10 @@ export function NavUser({
       <SidebarMenuItem>
         <SidebarMenuButton asChild tooltip="Contact Us">
           <Link
-            href="mailto:taishi@supavec.com"
+            href="mailto:hello@memoralabs.dev"
             onClick={(e) => {
               e.preventDefault();
-              navigator.clipboard.writeText("taishi@supavec.com");
+              navigator.clipboard.writeText("hello@memoralabs.dev");
               toast.success("Email address copied to clipboard");
               posthog.capture("Email address copied to clipboard from sidebar");
             }}
@@ -72,7 +72,7 @@ export function NavUser({
       <SidebarMenuItem>
         <SidebarMenuButton asChild tooltip="Discord">
           <Link
-            href="https://go.supavec.com/discord-dashboard"
+            href="https://discord.gg/MS9CjPeXF4-dashboard"
             target="target_blank"
           >
             <Icons.discord />

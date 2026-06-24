@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Architecture Overview
 
-Supavec is a multi-tenant RAG-as-a-Service platform built with:
+Memora is a multi-tenant RAG-as-a-Service platform built with:
 
 - **Frontend**: Next.js 15 app in `apps/web/` with TypeScript, Tailwind CSS, and Radix UI
 - **API**: Express.js server in `packages/api/` with vector search, semantic caching, and file processing

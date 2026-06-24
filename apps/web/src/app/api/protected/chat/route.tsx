@@ -1,6 +1,6 @@
 import { type Message, createDataStreamResponse, streamText } from "ai";
 import { getMostRecentUserMessage } from "@/lib/utils";
-import { openai } from "@ai-sdk/openai";
+import { getChatModel } from "@/lib/openrouter";
 
 export async function POST(request: Request) {
   const {
@@ -19,7 +19,7 @@ export async function POST(request: Request) {
     return new Response("No user message found", { status: 400 });
   }
 
-  // Call supavec search API
+  // Call memora search API
   const searchResponse = await fetch(
     `${process.env.NEXT_PUBLIC_API_URL}/search`,
     {
@@ -48,7 +48,7 @@ export async function POST(request: Request) {
   return createDataStreamResponse({
     execute: (dataStream) => {
       const result = streamText({
-        model: openai("gpt-4o-mini"),
+        model: getChatModel(),
         system:
           "You are a helpful assistant that can answer questions and help with tasks.\n\nRelevant context from the document:\n" +
           searchResults.documents

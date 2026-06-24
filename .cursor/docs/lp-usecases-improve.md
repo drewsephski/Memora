@@ -24,7 +24,7 @@ Where it starts to feel “too colorful”
 Tweaks to keep it eye-catching and on-brand
 
 Option	How	Result
-Unify on a single brand tint	Pick a 5-10% tint of your main brand color (e.g., the Supavec purple) for all cards.	Keeps the visual break while staying on palette.
+Unify on a single brand tint	Pick a 5-10% tint of your main brand color (e.g., the Memora purple) for all cards.	Keeps the visual break while staying on palette.
 Brand-accent stripe	Make the card itself white, but add a 4-6 px colored top border (different hue per use case or all purple).	Lets you keep color cues with much lighter footprint.
 Tone down saturation	Reduce current pastels ~30 % lightness, 15 % saturation.	Still differentiated but calmer; lower contrast with white page.
 Use icons, not fills, for variety	Cards stay white; each use case gets a colored corner badge or icon.	Focus is on content; color becomes a subtle label, not the background.

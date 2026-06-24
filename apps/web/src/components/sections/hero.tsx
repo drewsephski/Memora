@@ -89,7 +89,7 @@ function HeroCTA() {
             GET STARTED IN SECONDS
           </div>
           <pre className="text-foreground whitespace-pre-wrap">
-            {`curl -X POST https://api.supavec.com/upload_text \\
+            {`curl -X POST https://api.memoralabs.dev/upload_text \\
   -H "Authorization: Bearer YOUR_KEY" \\
   -H "Content-Type: application/json" \\
   -d '{"contents": "your text here"}'`}
@@ -134,13 +134,13 @@ export function Hero() {
         <div className="flex flex-col justify-start items-start lg:col-span-1">
           {/* <HeroPill /> */}
           <a
-            href="https://www.producthunt.com/posts/supavec?embed=true&utm_source=badge-top-post-badge&utm_medium=badge&utm_souce=badge-supavec"
+            href="https://www.producthunt.com/posts/memora?embed=true&utm_source=badge-top-post-badge&utm_medium=badge&utm_souce=badge-memora"
             target="_blank"
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="https://api.producthunt.com/widgets/embed-image/v1/top-post-badge.svg?post_id=871672&theme=neutral&period=daily&t=1739785669388"
-              alt="Supavec - The&#0032;open&#0032;source&#0032;RAG&#0032;as&#0032;a&#0032;service&#0032;platform | Product Hunt"
+              alt="Memora - The&#0032;open&#0032;source&#0032;RAG&#0032;as&#0032;a&#0032;service&#0032;platform | Product Hunt"
               className="w-[250px] h-[54px]"
             />
           </a>

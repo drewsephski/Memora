@@ -56,7 +56,7 @@ export function MobileDrawer({ isLoggedIn }: { isLoggedIn: boolean }) {
             Pricing
           </Link>
           <a
-            href="https://docs.supavec.com/"
+            href="https://docs.memoralabs.dev/"
             target="_blank"
             className={cn(buttonVariants({ variant: "ghost" }), "rounded-full")}
           >

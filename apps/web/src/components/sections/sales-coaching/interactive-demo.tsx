@@ -147,7 +147,7 @@ export function SalesCoachingInteractiveDemo() {
               Live Demo
             </div>
             <p className="text-muted-foreground max-w-2xl mx-auto">
-              This is the actual Supavec engine in action. Upload a call
+              This is the actual Memora engine in action. Upload a call
               transcript and watch as our AI generates actionable coaching
               insights in real-time.
             </p>
@@ -361,10 +361,10 @@ export function SalesCoachingInteractiveDemo() {
                   </div>
                   <div>
                     <h3 className="font-medium text-blue-900 dark:text-blue-100 mb-1">
-                      Real Supavec Engine
+                      Real Memora Engine
                     </h3>
                     <p className="text-sm text-blue-700 dark:text-blue-300">
-                      This demo uses the actual Supavec RAG engine. Your
+                      This demo uses the actual Memora RAG engine. Your
                       transcript is chunked, embedded, and queried using our
                       open-source infrastructure—the same system you&apos;ll
                       deploy in production.
