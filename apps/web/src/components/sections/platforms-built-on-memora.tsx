@@ -31,6 +31,7 @@ export function PlatformsBuiltOnMemora({
       title="Platforms built on Memora"
       subtitle="Ragbase"
       description="Memora is the retrieval layer. Ragbase is one of the products built on top of it, showing how the engine turns into a real application."
+      align="center"
       className={className}
     >
       <div className="border-x border-t overflow-hidden">

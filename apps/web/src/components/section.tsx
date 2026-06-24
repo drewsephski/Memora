@@ -11,12 +11,22 @@ interface SectionProps {
   description?: string;
   children?: React.ReactNode;
   className?: string;
+  bodyClassName?: string;
   align?: "left" | "center" | "right";
 }
 
 const Section = forwardRef<HTMLElement, SectionProps>(
   (
-    { id, title, subtitle, description, children, className, align },
+    {
+      id,
+      title,
+      subtitle,
+      description,
+      children,
+      className,
+      bodyClassName,
+      align,
+    },
     forwardedRef
   ) => {
     const internalRef = useRef<HTMLElement>(null);
@@ -39,7 +49,7 @@ const Section = forwardRef<HTMLElement, SectionProps>(
               )}
             >
               {title && (
-                <h2 className="text-sm text-muted-foreground text-balance font-semibold tracking-tigh uppercase">
+                <h2 className="text-sm text-muted-foreground text-balance font-semibold tracking-tight uppercase">
                   {title}
                 </h2>
               )}
@@ -83,7 +93,11 @@ const Section = forwardRef<HTMLElement, SectionProps>(
               />
             </div>
           )}
-          {children}
+          {children ? (
+            <div className={cn("relative mx-auto w-full", bodyClassName)}>
+              {children}
+            </div>
+          ) : null}
         </div>
       </section>
     );

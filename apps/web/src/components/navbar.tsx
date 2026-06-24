@@ -14,12 +14,16 @@ import { createClient } from "@/utils/supabase/client";
 import { useEffect, useState } from "react";
 import type { User } from "@supabase/supabase-js";
 import { signOut } from "@/app/login/actions";
+import { ThemeToggle } from "./theme-toggle";
 
 const links = [{ href: "/login", label: "Login" }];
 
 function DesktopNav({ loginUser }: { loginUser: User | null }) {
   return (
-    <nav className="relative hidden lg:flex">
+    <nav className="relative hidden items-center lg:flex">
+      <PlusGridItem className="relative flex items-center">
+        <ThemeToggle />
+      </PlusGridItem>
       {loginUser ? (
         <PlusGridItem className="relative flex justify-center items-center">
           <Link href="/dashboard">Dashboard</Link>
@@ -29,7 +33,7 @@ function DesktopNav({ loginUser }: { loginUser: User | null }) {
           <PlusGridItem key={href} className="relative flex">
             <Link
               href={href}
-              className="flex items-center px-4 py-3 text-base font-medium text-gray-950 bg-blend-multiply data-[hover]:bg-black/[2.5%]"
+              className="flex items-center px-4 py-3 text-base font-medium text-foreground bg-blend-multiply data-[hover]:bg-accent/60"
             >
               {label}
             </Link>
@@ -43,7 +47,7 @@ function DesktopNav({ loginUser }: { loginUser: User | null }) {
 function MobileNavButton() {
   return (
     <DisclosureButton
-      className="flex size-12 items-center justify-center self-center rounded-lg data-[hover]:bg-black/5 lg:hidden"
+      className="flex size-12 items-center justify-center self-center rounded-lg data-[hover]:bg-accent/60 lg:hidden"
       aria-label="Open main menu"
     >
       <Bars2Icon className="size-6" />
@@ -55,6 +59,19 @@ function MobileNav({ loginUser }: { loginUser: User | null }) {
   return (
     <DisclosurePanel className="lg:hidden">
       <div className="flex flex-col gap-6 py-4">
+        <motion.div
+          initial={{ opacity: 0, rotateX: -90 }}
+          animate={{ opacity: 1, rotateX: 0 }}
+          transition={{
+            duration: 0.15,
+            ease: "easeInOut",
+            rotateX: { duration: 0.3, delay: 0 * 0.1 },
+          }}
+          className="flex items-center justify-between"
+        >
+          <span className="text-base font-medium text-foreground">Theme</span>
+          <ThemeToggle />
+        </motion.div>
         {loginUser ? (
           <motion.form
             action={signOut}
@@ -80,7 +97,7 @@ function MobileNav({ loginUser }: { loginUser: User | null }) {
               }}
               key={href}
             >
-              <Link href={href} className="text-base font-medium text-gray-950">
+              <Link href={href} className="text-base font-medium text-foreground">
                 {label}
               </Link>
             </motion.div>
@@ -88,8 +105,8 @@ function MobileNav({ loginUser }: { loginUser: User | null }) {
         )}
       </div>
       <div className="absolute left-1/2 w-screen -translate-x-1/2">
-        <div className="absolute inset-x-0 top-0 border-t border-black/5" />
-        <div className="absolute inset-x-0 top-2 border-t border-black/5" />
+        <div className="absolute inset-x-0 top-0 border-t border-border/60" />
+        <div className="absolute inset-x-0 top-2 border-t border-border/60" />
       </div>
     </DisclosurePanel>
   );
