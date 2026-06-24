@@ -34,6 +34,7 @@ for (const envVar of requiredEnvVars) {
 
 const app = express();
 const port = process.env.PORT || 3001;
+const host = "0.0.0.0";
 
 app.use(helmet());
 app.use(cors());
@@ -46,8 +47,8 @@ app.use("/", router);
 
 app.use(errorHandler);
 
-const server = app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
+const server = app.listen(port, host, () => {
+  console.log(`Server is running on ${host}:${port}`);
 });
 
 // Graceful shutdown

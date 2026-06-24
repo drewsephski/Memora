@@ -71,7 +71,7 @@ export function ChatInterface({
     };
   }, [selectedFile, setMessages]);
 
-  const fetchSearchResults = async () => {
+  const fetchSearchResults = async (query: string) => {
     const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/search`, {
       method: "POST",
       headers: {
@@ -79,7 +79,7 @@ export function ChatInterface({
         Authorization: apiKey,
       },
       body: JSON.stringify({
-        query: input,
+        query,
         file_ids: [selectedFile],
         include_embeddings: true,
       }),
@@ -179,7 +179,12 @@ export function ChatInterface({
         <form
           onSubmit={async (e) => {
             e.preventDefault();
-            await Promise.all([handleSubmit(), fetchSearchResults()]);
+            const query = input.trim();
+            if (!query) {
+              return;
+            }
+
+            await Promise.all([handleSubmit(), fetchSearchResults(query)]);
           }}
           className="p-4 border-t"
         >

@@ -1,6 +1,9 @@
-import { type Message, createDataStreamResponse, streamText } from "ai";
+import { type Message } from "ai";
+
 import { getMostRecentUserMessage } from "@/lib/utils";
-import { getChatModel } from "@/lib/openrouter";
+import { getMemoraApiUrl } from "@/lib/memora-env";
+
+const MEMORA_API_URL = getMemoraApiUrl();
 
 export async function POST(request: Request) {
   const {
@@ -19,10 +22,12 @@ export async function POST(request: Request) {
     return new Response("No user message found", { status: 400 });
   }
 
-  // Call memora search API
-  const searchResponse = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/search`,
-    {
+  if (!selectedFile) {
+    return new Response("No file selected", { status: 400 });
+  }
+
+  try {
+    const response = await fetch(`${MEMORA_API_URL}/chat`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -31,40 +36,37 @@ export async function POST(request: Request) {
       body: JSON.stringify({
         query: userMessage.content,
         file_ids: [selectedFile],
+        stream: true,
       }),
-    }
-  );
-
-  if (!searchResponse.ok) {
-    const errorData = await searchResponse.json();
-    console.error("Search API error:", errorData);
-    return new Response("Failed to search documents", {
-      status: searchResponse.status,
     });
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      return new Response(errorText || "Failed to chat", {
+        status: response.status,
+        headers: {
+          "Content-Type": response.headers.get("content-type") ?? "text/plain",
+        },
+      });
+    }
+
+    return new Response(response.body, {
+      status: response.status,
+      headers: {
+        "Content-Type":
+          response.headers.get("content-type") ??
+          "text/plain; charset=utf-8",
+        "Cache-Control": "no-store",
+      },
+    });
+  } catch (error) {
+    console.error("Chat proxy error:", error);
+
+    return new Response(
+      error instanceof Error ? error.message : "Failed to proxy chat request",
+      {
+        status: 500,
+      },
+    );
   }
-
-  const searchResults = await searchResponse.json();
-
-  return createDataStreamResponse({
-    execute: (dataStream) => {
-      const result = streamText({
-        model: getChatModel(),
-        system:
-          "You are a helpful assistant that can answer questions and help with tasks.\n\nRelevant context from the document:\n" +
-          searchResults.documents
-            .map((doc: { content: string }) => doc.content)
-            .join("\n"),
-        messages,
-      });
-
-      result.consumeStream();
-
-      result.mergeIntoDataStream(dataStream, {
-        sendReasoning: true,
-      });
-    },
-    onError: () => {
-      return "Oops, an error occured!";
-    },
-  });
 }
