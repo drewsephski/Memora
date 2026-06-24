@@ -1,58 +1,48 @@
 "use client";
 
 import { Section } from "@/components/section";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
 import { Ripple } from "@/components/ui/ripple";
 import { cn } from "@/lib/utils";
-
-const contributors = [
-  {
-    name: "Neco",
-    avatar: "https://avatars.githubusercontent.com/u/5212808?v=4",
-  },
-  {
-    name: "Marie Otaki",
-    avatar: "https://avatars.githubusercontent.com/u/33252783?v=4",
-  },
-  {
-    name: "Blair Bodnar",
-    avatar: "https://avatars.githubusercontent.com/u/991976?v=4",
-  },
-  {
-    name: "Magio",
-    avatar: "https://avatars.githubusercontent.com/u/981372?v=4",
-  },
-  {
-    name: "Taishi kato",
-    avatar: "https://avatars.githubusercontent.com/u/980588?v=4",
-  },
-];
+import { Linkedin } from "lucide-react";
 
 export function Community({ className }: { className?: string }) {
   return (
-    <Section id="community" title="Community" className={cn(className)}>
+    <Section id="community" title="Built by" className={cn(className)}>
       <div className="border-x border-t overflow-hidden relative">
         <Ripple />
-        <div className="p-6 text-center py-12">
+        <div className="relative p-6 text-center py-12">
           <p className="text-muted-foreground mb-6 text-balance max-w-prose mx-auto font-medium">
-            We&apos;re grateful for the amazing community that helps
-            make our project better every day.
+            Designed and developed by Drew Sepeczi.
           </p>
-          <div className="flex justify-center -space-x-6 mb-8">
-            {contributors.map((contributor, index) => (
-              <div key={index}>
-                <Avatar className="size-12 relative border-2 border-background bg-muted">
-                  <AvatarImage
-                    src={contributor.avatar}
-                    alt={contributor.name}
-                    className="object-cover"
-                  />
-                  <AvatarFallback className="text-lg font-semibold">
-                    {contributor.name.charAt(0)}
-                  </AvatarFallback>
-                </Avatar>
-              </div>
-            ))}
+
+          <div className="flex justify-center mb-8">
+            <div className="size-24 overflow-hidden rounded-full border border-border bg-background shadow-sm md:size-28">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/community-anime.png"
+                alt="Anime-style avatar illustration"
+                className="block size-full object-cover"
+              />
+            </div>
+          </div>
+
+          <div className="flex justify-center">
+            <Button
+              asChild
+              variant="secondary"
+              size="icon"
+              className="rounded-full"
+            >
+              <a
+                target="_blank"
+                rel="noreferrer"
+                href="https://www.linkedin.com/in/drewsepeczi/"
+                aria-label="Drew Sepeczi on LinkedIn"
+              >
+                <Linkedin className="h-5 w-5" />
+              </a>
+            </Button>
           </div>
         </div>
       </div>

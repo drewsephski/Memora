@@ -181,7 +181,7 @@ const DevDocsMockup = () => (
           <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
           <div className="w-3 h-3 bg-green-500 rounded-full"></div>
         </div>
-        <span className="text-gray-300 text-xs">docs.memoralabs.dev</span>
+        <span className="text-gray-300 text-xs">/docs</span>
       </div>
       <div className="p-4 space-y-3">
         <div className="flex items-center gap-2">

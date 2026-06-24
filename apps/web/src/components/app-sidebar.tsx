@@ -20,7 +20,7 @@ import {
   SidebarHeader,
   SidebarRail,
 } from "@/components/ui/sidebar";
-import { STRIPE_PRODUCT_IDS } from "@/lib/config";
+import { STRIPE_PRODUCT_IDS, siteConfig } from "@/lib/config";
 
 export function AppSidebar({
   user,
@@ -86,15 +86,15 @@ export function AppSidebar({
       },
       {
         title: "Documentation",
-        url: "https://docs.memoralabs.dev/",
+        url: siteConfig.links.docs,
         icon: BookOpen,
-        isExternal: true,
+        isExternal: false,
       },
       {
         title: "Tutorial",
-        url: "https://docs.memoralabs.dev",
+        url: siteConfig.links.docs,
         icon: Video,
-        isExternal: true,
+        isExternal: false,
       },
     ],
   };

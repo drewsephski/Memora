@@ -3,14 +3,37 @@
 import { AuroraText } from "@/components/aurora-text";
 import { Icons } from "@/components/icons";
 import { Section } from "@/components/section";
-import { buttonVariants } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import { Button, buttonVariants } from "@/components/ui/button";
 import { siteConfig } from "@/lib/config";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
+import { Check, Copy, Sparkles } from "lucide-react";
 import Link from "next/link";
 import { lazy, Suspense, useEffect, useState } from "react";
+import { toast } from "sonner";
 
 const ease = [0.16, 1, 0.3, 1];
+const AGENT_PROMPT = `You are an AI agent helping me get started with Memora.
+
+I am not technical, so keep the instructions simple and step by step.
+
+First, explain the fastest way to try Memora with my own content.
+Then, if I want to test the API directly, show me this request and explain what each part does:
+
+curl -X POST https://api.memoralabs.dev/upload_text \\
+  -H "Authorization: Bearer YOUR_KEY" \\
+  -H "Content-Type: application/json" \\
+  -d '{"contents": "your text here"}'
+
+Ask me one question at a time and help me get to a working first test.`;
 
 function HeroTitles() {
   return (
@@ -57,10 +80,23 @@ function HeroTitles() {
 }
 
 function HeroCTA() {
+  const [promptOpen, setPromptOpen] = useState(false);
+  const [copied, setCopied] = useState(false);
+
+  const handleCopyPrompt = async () => {
+    try {
+      await navigator.clipboard.writeText(AGENT_PROMPT);
+      setCopied(true);
+      toast.success("Agent prompt copied");
+    } catch {
+      toast.error("Could not copy the prompt");
+    }
+  };
+
   return (
     <div className="relative mt-6">
       <motion.div
-        className="flex w-full max-w-2xl flex-col items-start justify-start space-y-4 sm:flex-row sm:space-x-4 sm:space-y-0"
+        className="flex w-full max-w-2xl flex-col items-start justify-start gap-4 sm:flex-row sm:items-center"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.8, duration: 0.8, ease }}
@@ -84,9 +120,62 @@ function HeroCTA() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 1.0, duration: 0.8, ease }}
       >
-        <div className="rounded-lg bg-muted/50 border p-4 text-sm font-mono">
-          <div className="text-muted-foreground mb-2 text-xs font-medium">
-            GET STARTED IN SECONDS
+        <div className="rounded-lg border bg-muted/50 p-4 text-sm font-mono">
+          <div className="mb-2 flex items-center justify-between gap-3">
+            <div className="text-xs font-medium text-muted-foreground">
+              GET STARTED IN SECONDS
+            </div>
+            <Dialog
+              open={promptOpen}
+              onOpenChange={(open) => {
+                setPromptOpen(open);
+                if (!open) {
+                  setCopied(false);
+                }
+              }}
+            >
+              <Button
+                type="button"
+                variant="outline"
+                size="sm"
+                className="gap-2 rounded-md"
+                onClick={() => setPromptOpen(true)}
+              >
+                <Sparkles className="h-4 w-4" />
+                Agent prompt
+              </Button>
+
+              <DialogContent className="max-w-2xl">
+                <DialogHeader>
+                  <DialogTitle>Copy an agent prompt</DialogTitle>
+                  <DialogDescription>
+                    Paste this into ChatGPT, Claude, or any AI assistant to get
+                    a simple, guided first setup.
+                  </DialogDescription>
+                </DialogHeader>
+
+                <div className="rounded-lg border bg-muted/40 p-4">
+                  <pre className="max-h-[48vh] overflow-auto whitespace-pre-wrap font-mono text-sm leading-relaxed text-foreground">
+                    {AGENT_PROMPT}
+                  </pre>
+                </div>
+
+                <DialogFooter>
+                  <Button
+                    type="button"
+                    onClick={handleCopyPrompt}
+                    className="w-full gap-2 sm:w-auto"
+                  >
+                    {copied ? (
+                      <Check className="h-4 w-4" />
+                    ) : (
+                      <Copy className="h-4 w-4" />
+                    )}
+                    {copied ? "Copied" : "Copy prompt"}
+                  </Button>
+                </DialogFooter>
+              </DialogContent>
+            </Dialog>
           </div>
           <pre className="text-foreground whitespace-pre-wrap">
             {`curl -X POST https://api.memoralabs.dev/upload_text \\

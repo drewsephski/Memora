@@ -3,7 +3,6 @@ import { Header } from "@/components/sections/header";
 import { Footer } from "@/components/sections/footer";
 import { CTA } from "@/components/sections/cta";
 import { PricingClient } from "./pricing-client";
-import { Testimonials } from "./testimonials";
 
 export const metadata: Metadata = {
   title: "Pricing",
@@ -13,24 +12,24 @@ export const metadata: Metadata = {
 
 const faqItems = [
   {
-    question: "How does the 14-day refund policy work?",
+    question: "What does Memora actually do for my team?",
     answer:
-      "If you&apos;re not satisfied with our service for any reason, simply contact our support team within 14 days of your purchase for a full refund. No questions asked.",
+      "Memora lets your team search across calls, docs, and tickets in one place so people get the right answer faster without digging through tabs or asking around.",
   },
   {
-    question: "Can I switch between plans?",
+    question: "Do I need to be technical to use it?",
     answer:
-      "Yes, you can upgrade or downgrade your plan at any time. When upgrading, you&apos;ll be prorated for the remainder of your billing cycle. When downgrading, changes will take effect at the start of your next billing cycle.",
+      "No. You can start with simple uploads and ready-made examples, then grow into API use later if your team needs it.",
   },
   {
-    question: "Do you offer team discounts?",
+    question: "Why would I pay for this instead of using a regular chatbot?",
     answer:
-      "Yes, we offer special pricing for teams of 5 or more. Contact our sales team for more information about team discounts and enterprise plans.",
+      "A chatbot guesses from general knowledge. Memora answers from your own content, with access controls and retrieval built for real business workflows.",
   },
   {
-    question: "What payment methods do you accept?",
+    question: "How long does it take to get value?",
     answer:
-      "We accept all major credit cards, PayPal, and bank transfers for annual plans. All payments are securely processed and your information is never stored on our servers.",
+      "Most teams can try the core workflow in minutes by uploading a file and asking a question. From there, you can connect more data sources as needed.",
   },
 ];
 
@@ -56,8 +55,6 @@ export default async function PricingPage() {
           </div>
 
           <PricingClient />
-
-          <Testimonials />
 
           <div className="mt-24">
             <h2 className="text-3xl md:text-4xl font-bold tracking-tighter text-center mb-12">

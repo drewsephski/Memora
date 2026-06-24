@@ -1,4 +1,5 @@
 import { Section } from "@/components/section";
+import { siteConfig } from "@/lib/config";
 import { cn } from "@/lib/utils";
 import { buttonVariants } from "../ui/button";
 
@@ -21,7 +22,7 @@ export const WhatIsRag = () => {
           </p>
         </div>
         <a
-          href="https://docs.memoralabs.dev/#what-is-rag"
+          href={`${siteConfig.links.docs}#what-is-rag`}
           className={cn(buttonVariants({ variant: "link" }), "px-0 mt-3")}
         >
           Learn more.

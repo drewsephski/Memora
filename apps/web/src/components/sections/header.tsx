@@ -16,6 +16,7 @@ import { siteConfig } from "@/lib/config";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { HiPhoneArrowUpRight } from "react-icons/hi2";
+import { Layers3 } from "lucide-react";
 
 export function Header() {
   const { isLoggedIn } = useAuth();
@@ -58,6 +59,22 @@ export function Header() {
                         </Link>
                       </NavigationMenuLink>
                     </li>
+                    <li>
+                      <NavigationMenuLink asChild>
+                        <Link
+                          href="/ragbase"
+                          className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
+                        >
+                          <div className="flex items-center gap-2 text-sm font-medium leading-none">
+                            <Layers3 className="h-4 w-4 text-primary" />
+                            Ragbase
+                          </div>
+                          <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
+                            Product experience built on Memora
+                          </p>
+                        </Link>
+                      </NavigationMenuLink>
+                    </li>
                   </ul>
                 </NavigationMenuContent>
               </NavigationMenuItem>
@@ -82,7 +99,7 @@ export function Header() {
                     "h-8 tracking-tight font-medium"
                   )}
                 >
-                  <a href="https://docs.memoralabs.dev/" target="_blank">
+                  <a href={siteConfig.links.docs}>
                     API Docs
                   </a>
                 </NavigationMenuLink>

@@ -1,69 +1,52 @@
-import { Icons } from "@/components/icons";
 import { Section } from "@/components/section";
 import { BorderText } from "@/components/ui/border-number";
-import { BrainCircuit } from "lucide-react";
+import { Clock3, Database, Search } from "lucide-react";
 
 const stats = [
   {
-    title: "600+",
-    subtitle: "Stars on GitHub",
-    icon: <Icons.github className="size-5" />,
+    value: "1-5ms",
+    label: "Redis L1 cache",
+    detail: "Exact-match lookups for repeated queries.",
+    icon: <Database className="size-5" />,
   },
   {
-    title: "200k+",
-    subtitle: "Embeddings generated",
-    icon: <BrainCircuit className="size-5" />,
-    link: `${process.env.NEXT_PUBLIC_APP_URL}/login`,
+    value: "10-20ms",
+    label: "Postgres L2 semantic cache",
+    detail: "Similarity search before generation.",
+    icon: <Search className="size-5" />,
+  },
+  {
+    value: "2-10s",
+    label: "Standard search fallback",
+    detail: "Baseline when a cache miss reaches retrieval.",
+    icon: <Clock3 className="size-5" />,
   },
 ];
 
 export function Statistics() {
   return (
     <Section id="statistics" title="Statistics">
-      <div
-        className="border-x border-t bg-gradient-to-br from-background via-secondary/10 to-background"
-        style={{
-          backgroundImage:
-            "radial-gradient(circle at bottom center, hsl(var(--secondary) / 0.6), hsl(var(--background)))",
-        }}
-      >
-        <div className="grid grid-cols-1 sm:grid-cols-2">
+      <div className="border-x border-t bg-gradient-to-br from-background via-secondary/10 to-background">
+        <div className="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-border">
           {stats.map((stat) => (
-            <a
-              href={stat.link || "#"}
-              key={stat.title}
-              target="_blank"
-              className="flex flex-col items-center justify-center py-8 px-4 border-b sm:border-b-0 last:border-b-0 sm:border-r sm:last:border-r-0 [&:nth-child(-n+2)]:border-t-0 sm:[&:nth-child(-n+3)]:border-t-0 relative group overflow-hidden"
+            <div
+              key={stat.label}
+              className="flex flex-col items-center justify-center px-6 py-10 text-center"
             >
-              <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-all transform translate-x-full -translate-y-full group-hover:translate-x-0 group-hover:translate-y-0 duration-300 ease-in-out">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <line x1="7" y1="17" x2="17" y2="7"></line>
-                  <polyline points="7 7 17 7 17 17"></polyline>
-                </svg>
+              <BorderText
+                text={stat.value}
+                className="text-[clamp(2.5rem,6vw,4.5rem)] font-bold text-foreground"
+              />
+              <div className="mt-4 flex items-center justify-center gap-2">
+                {stat.icon}
+                <p className="text-sm font-semibold text-foreground">
+                  {stat.label}
+                </p>
               </div>
-              <div className="text-center relative">
-                <BorderText
-                  text={stat.title}
-                  className="text-4xl font-bold text-foreground"
-                />
-                <div className="flex items-center justify-center gap-2 mt-2">
-                  {stat.icon}
-                  <p className="text-sm text-muted-foreground font-medium">
-                    {stat.subtitle}
-                  </p>
-                </div>
-              </div>
-            </a>
+              <p className="mt-2 max-w-xs text-sm leading-6 text-muted-foreground">
+                {stat.detail}
+              </p>
+            </div>
           ))}
         </div>
       </div>

@@ -1,6 +1,7 @@
 "use client";
 
 import { Section } from "@/components/section";
+import { siteConfig } from "@/lib/config";
 import { motion } from "framer-motion";
 import { ExternalLink } from "lucide-react";
 
@@ -152,8 +153,7 @@ export function SalesCoachingIntegrations() {
             </p>
             <div className="flex justify-center">
               <a
-                href="https://docs.memoralabs.dev"
-                target="_blank"
+                href={siteConfig.links.docs}
                 className="inline-flex items-center gap-2 text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 transition-colors"
               >
                 View API Documentation

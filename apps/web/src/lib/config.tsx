@@ -70,6 +70,9 @@ export const siteConfig = {
   description: "The memory layer for your LLM — context infrastructure.",
   cta: "Get Started",
   url: process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000",
+  links: {
+    docs: "/docs",
+  },
   keywords: [
     "RAG API",
     "Context API",

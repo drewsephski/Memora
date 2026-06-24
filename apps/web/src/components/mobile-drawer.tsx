@@ -13,6 +13,7 @@ import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { IoMenuSharp } from "react-icons/io5";
 import { HiPhoneArrowUpRight } from "react-icons/hi2";
+import { Layers3 } from "lucide-react";
 
 export function MobileDrawer({ isLoggedIn }: { isLoggedIn: boolean }) {
   return (
@@ -45,8 +46,18 @@ export function MobileDrawer({ isLoggedIn }: { isLoggedIn: boolean }) {
                 "rounded-full justify-center w-full"
               )}
             >
-              <HiPhoneArrowUpRight className="h-4 w-4 mr-2" />
+              <HiPhoneArrowUpRight className="mr-2 h-4 w-4" />
               Sales Coaching
+            </Link>
+            <Link
+              href="/ragbase"
+              className={cn(
+                buttonVariants({ variant: "ghost" }),
+                "rounded-full justify-center w-full"
+              )}
+            >
+              <Layers3 className="mr-2 h-4 w-4 text-primary" />
+              Ragbase
             </Link>
           </div>
           <Link
@@ -56,8 +67,7 @@ export function MobileDrawer({ isLoggedIn }: { isLoggedIn: boolean }) {
             Pricing
           </Link>
           <a
-            href="https://docs.memoralabs.dev/"
-            target="_blank"
+            href={siteConfig.links.docs}
             className={cn(buttonVariants({ variant: "ghost" }), "rounded-full")}
           >
             API Docs

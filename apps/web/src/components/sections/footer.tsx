@@ -14,18 +14,12 @@ const examples = [
   },
 ];
 
-const tools = [
-  {
-    title: "CiteAnalytics",
-    href: "https://www.citeanalytics.com",
-  },
-  {
-    title: "Supa Deep Research",
-    href: "https://www.supa-deep-research.com",
-  },
-];
-
 const links = [
+  {
+    title: "Docs",
+    href: siteConfig.links.docs,
+    external: false,
+  },
   {
     title: "Pricing",
     href: "/pricing",
@@ -33,13 +27,8 @@ const links = [
   },
   {
     title: "Blog",
-    href: `${process.env.NEXT_PUBLIC_APP_URL}/blog`,
+    href: "/blog",
     external: false,
-  },
-  {
-    title: "API Docs",
-    href: "https://docs.memoralabs.dev",
-    external: true,
   },
 ];
 
@@ -147,25 +136,6 @@ export function Footer({ className }: { className?: string }) {
             </ul>
           </div>
 
-          <div>
-            <h6 className="text-sm text-secondary-foreground/80 font-semibold mb-2">
-              Tools
-            </h6>
-            <ul className="flex flex-col gap-y-2">
-              {tools.map((tool) => (
-                <li key={tool.href}>
-                  <Link
-                    href={tool.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-sm text-muted-foreground hover:text-foreground transition-color ease-linear"
-                  >
-                    {tool.title}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
         </div>
       </div>
 

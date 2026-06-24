@@ -8,6 +8,7 @@ import { HowToUse } from "@/components/sections/how-to-use";
 import { Community } from "@/components/sections/community";
 import { CTA } from "@/components/sections/cta";
 import { Footer } from "@/components/sections/footer";
+import { PlatformsBuiltOnMemora } from "@/components/sections/platforms-built-on-memora";
 import { Pricing } from "@/components/sections/pricing";
 import { Statistics } from "@/components/sections/statistics";
 
@@ -26,6 +27,7 @@ export default async function Home() {
       <UseCases />
       <HowToUse />
       <Statistics />
+      <PlatformsBuiltOnMemora />
       <Pricing className="mt-[-49px] bg-background relative z-10" />
       <Community />
       <CTA />
