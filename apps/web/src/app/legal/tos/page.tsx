@@ -438,17 +438,6 @@ export default function TermsOfService() {
               hello@memoralabs.dev
             </a>
           </li>
-          <li>
-            Through our Discord community:{" "}
-            <a
-              href="https://discord.gg/MS9CjPeXF4"
-              className="text-blue-600 hover:underline"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              https://discord.gg/MS9CjPeXF4
-            </a>
-          </li>
         </ul>
       </section>
 

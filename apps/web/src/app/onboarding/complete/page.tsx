@@ -1,5 +1,4 @@
 import { APP_NAME } from "@/app/consts";
-import { Icons } from "@/components/icons";
 import { buttonVariants } from "@/components/ui/button";
 import {
   Card,
@@ -24,16 +23,13 @@ export default function OnboardingCompletePage() {
         </CardHeader>
         <CardContent className="space-y-4">
           <p className="text-center text-muted-foreground">
-            Join our Discord community to connect with other Memora users and
-            get support.
+            If you need help getting started, reach out to our support team.
           </p>
           <a
-            target="_blank"
-            href="https://discord.gg/MS9CjPeXF4"
+            href="mailto:hello@memoralabs.dev"
             className={cn(buttonVariants({ variant: "outline" }), "w-full")}
           >
-            <Icons.discord className="mr-2 size-4" />
-            Join {APP_NAME} Discord
+            Contact support
           </a>
         </CardContent>
         <CardFooter>

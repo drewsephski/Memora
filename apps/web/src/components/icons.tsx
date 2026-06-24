@@ -1,5 +1,3 @@
-import { DiscordLogoIcon } from "@radix-ui/react-icons";
-
 type IconProps = React.HTMLAttributes<SVGElement>;
 
 export const Icons = {
@@ -56,7 +54,6 @@ export const Icons = {
       />
     </svg>
   ),
-  discord: DiscordLogoIcon,
   twitter: (props: IconProps) => (
     <svg
       height="23"

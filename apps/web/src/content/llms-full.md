@@ -58,7 +58,6 @@ Start for free | View documentation
 ## Statistics
 
 - Embeddings generated: Available via login
-- Discord Members: https://discord.gg/MS9CjPeXF4
 
 ## Pricing
 
@@ -200,7 +199,7 @@ These Terms remain in effect while you use the Service. Either party may termina
 ### 14-18. Additional Provisions
 The Terms may be modified with notice. They're governed by Delaware law, with disputes resolved through binding arbitration. No class actions are permitted.
 
-Contact us at hello@memoralabs.dev or https://discord.gg/MS9CjPeXF4 for questions.
+Contact us at hello@memoralabs.dev for questions.
 
 ## Privacy Policy
 
@@ -250,12 +249,11 @@ Depending on your location, you may have rights to access, correct, delete, rest
 - California residents have specific rights under CCPA
 - We may update this policy with notice
 
-Contact us at hello@memoralabs.dev or https://discord.gg/MS9CjPeXF4 for questions about privacy.
+Contact us at hello@memoralabs.dev for questions about privacy.
 
 ## Contact Information
 
 - Email: hello@memoralabs.dev
-- Discord: https://discord.gg/MS9CjPeXF4
 - Website: https://memoralabs.dev
 
 Built with Supabase, Bun, Next.js, Vercel, Railway, and TypeScript. We make it easy to connect your data to AI. 

@@ -5,7 +5,6 @@ import {
   BookOpen,
   SquareTerminal,
   GalleryVerticalEnd,
-  Video,
   Settings,
 } from "lucide-react";
 import { usePathname } from "next/navigation";
@@ -88,12 +87,6 @@ export function AppSidebar({
         title: "Documentation",
         url: siteConfig.links.docs,
         icon: BookOpen,
-        isExternal: false,
-      },
-      {
-        title: "Tutorial",
-        url: siteConfig.links.docs,
-        icon: Video,
         isExternal: false,
       },
     ],

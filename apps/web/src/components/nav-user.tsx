@@ -21,7 +21,6 @@ import {
 } from "@/components/ui/sidebar";
 import { signOut } from "@/app/login/actions";
 import { LogoutButton } from "./logout-button";
-import { Icons } from "./icons";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { APP_NAME } from "@/app/consts";
@@ -66,17 +65,6 @@ export function NavUser({
           >
             <Mail />
             <span>Contact Us</span>
-          </Link>
-        </SidebarMenuButton>
-      </SidebarMenuItem>
-      <SidebarMenuItem>
-        <SidebarMenuButton asChild tooltip="Discord">
-          <Link
-            href="https://discord.gg/MS9CjPeXF4-dashboard"
-            target="target_blank"
-          >
-            <Icons.discord />
-            <span>Discord</span>
           </Link>
         </SidebarMenuButton>
       </SidebarMenuItem>
