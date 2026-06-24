@@ -147,7 +147,7 @@ export function SalesCoachingIntegrations() {
             </h4>
             <p className="text-muted-foreground max-w-2xl mx-auto">
               Our REST API makes it easy to connect any platform. Plus, as an
-              open-source solution, you can build custom integrations that fit
+              solution, you can build custom integrations that fit
               your exact workflow.
             </p>
             <div className="flex justify-center">

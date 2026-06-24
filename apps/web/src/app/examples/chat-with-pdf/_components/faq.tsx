@@ -15,7 +15,7 @@ const faqs = [
   {
     question: "How did you build this?",
     answer:
-      "I built this using Memora. It's an open source platform to create apps with RAG.",
+      "I built this using Memora. It's a platform to create apps with RAG.",
   },
   {
     question: "Do you store the PDFs I uploaded?",

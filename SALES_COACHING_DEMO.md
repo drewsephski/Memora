@@ -241,5 +241,4 @@ For questions about implementing this demo or integrating with Memora:
 
 - **Documentation**: [docs.memora.com](https://docs.memoralabs.dev)
 - **Discord**: [Join our community](https://discord.gg/MS9CjPeXF4)
-- **GitHub**: [memora/memora](https://github.com/memora-labs/memora)
 - **Email**: support@memora.com 

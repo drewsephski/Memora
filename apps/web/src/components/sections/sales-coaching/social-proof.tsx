@@ -25,7 +25,7 @@ const visionStatements = [
 
 const stats = [
   {
-    number: "Open-Source",
+    number: "Production Ready",
     label: "MIT licensed for transparency",
     icon: <Users className="h-6 w-6" />,
   },

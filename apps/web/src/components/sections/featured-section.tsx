@@ -14,7 +14,7 @@ export function FeaturedSection() {
             </span>
           </div>
           <p className="max-w-[600px] text-muted-foreground text-base">
-            A flexible, open-source alternative to closed RAG systems, giving
+            A flexible alternative to closed RAG systems, giving
             developers full control without proprietary limitations.
           </p>
           <Link

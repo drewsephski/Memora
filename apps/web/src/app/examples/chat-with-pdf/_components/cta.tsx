@@ -20,7 +20,7 @@ export const CTA = () => {
           Build your AI app in minutes
         </h2>
         <div className="text-center text-muted-foreground mt-2 text-lg z-10">
-          {APP_NAME} is an open-source platform to create apps with RAG.
+          {APP_NAME} is a platform to create apps with RAG.
           <br />
           You can connect your data to AI in minutes.
         </div>

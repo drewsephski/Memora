@@ -69,7 +69,7 @@ export enum SUBSCRIPTION_TIER {
 export const siteConfig = {
   name: "Memora",
   companyName: "Memora Labs",
-  description: "The memory layer for your LLM — open-source context infrastructure.",
+  description: "The memory layer for your LLM — context infrastructure.",
   cta: "Get Started",
   url: process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000",
   keywords: [
@@ -77,17 +77,15 @@ export const siteConfig = {
     "Context API",
     "Vector Search",
     "LLM Memory",
-    "Open Source",
   ],
   links: {
     twitter: "https://x.com/memoralabs",
     discord: "https://discord.gg/MS9CjPeXF4",
-    github: "https://github.com/memora-labs/memora",
   },
   hero: {
     title: "Bring your data. Memora remembers the rest.",
     description:
-      "Ingest calls, docs, or tickets in minutes and retrieve laser-accurate context for any LLM. Open-source, multi-tenant, and production-ready.",
+      "Ingest calls, docs, or tickets in minutes and retrieve laser-accurate context for any LLM. Multi-tenant and production-ready.",
     cta: "Get Started",
   },
   whyMemora: [
@@ -222,10 +220,6 @@ export const siteConfig = {
   ],
   footer: {
     socialLinks: [
-      {
-        icon: <Icons.github className="size-5" />,
-        url: "https://github.com/memora-labs/memora",
-      },
       {
         icon: <Icons.twitter className="size-5" />,
         url: "https://x.com/memoralabs",

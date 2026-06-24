@@ -8,7 +8,6 @@ const stats = [
     title: "600+",
     subtitle: "Stars on GitHub",
     icon: <Icons.github className="size-5" />,
-    link: "https://github.com/memora-labs/memora",
   },
   {
     title: "200k+",
@@ -37,8 +36,8 @@ export function Statistics() {
         <div className="grid grid-cols-1 sm:grid-cols-3">
           {stats.map((stat) => (
             <a
-              href={stat.link}
-              key={stat.link}
+              href={stat.link || "#"}
+              key={stat.title}
               target="_blank"
               className="flex flex-col items-center justify-center py-8 px-4 border-b sm:border-b-0 last:border-b-0 sm:border-r sm:last:border-r-0 [&:nth-child(-n+2)]:border-t-0 sm:[&:nth-child(-n+3)]:border-t-0 relative group overflow-hidden"
             >

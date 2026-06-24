@@ -51,7 +51,7 @@ function SalesCoachingHeroTitles() {
         Upload a Zoom or Fireflies transcript and, in seconds, Memora surfaces
         wins, objections, next steps, and coaching cues—so your agency spends
         more time closing and less time replaying recordings. All powered by our
-        open-source RAG engine—deploy in your own VPC or use ours.
+        RAG engine—deploy in your own VPC or use ours.
       </motion.p>
     </div>
   );

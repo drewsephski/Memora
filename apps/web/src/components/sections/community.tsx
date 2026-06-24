@@ -38,7 +38,7 @@ export function Community({ className }: { className?: string }) {
         <Ripple />
         <div className="p-6 text-center py-12">
           <p className="text-muted-foreground mb-6 text-balance max-w-prose mx-auto font-medium">
-            We&apos;re grateful for the amazing open-source community that helps
+            We&apos;re grateful for the amazing community that helps
             make our project better every day.
           </p>
           <div className="flex justify-center -space-x-6 mb-8">
@@ -63,9 +63,9 @@ export function Community({ className }: { className?: string }) {
               variant="secondary"
               className="flex items-center gap-2"
             >
-              <a target="_blank" href={siteConfig.links.github}>
-                <Icons.github className="h-5 w-5" />
-                Become a contributor
+              <a target="_blank" href={siteConfig.links.discord}>
+                <Icons.discord className="h-5 w-5" />
+                Join our community
               </a>
             </Button>
           </div>

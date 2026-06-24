@@ -14,7 +14,7 @@ This guide will help you set up Memora locally for development.
 1. Clone the repository
 
 ```bash
-git clone https://github.com/memora-labs/memora.git
+git clone https://github.com/drewsephski/Memora.git
 cd memora
 ```
 
@@ -167,7 +167,7 @@ bun install --force
 
 If you need help or have questions:
 
-1. Check the existing [issues](https://github.com/memora-labs/memora/issues)
+1. Check the existing [issues](https://github.com/drewsephski/Memora/issues)
 2. Create a new issue if your problem hasn't been addressed
 
 ## Contributing

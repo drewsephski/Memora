@@ -1,6 +1,6 @@
-# Memora - The open source RAG as a Service platform
+# Memora - RAG as a Service platform
 
-> Turn any private data into instant context for the LLM you already use. Open-source, scalable RAG platform built on Supabase with self-host or cloud options.
+> Turn any private data into instant context for the LLM you already use. Scalable RAG platform built on Supabase with self-host or cloud options.
 
 Memora is a production-ready RAG (Retrieval-Augmented Generation) API that helps AI agencies, SaaS engineers, and enterprise teams integrate their data with any LLM. Upload calls, docs, or tickets in minutes and retrieve laser-accurate context at query time.
 

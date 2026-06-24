@@ -49,7 +49,7 @@ const solutions = [
   },
   {
     icon: <Shield className="h-6 w-6" />,
-    title: "Self-host or SaaS—open-source, SOC-2 path, full VPC deploy option",
+    title: "Self-host or SaaS—SOC-2 path, full VPC deploy option",
     description: "Complete control over your data and deployment",
   },
 ];

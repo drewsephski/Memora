@@ -83,24 +83,15 @@ export default function TermsOfService() {
 
         <h3 className="text-xl font-semibold mb-3">4.1 RAG Platform</h3>
         <p className="mb-4">
-          Memora is an open-source Retrieval-Augmented Generation (RAG)
+          Memora is a Retrieval-Augmented Generation (RAG)
           platform that helps developers integrate AI with their data. Users can
           upload documents via API and query them using natural language.
         </p>
 
-        <h3 className="text-xl font-semibold mb-3">
-          4.2 Open Source and Self-Hosting
-        </h3>
-        <p className="mb-4">
-          Our core technology is available as open source software under the MIT
-          license. You may use the open-source version for self-hosting
-          according to the terms of the MIT license.
-        </p>
-
-        <h3 className="text-xl font-semibold mb-3">4.3 Cloud Service</h3>
+        <h3 className="text-xl font-semibold mb-3">4.2 Cloud Service</h3>
         <p className="mb-4">
           We also offer a cloud-hosted version of the Service that provides
-          additional features and capabilities beyond the open-source version.
+          additional features and capabilities.
         </p>
       </section>
 
@@ -175,22 +166,7 @@ export default function TermsOfService() {
           intellectual property laws.
         </p>
 
-        <h3 className="text-xl font-semibold mb-3">7.2 Open Source Software</h3>
-        <p className="mb-4">
-          Portions of our software are available under the MIT license, the
-          terms of which are available at{" "}
-          <a
-            href="https://opensource.org/licenses/MIT"
-            className="text-blue-600 hover:underline"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            https://opensource.org/licenses/MIT
-          </a>
-          .
-        </p>
-
-        <h3 className="text-xl font-semibold mb-3">7.3 Feedback</h3>
+        <h3 className="text-xl font-semibold mb-3">7.2 Feedback</h3>
         <p className="mb-4">
           If you provide us with feedback about the Service, you grant us a
           perpetual, irrevocable, worldwide, royalty-free license to use that

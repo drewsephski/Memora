@@ -2,10 +2,10 @@
   <img width="1000" alt="Memora" src="https://github.com/user-attachments/assets/76e2c674-d683-487c-bf02-ac8bccf19e69" />
 </p>
 
-# [Memora](https://memoralabs.dev) by Memora Labs — The open-source alternative to Carbon.ai. Build powerful RAG applications with any data source, at any scale.
+# [Memora](https://memoralabs.dev) by Memora Labs — Build powerful RAG applications with any data source, at any scale.
 
-> ⚡ OSS RAG-as-a-Service by [Memora Labs](https://memoralabs.dev) — spin up vector search + chat API in <5 min  
-> 📈 630▲ on Product Hunt · 620⭐ on GitHub  
+> ⚡ RAG-as-a-Service by [Memora Labs](https://memoralabs.dev) — spin up vector search + chat API in <5 min  
+> 📈 630▲ on Product Hunt  
 > _Formerly Supavec_
 
 [![](https://dcbadge.limes.pink/api/server/https://discord.gg/MS9CjPeXF4)](https://discord.gg/MS9CjPeXF4)
@@ -22,7 +22,7 @@ https://memoralabs.dev
 
 ## Related repositories
 
-- [taishikato/memora-python-api](https://github.com/memora-labs/memora-python-api)
+- [drewsephski/Memora Python API](https://github.com/drewsephski/memora-python-api)
 
 ## Built with
 
@@ -34,7 +34,7 @@ https://memoralabs.dev
 
 ## API docs
 
-https://github.com/memora-labs/memora/blob/main/packages/api/README.md
+https://github.com/drewsephski/Memora/blob/main/packages/api/README.md
 
 
 

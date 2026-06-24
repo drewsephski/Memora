@@ -16,7 +16,7 @@ import { Statistics } from "@/components/sections/statistics";
 
 export const metadata: Metadata = {
   description:
-    "The open-source alternative to Carbon.ai. Build powerful RAG applications with any data source, at any scale.",
+    "Build powerful RAG applications with any data source, at any scale.",
 };
 
 export default async function Home() {

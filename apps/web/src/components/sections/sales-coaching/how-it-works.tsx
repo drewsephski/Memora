@@ -21,7 +21,7 @@ const steps = [
     icon: <Layers className="h-8 w-8" />,
     title: "Chunk & Retrieve",
     description:
-      "Memora's open-source RAG slices by speaker, batches turns, indexes instantly",
+      "Memora's RAG slices by speaker, batches turns, indexes instantly",
     details:
       "Advanced speaker diarization and context-aware chunking for maximum accuracy.",
     color: "from-purple-500 to-pink-500",

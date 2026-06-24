@@ -1,11 +1,11 @@
-# Memora - The open source RAG as a service platform llms-full.txt
+# Memora - RAG as a service platform
 
 ## Memora: RAG API Service
-[![Memora - The open source RAG as a service platform | Product Hunt](https://api.producthunt.com/widgets/embed-image/v1/top-post-badge.svg?post_id=871672&theme=neutral&period=daily&t=1739785669388)](https://www.producthunt.com/posts/memora?embed=true&utm_source=badge-top-post-badge&utm_medium=badge&utm_souce=badge-memora)
+[![Memora - RAG as a service platform | Product Hunt](https://api.producthunt.com/widgets/embed-image/v1/top-post-badge.svg?post_id=871672&theme=neutral&period=daily&t=1739785669388)](https://www.producthunt.com/posts/memora?embed=true&utm_source=badge-top-post-badge&utm_medium=badge&utm_souce=badge-memora)
 
 # Bring Your Own Data to Any LLM—Instant RAG API
 
-Ingest calls, docs, or tickets in minutes and retrieve laser-accurate context at query time. Open-source, scalable, and ready for production.
+Ingest calls, docs, or tickets in minutes and retrieve laser-accurate context at query time. Scalable, and ready for production.
 
 [Get Started](https://memoralabs.dev/login)
 
@@ -58,13 +58,12 @@ Start for free | View documentation
 
 ## Statistics
 
-- Stars on GitHub: https://github.com/memora-labs/memora
 - Embeddings generated: Available via login
 - Discord Members: https://discord.gg/MS9CjPeXF4
 
 ## Pricing
 
-Simple pricing for every developer. Choose a plan that fits your API usage needs, from experimenting to building production-ready applications with Memora's powerful vector embedding capabilities.
+Simple pricing for every developer. Choose a plan that fits your API usage needs, from experimenting to building production-ready applications.
 
 ### Free Plan
 $0/year
@@ -93,9 +92,7 @@ $1,490/year ($124.17/month when billed yearly)
 
 ## Community
 
-We're grateful for the amazing open-source community that helps make our project better every day. Contributors include Neco, Marie Otaki, Blair Bodnar, Magio, and Taishi kato.
-
-[Become a contributor](https://github.com/memora-labs/memora)
+We're grateful for the amazing community that helps make our project better every day. Contributors include Neco, Marie Otaki, Blair Bodnar, Magio, and Taishi kato.
 
 ## Frequently Asked Questions
 
@@ -172,7 +169,7 @@ Welcome to Memora. These Terms of Service govern your access to and use of the M
 To use certain features, you must register for an account. You agree to provide accurate, current, and complete information and maintain account security. The Service is not intended for individuals under 18.
 
 ### 4. Service Description
-Memora is an open-source RAG platform that helps developers integrate AI with their data. Users can upload documents via API and query them using natural language. Our core technology is available as open source under the MIT license, with a cloud-hosted version offering additional features.
+Memora helps developers integrate AI with their data. Users can upload documents via API and query them using natural language.
 
 ### 5. Pricing and Payment
 We offer a free tier with limited features and paid subscription plans with additional features. All payments are non-refundable except as expressly set forth in these Terms.
@@ -260,7 +257,6 @@ Contact us at hello@memoralabs.dev or https://discord.gg/MS9CjPeXF4 for question
 
 - Email: hello@memoralabs.dev
 - Discord: https://discord.gg/MS9CjPeXF4
-- GitHub: https://github.com/memora-labs/memora
 - Website: https://memoralabs.dev
 
-Memora is the open-source alternative to Carbon AI, built with Supabase, Bun, Next.js, Vercel, Railway, and TypeScript. We make it easy to connect your data to AI through our open-source RAG platform. 
+Built with Supabase, Bun, Next.js, Vercel, Railway, and TypeScript. We make it easy to connect your data to AI. 

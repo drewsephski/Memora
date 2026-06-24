@@ -66,13 +66,12 @@ export function Footer({ className }: { className?: string }) {
       <div className="border-t pt-8 pb-4">
         <div className="text-center max-w-4xl mx-auto">
           <p className="text-sm text-muted-foreground leading-relaxed">
-            <strong className="text-foreground">Memora</strong> is an
-            open-source Retrieval-Augmented Generation (RAG) platform built on
+            <strong className="text-foreground">Memora</strong> is a
+            Retrieval-Augmented Generation (RAG) platform built on
             Supabase row-level security. Our RAG-as-a-Service API enables
             developers to integrate their own data with any LLM, providing
             secure, scalable document embedding and retrieval capabilities for
-            AI applications. Unlike proprietary solutions, Memora offers full
-            transparency and control over your RAG infrastructure.
+            AI applications.
           </p>
         </div>
       </div>

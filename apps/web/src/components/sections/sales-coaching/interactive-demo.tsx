@@ -366,7 +366,7 @@ export function SalesCoachingInteractiveDemo() {
                     <p className="text-sm text-blue-700 dark:text-blue-300">
                       This demo uses the actual Memora RAG engine. Your
                       transcript is chunked, embedded, and queried using our
-                      open-source infrastructure—the same system you&apos;ll
+                      infrastructure—the same system you&apos;ll
                       deploy in production.
                     </p>
                   </div>

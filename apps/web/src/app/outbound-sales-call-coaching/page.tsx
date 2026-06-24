@@ -6,7 +6,6 @@ import { SalesCoachingInteractiveDemo } from "@/components/sections/sales-coachi
 import { SalesCoachingBenefits } from "@/components/sections/sales-coaching/benefits";
 import { SalesCoachingIntegrations } from "@/components/sections/sales-coaching/integrations";
 import { SalesCoachingSocialProof } from "@/components/sections/sales-coaching/social-proof";
-import { SalesCoachingOpenSource } from "@/components/sections/sales-coaching/open-source";
 import { SalesCoachingFAQ } from "@/components/sections/sales-coaching/faq";
 import { SalesCoachingCTA } from "@/components/sections/sales-coaching/cta";
 import { Header } from "@/components/sections/header";
@@ -29,7 +28,6 @@ export default async function SalesCoachingPage() {
       <SalesCoachingBenefits />
       <SalesCoachingIntegrations />
       <SalesCoachingSocialProof />
-      <SalesCoachingOpenSource />
       <SalesCoachingFAQ />
       <SalesCoachingCTA />
       <Footer />
