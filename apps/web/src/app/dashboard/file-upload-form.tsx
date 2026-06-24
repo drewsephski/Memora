@@ -53,9 +53,21 @@ export function FileUploadForm({
       formData.append("file", files[0]);
 
       const response = await submitFile(formData);
+      const result = response instanceof Response
+        ? await response.json().catch(() => null)
+        : response;
 
-      if (response.success === false) {
-        throw new Error(response.error);
+      if (
+        (response instanceof Response && !response.ok) ||
+        result?.success === false
+      ) {
+        throw new Error(
+          result?.error ||
+            result?.message ||
+            `Failed to upload file${response instanceof Response
+              ? ` (${response.status})`
+              : ""}`,
+        );
       }
 
       setFiles([]);

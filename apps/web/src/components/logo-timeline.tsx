@@ -94,11 +94,6 @@ export function LogoTimeline() {
             src="/logo-timeline/basecamp.svg"
             className="[animation-delay:-45s] [animation-duration:45s]"
           />
-          <Logo
-            label="Community"
-            src="/logo-timeline/discord.svg"
-            className="[animation-delay:-23s] [animation-duration:45s]"
-          />
         </Row>
         <Row>
           <Logo

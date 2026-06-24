@@ -158,13 +158,18 @@ export const uploadFile = async (
       );
 
       console.log("[UPLOAD-FILE] Inserting file record");
-      await supabase.from("files").insert({
+      const { error: fileInsertError } = await supabase.from("files").insert({
         file_id: fileId,
         type: `${isTextFile ? "text" : isMarkdownFile ? "markdown" : "pdf"}`,
         file_name: fileName,
         team_id: teamId,
         storage_path: storageData.path,
       });
+
+      if (fileInsertError) {
+        throw new Error(`Failed to insert file record: ${fileInsertError.message}`);
+      }
+
       console.log("[UPLOAD-FILE] File record inserted");
 
       // Update Loops contact

@@ -15,6 +15,7 @@ export function getMemoraApiKey(): string {
 export function getMemoraApiUrl(fallback = "https://api.memoralabs.dev"): string {
   return (
     process.env.MEMORA_API_URL ??
+    process.env.NEXT_PUBLIC_API_URL ??
     process.env[LEGACY_MEMORA_API_URL] ??
     fallback
   );
