@@ -21,6 +21,21 @@ import { validateRequestMiddleware as validateUploadTextRequestMiddleware } from
 
 export const router: IRouter = Router();
 
+const healthResponse = () => ({
+  status: "ok",
+  service: "memora-api",
+  uptime: process.uptime(),
+  timestamp: new Date().toISOString(),
+});
+
+router.get("/", (_req, res) => {
+  res.status(200).json(healthResponse());
+});
+
+router.get("/healthz", (_req, res) => {
+  res.status(200).json(healthResponse());
+});
+
 router.post(
   "/upload_file",
   apiKeyAuth(),

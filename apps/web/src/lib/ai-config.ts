@@ -1,5 +1,5 @@
 export const OPENROUTER_CHAT_MODEL =
-  process.env.OPENROUTER_CHAT_MODEL ?? "google/gemini-2.0-flash";
+  process.env.OPENROUTER_CHAT_MODEL ?? "google/gemini-2.5-flash-lite";
 
 export function getOpenRouterApiKey(): string {
   const apiKey = process.env.OPENROUTER_API_KEY;

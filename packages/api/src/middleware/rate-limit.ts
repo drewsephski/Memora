@@ -13,6 +13,10 @@ const ratelimit = new Ratelimit({
 
 export const rateLimit = () => {
   return async (req: Request, res: Response, next: NextFunction) => {
+    if (req.method === "GET" && (req.path === "/" || req.path === "/healthz")) {
+      return next();
+    }
+
     const ip = req.ip ?? req.socket?.remoteAddress;
     console.log(`Request from IP: ${ip}`);
 

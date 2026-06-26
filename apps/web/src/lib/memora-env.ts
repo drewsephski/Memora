@@ -28,7 +28,3 @@ export function getMemoraApiUrl(fallback = "https://api.memoralabs.dev"): string
 
   return normalizeLocalApiUrl(url);
 }
-
-export function getPublicMemoraApiUrl(): string {
-  return getMemoraApiUrl();
-}

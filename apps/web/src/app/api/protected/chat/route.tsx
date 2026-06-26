@@ -1,7 +1,6 @@
-import { type Message, createDataStreamResponse, streamText } from "ai";
+import type { Message } from "ai";
 
 import { getMostRecentUserMessage } from "@/lib/utils";
-import { getChatModel } from "@/lib/openrouter";
 import { getMemoraApiUrl } from "@/lib/memora-env";
 
 const MEMORA_API_URL = getMemoraApiUrl();
@@ -27,7 +26,7 @@ export async function POST(request: Request) {
     return new Response("No file selected", { status: 400 });
   }
 
-  const searchResponse = await fetch(`${MEMORA_API_URL}/search`, {
+  const chatResponse = await fetch(`${MEMORA_API_URL}/chat`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -36,41 +35,29 @@ export async function POST(request: Request) {
     body: JSON.stringify({
       query: userMessage.content,
       file_ids: [selectedFile],
+      stream: true,
     }),
   });
 
-  if (!searchResponse.ok) {
-    const errorText = await searchResponse.text();
-    console.error("Search API error:", errorText);
-    return new Response(errorText || "Failed to search documents", {
-      status: searchResponse.status,
+  if (!chatResponse.ok) {
+    const errorText = await chatResponse.text();
+    console.error("Chat API error:", errorText);
+    return new Response(errorText || "Failed to chat with documents", {
+      status: chatResponse.status,
     });
   }
 
-  const searchResults = (await searchResponse.json()) as {
-    documents: { content: string }[];
-  };
+  if (!chatResponse.body) {
+    return new Response("Chat API returned an empty response", { status: 502 });
+  }
 
-  return createDataStreamResponse({
-    execute: (dataStream) => {
-      const result = streamText({
-        model: getChatModel(),
-        system:
-          "You are a helpful assistant that can answer questions and help with tasks.\n\nRelevant context from the document:\n" +
-          searchResults.documents
-            .map((doc) => doc.content)
-            .join("\n"),
-        messages,
-      });
-
-      result.consumeStream();
-
-      result.mergeIntoDataStream(dataStream, {
-        sendReasoning: true,
-      });
-    },
-    onError: () => {
-      return "An error occurred while generating the response.";
+  return new Response(chatResponse.body, {
+    status: chatResponse.status,
+    headers: {
+      "Content-Type":
+        chatResponse.headers.get("content-type") ??
+        "text/plain; charset=utf-8",
+      "Cache-Control": "no-cache, no-transform",
     },
   });
 }

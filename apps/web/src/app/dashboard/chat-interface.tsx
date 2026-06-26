@@ -17,7 +17,6 @@ import {
 import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
 import { useScrollToBottom } from "./use-scroll-to-bottom";
-import { getPublicMemoraApiUrl } from "@/lib/memora-env";
 
 type SearchResult = {
   success: boolean;
@@ -73,16 +72,16 @@ export function ChatInterface({
   }, [selectedFile, setMessages]);
 
   const fetchSearchResults = async (query: string) => {
-    const response = await fetch(`${getPublicMemoraApiUrl()}/search`, {
+    const response = await fetch("/api/protected/search", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: apiKey,
       },
       body: JSON.stringify({
         query,
-        file_ids: [selectedFile],
-        include_embeddings: true,
+        apiKey,
+        selectedFile,
+        includeEmbeddings: true,
       }),
     });
 
