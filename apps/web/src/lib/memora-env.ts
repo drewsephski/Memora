@@ -5,11 +5,7 @@ const LEGACY_MEMORA_API_KEY = "SUPAVEC_API_KEY";
 const LEGACY_MEMORA_API_URL = "SUPAVEC_API_URL";
 
 export function getMemoraApiKey(): string {
-  return (
-    process.env.MEMORA_API_KEY ??
-    process.env[LEGACY_MEMORA_API_KEY] ??
-    ""
-  );
+  return process.env.MEMORA_API_KEY ?? process.env[LEGACY_MEMORA_API_KEY] ?? "";
 }
 
 function normalizeLocalApiUrl(url: string): string {
@@ -19,7 +15,9 @@ function normalizeLocalApiUrl(url: string): string {
   return url.replace("://localhost", "://127.0.0.1");
 }
 
-export function getMemoraApiUrl(fallback = "https://api.memoralabs.dev"): string {
+export function getMemoraApiUrl(
+  fallback = "https://memora-api-drew.fly.dev",
+): string {
   const url =
     process.env.MEMORA_API_URL ??
     process.env.NEXT_PUBLIC_API_URL ??

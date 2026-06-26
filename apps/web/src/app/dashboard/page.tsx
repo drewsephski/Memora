@@ -24,6 +24,7 @@ import { Button } from "@/components/ui/button";
 import { Link } from "@/components/link";
 import { UsageCard } from "@/components/usage-card";
 import { RetrievalWorkbench } from "./retrieval-workbench";
+import { TryChatButton } from "./try-chat-button";
 
 export const metadata: Metadata = {
   robots: "noindex, nofollow",
@@ -117,12 +118,18 @@ export default async function Page() {
             </div>
             {Array.isArray(apiKeys) && apiKeys?.length > 0 && (
               <div className="mt-8 flex flex-col gap-4">
-                <div className="flex flex-col gap-1 px-1">
-                  <h3 className="text-xl font-semibold">Retrieval Workbench</h3>
-                  <p className="text-sm text-muted-foreground">
-                    Upload content, inspect retrieved chunks, and keep chat for
-                    conversational testing.
-                  </p>
+                <div className="flex flex-col gap-3 px-1 md:flex-row md:items-end md:justify-between">
+                  <div className="space-y-1">
+                    <h3 className="text-xl font-semibold">
+                      Retrieval Workbench
+                    </h3>
+                    <p className="max-w-2xl text-sm text-muted-foreground">
+                      Upload content, inspect retrieved chunks, then try the
+                      same knowledge in chat when you are ready to test the
+                      answer experience.
+                    </p>
+                  </div>
+                  <TryChatButton />
                 </div>
                 <div className="min-h-[50vh] flex-1 rounded-xl border bg-muted/30 p-4 md:min-h-min">
                   <Tabs defaultValue="upload" className="space-y-4">
@@ -154,7 +161,10 @@ export default async function Page() {
                   uploadedFiles={uploadedFiles}
                   apiKey={apiKeys[0].api_key!}
                 />
-                <div className="min-h-[50vh] flex-1 rounded-xl border bg-muted/30 p-3 md:min-h-min">
+                <div
+                  id="dashboard-chat"
+                  className="scroll-mt-20 min-h-[50vh] flex-1 rounded-xl border bg-muted/30 p-3 md:min-h-min"
+                >
                   <ChatInterface
                     uploadedFiles={uploadedFiles}
                     apiKey={apiKeys[0].api_key!}

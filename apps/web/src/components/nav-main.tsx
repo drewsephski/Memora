@@ -9,19 +9,26 @@ import {
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
 import Link from "next/link";
-import type { ForwardRefExoticComponent, RefAttributes } from "react";
+import type {
+  ForwardRefExoticComponent,
+  MouseEvent,
+  RefAttributes,
+} from "react";
+
+type NavMainItem = {
+  title: string;
+  url: string;
+  icon?: LucideIcon;
+  isExternal: boolean;
+  isActive?: boolean;
+  scrollTargetId?: string;
+};
 
 export function NavMain({
   items,
   team,
 }: {
-  items: {
-    title: string;
-    url: string;
-    icon?: LucideIcon;
-    isExternal: boolean;
-    isActive?: boolean;
-  }[];
+  items: NavMainItem[];
   team: {
     name: string;
     logo: ForwardRefExoticComponent<
@@ -30,6 +37,25 @@ export function NavMain({
     plan: string;
   };
 }) {
+  const handleItemClick = (
+    event: MouseEvent<HTMLAnchorElement>,
+    item: NavMainItem,
+  ) => {
+    if (!item.scrollTargetId) {
+      return;
+    }
+
+    const target = document.getElementById(item.scrollTargetId);
+
+    if (!target) {
+      return;
+    }
+
+    event.preventDefault();
+    window.history.pushState(null, "", item.url);
+    target.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
+
   return (
     <SidebarGroup>
       <SidebarGroupLabel>{team.name}</SidebarGroupLabel>
@@ -44,6 +70,7 @@ export function NavMain({
               <Link
                 href={item.url}
                 target={item.isExternal ? "_blank" : undefined}
+                onClick={(event) => handleItemClick(event, item)}
               >
                 {item.icon && <item.icon />}
                 <span>{item.title}</span>

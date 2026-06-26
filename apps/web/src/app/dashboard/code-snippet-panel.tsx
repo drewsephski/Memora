@@ -5,6 +5,7 @@ import { Check, Copy } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { HighlightedCodeBlock } from "./highlighted-code-block";
 import type { RetrievalSearchRequest } from "./workbench-types";
 
 type CodeSnippetPanelProps = {
@@ -39,16 +40,14 @@ function SnippetBlock({ label, value }: { label: string; value: string }) {
           {copied ? <Check className="size-4" /> : <Copy className="size-4" />}
         </Button>
       </div>
-      <pre className="max-h-[320px] overflow-auto p-3 text-xs leading-5">
-        <code>{value}</code>
-      </pre>
+      <HighlightedCodeBlock code={value} preClassName="max-h-[320px]" />
     </div>
   );
 }
 
 export function CodeSnippetPanel({ request }: CodeSnippetPanelProps) {
   const apiUrl =
-    process.env.NEXT_PUBLIC_API_URL ?? "https://api.memoralabs.dev";
+    process.env.NEXT_PUBLIC_API_URL ?? "https://memora-api-drew.fly.dev";
   const rawApiRequest = useMemo(
     () => ({
       query: request.query || "How does this document answer my question?",

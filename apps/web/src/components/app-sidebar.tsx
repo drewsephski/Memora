@@ -3,6 +3,7 @@
 import * as React from "react";
 import {
   BookOpen,
+  MessageCircle,
   SquareTerminal,
   GalleryVerticalEnd,
   Settings,
@@ -75,6 +76,13 @@ export function AppSidebar({
         url: "/dashboard",
         icon: SquareTerminal,
         isActive: isDashboardActive,
+      },
+      {
+        isExternal: false,
+        title: "Chat",
+        url: "/dashboard#dashboard-chat",
+        icon: MessageCircle,
+        scrollTargetId: "dashboard-chat",
       },
       {
         isExternal: false,
