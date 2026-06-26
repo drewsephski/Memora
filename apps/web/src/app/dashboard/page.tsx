@@ -23,6 +23,7 @@ import { ChatInterface } from "./chat-interface";
 import { Button } from "@/components/ui/button";
 import { Link } from "@/components/link";
 import { UsageCard } from "@/components/usage-card";
+import { RetrievalWorkbench } from "./retrieval-workbench";
 
 export const metadata: Metadata = {
   robots: "noindex, nofollow",
@@ -33,7 +34,7 @@ export default async function Page() {
   const { data } = await supabase
     .from("profiles")
     .select(
-      "id, name, email, onboarding_at, stripe_is_subscribed, stripe_subscribed_product_id, last_usage_reset_at"
+      "id, name, email, onboarding_at, stripe_is_subscribed, stripe_subscribed_product_id, last_usage_reset_at",
     )
     .single();
 
@@ -89,8 +90,8 @@ export default async function Page() {
               Welcome to Memora Beta
             </h2>
             <p className="max-w-2xl text-sm text-muted-foreground">
-              Generate your API key, upload documents, and test retrieval in the
-              playground.
+              Generate your API key, upload documents, and inspect retrieval
+              before wiring it into your product.
             </p>
           </div>
           <div className="min-h-[100vh] flex-1 rounded-xl md:min-h-min">
@@ -117,9 +118,10 @@ export default async function Page() {
             {Array.isArray(apiKeys) && apiKeys?.length > 0 && (
               <div className="mt-8 flex flex-col gap-4">
                 <div className="flex flex-col gap-1 px-1">
-                  <h3 className="text-xl font-semibold">Playground</h3>
+                  <h3 className="text-xl font-semibold">Retrieval Workbench</h3>
                   <p className="text-sm text-muted-foreground">
-                    Upload content, then ask questions against a selected file.
+                    Upload content, inspect retrieved chunks, and keep chat for
+                    conversational testing.
                   </p>
                 </div>
                 <div className="min-h-[50vh] flex-1 rounded-xl border bg-muted/30 p-4 md:min-h-min">
@@ -148,6 +150,10 @@ export default async function Page() {
                     </TabsContent>
                   </Tabs>
                 </div>
+                <RetrievalWorkbench
+                  uploadedFiles={uploadedFiles}
+                  apiKey={apiKeys[0].api_key!}
+                />
                 <div className="min-h-[50vh] flex-1 rounded-xl border bg-muted/30 p-3 md:min-h-min">
                   <ChatInterface
                     uploadedFiles={uploadedFiles}

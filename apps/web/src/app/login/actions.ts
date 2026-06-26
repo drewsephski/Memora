@@ -4,16 +4,17 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { createClient } from "@/utils/supabase/server";
 import { headers } from "next/headers";
+import { getAuthCallbackUrl, getRequestOrigin } from "@/lib/auth-redirect";
 
 export async function googleLogin() {
   const supabase = await createClient();
   const headersList = await headers();
-  const origin = headersList.get("origin");
+  const origin = getRequestOrigin(headersList);
 
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider: "google",
     options: {
-      redirectTo: `${origin}/auth/callback`,
+      redirectTo: getAuthCallbackUrl(origin),
     },
   });
 

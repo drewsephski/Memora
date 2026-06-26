@@ -16,7 +16,7 @@ import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { siteConfig } from "@/lib/config";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
-import { Check, Copy, Sparkles } from "lucide-react";
+import { ArrowUpRight, Check, Copy, Sparkles } from "lucide-react";
 import { AuthCtaLink } from "@/components/auth-cta-link";
 import { lazy, type ReactNode, Suspense, useEffect, useState } from "react";
 import { toast } from "sonner";
@@ -437,6 +437,15 @@ function HeroCTA() {
             </div>
           </Tabs>
         </div>
+        <a
+          href="https://ragbase.dev"
+          target="_blank"
+          rel="noreferrer"
+          className="mt-3 inline-flex items-center gap-1.5 text-sm font-medium text-muted-foreground underline-offset-4 transition-colors hover:text-foreground hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+        >
+          Not sure how this works? Try a real Ragbase demo for free.
+          <ArrowUpRight className="h-3.5 w-3.5" aria-hidden="true" />
+        </a>
       </motion.div>
     </div>
   );

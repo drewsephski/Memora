@@ -1,9 +1,11 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/utils/supabase/server";
+import { getPostAuthRedirectUrl } from "@/lib/auth-redirect";
 
 export async function GET(request: Request) {
   const requestUrl = new URL(request.url);
   const code = requestUrl.searchParams.get("code");
+  const origin = requestUrl.origin;
 
   const supabase = await createClient();
 
@@ -15,7 +17,8 @@ export async function GET(request: Request) {
     data: { user },
   } = await supabase.auth.getUser();
 
-  if (!user) return NextResponse.redirect(`${requestUrl.origin}/login`);
+  if (!user)
+    return NextResponse.redirect(getPostAuthRedirectUrl("/login", origin));
 
-  return NextResponse.redirect(`${requestUrl.origin}/dashboard`);
+  return NextResponse.redirect(getPostAuthRedirectUrl("/dashboard", origin));
 }
