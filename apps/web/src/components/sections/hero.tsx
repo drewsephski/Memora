@@ -22,19 +22,37 @@ import { toast } from "sonner";
 
 const ease = [0.16, 1, 0.3, 1];
 const MEMORA_API_EXAMPLE_URL = "https://memora-api-drew.fly.dev";
-const HERO_COMMAND = `API_KEY="YOUR_MEMORA_API_KEY"
-
-UPLOAD_RESPONSE=$(curl -s -X POST ${MEMORA_API_EXAMPLE_URL}/upload_text \\
-  -H "Authorization: $API_KEY" \\
+const HERO_COMMAND = `# 1. Upload context
+curl -X POST ${MEMORA_API_EXAMPLE_URL}/upload_text \\
+  -H "Authorization: YOUR_API_KEY" \\
   -H "Content-Type: application/json" \\
-  -d '{"name":"quickstart","contents":"Memora stores context for my LLM app."}')
+  -d '{"contents":"Memora stores context for my LLM app."}'
 
-FILE_ID=$(echo "$UPLOAD_RESPONSE" | jq -r '.file_id')
+# 2. Search it with the returned file_id
+curl -X POST ${MEMORA_API_EXAMPLE_URL}/search \\
+  -H "Authorization: YOUR_API_KEY" \\
+  -H "Content-Type: application/json" \\
+  -d '{"query":"What does Memora store?","file_ids":["FILE_ID"],"k":3}'`;
+
+const AGENT_PROMPT = `Help me get started with Memora.
+
+Keep it simple. Ask one question at a time.
+
+Goal: upload my first text, capture the returned file_id, then search it.
+
+Use this example and explain each part:
+
+curl -X POST ${MEMORA_API_EXAMPLE_URL}/upload_text \\
+  -H "Authorization: YOUR_API_KEY" \\
+  -H "Content-Type: application/json" \\
+  -d '{"contents":"Memora stores context for my LLM app."}'
+
+Then use the returned file_id here:
 
 curl -X POST ${MEMORA_API_EXAMPLE_URL}/search \\
-  -H "Authorization: $API_KEY" \\
+  -H "Authorization: YOUR_API_KEY" \\
   -H "Content-Type: application/json" \\
-  -d '{"query":"What does Memora store?","file_ids":["'"$FILE_ID"'"],"k":3}'`;
+  -d '{"query":"What does Memora store?","file_ids":["FILE_ID"],"k":3}'`;
 
 async function copyTextToClipboard(text: string) {
   if (navigator.clipboard?.writeText) {
@@ -65,29 +83,6 @@ async function copyTextToClipboard(text: string) {
     document.body.removeChild(textArea);
   }
 }
-
-const AGENT_PROMPT = `You are an AI agent helping me get started with Memora.
-
-I am not technical, so keep the instructions simple and step by step.
-
-First, explain the fastest way to try Memora with my own content.
-Then, if I want to test the API directly, show me this two-step request and explain what each part does:
-
-API_KEY="YOUR_MEMORA_API_KEY"
-
-UPLOAD_RESPONSE=$(curl -s -X POST ${MEMORA_API_EXAMPLE_URL}/upload_text \\
-  -H "Authorization: $API_KEY" \\
-  -H "Content-Type: application/json" \\
-  -d '{"name":"quickstart","contents":"Memora stores context for my LLM app."}')
-
-FILE_ID=$(echo "$UPLOAD_RESPONSE" | jq -r '.file_id')
-
-curl -X POST ${MEMORA_API_EXAMPLE_URL}/search \\
-  -H "Authorization: $API_KEY" \\
-  -H "Content-Type: application/json" \\
-  -d '{"query":"What does Memora store?","file_ids":["'"$FILE_ID"'"],"k":3}'
-
-Ask me one question at a time and help me get to a working first test.`;
 
 function HeroTitles() {
   return (
@@ -173,7 +168,7 @@ function HeroCTA() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 1.0, duration: 0.8, ease }}
       >
-        <div className="rounded-lg border bg-muted/50 p-4 text-sm font-mono">
+        <div className="rounded-lg border bg-muted/50 p-4 font-mono text-[11px] leading-5">
           <div className="mb-2 flex items-center justify-between gap-3">
             <div className="text-xs font-medium text-muted-foreground">
               GET STARTED IN SECONDS
@@ -208,7 +203,7 @@ function HeroCTA() {
                 </DialogHeader>
 
                 <div className="rounded-lg border bg-muted/40 p-4">
-                  <pre className="max-h-[48vh] overflow-auto whitespace-pre-wrap font-mono text-sm leading-relaxed text-foreground">
+                  <pre className="max-h-[48vh] overflow-auto whitespace-pre-wrap font-mono text-xs leading-5 text-foreground">
                     {AGENT_PROMPT}
                   </pre>
                 </div>

@@ -11,19 +11,15 @@ Ingest calls, docs, or tickets in minutes and retrieve laser-accurate context at
 GET STARTED IN SECONDS
 
 ```
-API_KEY="YOUR_MEMORA_API_KEY"
-
-UPLOAD_RESPONSE=$(curl -s -X POST https://memora-api-drew.fly.dev/upload_text \
-  -H "Authorization: $API_KEY" \
+curl -X POST https://memora-api-drew.fly.dev/upload_text \
+  -H "Authorization: YOUR_API_KEY" \
   -H "Content-Type: application/json" \
-  -d '{"name":"quickstart","contents":"Memora stores context for my LLM app."}')
-
-FILE_ID=$(echo "$UPLOAD_RESPONSE" | jq -r '.file_id')
+  -d '{"contents":"Memora stores context for my LLM app."}'
 
 curl -X POST https://memora-api-drew.fly.dev/search \
-  -H "Authorization: $API_KEY" \
+  -H "Authorization: YOUR_API_KEY" \
   -H "Content-Type: application/json" \
-  -d '{"query":"What does Memora store?","file_ids":["'"$FILE_ID"'"],"k":3}'
+  -d '{"query":"What does Memora store?","file_ids":["FILE_ID"],"k":3}'
 ```
 
 ## Use Cases
