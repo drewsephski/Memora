@@ -9,6 +9,7 @@
     "dev": "bun --watch src/server.ts",
     "start": "bun run src/server.ts",
     "lint": "eslint \"src/**/*.ts\"",
+    "test:smoke": "bun run scripts/smoke-test.ts",
     "clean": "rm -rf .turbo node_modules dist"
   },
   "dependencies": {
