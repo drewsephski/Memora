@@ -10,13 +10,39 @@ import {
 } from "@/components/ui/card";
 import { CheckCircle } from "lucide-react";
 import Link from "next/link";
+import { redirect } from "next/navigation";
+import { syncCheckoutSessionSubscription } from "@/lib/billing";
+import { createClient } from "@/utils/supabase/server";
 
 export const metadata = {
   title: "Subscription Successful",
   description: "Your subscription has been successfully activated",
 };
 
-export default function SubscriptionSuccessPage() {
+type SubscriptionSuccessPageProps = {
+  searchParams: Promise<{
+    session_id?: string;
+  }>;
+};
+
+export default async function SubscriptionSuccessPage({
+  searchParams,
+}: SubscriptionSuccessPageProps) {
+  const { session_id: sessionId } = await searchParams;
+
+  if (sessionId) {
+    const supabase = await createClient();
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+
+    if (!user) {
+      redirect("/login");
+    }
+
+    await syncCheckoutSessionSubscription(sessionId, user.id);
+  }
+
   return (
     <div className="container max-w-6xl py-10">
       <div className="flex flex-col items-center justify-center space-y-6 text-center">

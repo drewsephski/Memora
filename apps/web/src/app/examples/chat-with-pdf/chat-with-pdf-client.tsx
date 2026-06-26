@@ -18,6 +18,7 @@ import { useChat } from "ai/react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { usePostHog } from "posthog-js/react";
 import { FileUploadForm } from "@/app/dashboard/file-upload-form";
+import { DeleteConfirmationDialog } from "@/components/delete-confirmation-dialog";
 
 export default function ChatWithPDFClient() {
   const posthog = usePostHog();
@@ -162,14 +163,28 @@ export default function ChatWithPDFClient() {
                 <p className="text-sm text-green-700 font-medium flex-1">
                   Uploaded: {fileName}
                 </p>
-                <Button
-                  size="sm"
-                  variant="ghost"
-                  onClick={removeFile}
-                  className="h-8 w-8 p-0"
-                >
-                  <X className="h-4 w-4" />
-                </Button>
+                <DeleteConfirmationDialog
+                  title="Remove uploaded document?"
+                  description={
+                    <p>
+                      This clears <span className="font-medium">{fileName}</span>{" "}
+                      from this demo chat and resets the current conversation.
+                    </p>
+                  }
+                  confirmLabel="Remove document"
+                  pendingLabel="Removing..."
+                  trigger={
+                    <Button
+                      size="sm"
+                      variant="ghost"
+                      className="h-8 w-8 p-0"
+                      aria-label={`Remove ${fileName}`}
+                    >
+                      <X className="h-4 w-4" />
+                    </Button>
+                  }
+                  onConfirm={removeFile}
+                />
               </div>
             </div>
           )}

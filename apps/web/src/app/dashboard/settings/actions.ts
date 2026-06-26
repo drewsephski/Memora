@@ -2,10 +2,7 @@
 
 import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
-import initStripe from "stripe";
-
-// @ts-expect-error - Stripe is not typed
-const stripe = initStripe(process.env.STRIPE_SECRET_KEY);
+import { stripe } from "@/lib/stripe";
 
 export async function createStripePortalLink() {
   try {
@@ -27,8 +24,12 @@ export async function createStripePortalLink() {
       redirect("/dashboard/settings?error=user_data_fetch_error");
     }
 
+    if (!userData?.stripe_customer_id) {
+      redirect("/dashboard/settings?error=missing_stripe_customer");
+    }
+
     const { url } = await stripe.billingPortal.sessions.create({
-      customer: userData?.stripe_customer_id,
+      customer: userData.stripe_customer_id,
       return_url: `${process.env.NEXT_PUBLIC_APP_URL}/dashboard/settings`,
     });
 

@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { File, Trash2, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { DeleteConfirmationDialog } from "@/components/delete-confirmation-dialog";
 import { toast } from "sonner";
 import type { Tables } from "@/types/supabase";
 
@@ -14,11 +15,7 @@ export function FileListItem({ file, apiKey }: FileListItemProps) {
   const router = useRouter();
   const [isDeleting, setIsDeleting] = useState(false);
 
-  const handleDelete = async (fileId: string, fileName: string) => {
-    if (!window.confirm(`Are you sure you want to delete ${fileName}?`)) {
-      return;
-    }
-
+  const handleDelete = async (fileId: string) => {
     setIsDeleting(true);
     try {
       const response = await fetch(
@@ -57,6 +54,9 @@ export function FileListItem({ file, apiKey }: FileListItemProps) {
     }
   };
 
+  const fileId = file.file_id;
+  const fileName = file.file_name ?? "Untitled document";
+
   return (
     <li className="flex items-center justify-between bg-muted p-3 rounded-md">
       <div className="flex items-center space-x-3 w-full">
@@ -68,18 +68,38 @@ export function FileListItem({ file, apiKey }: FileListItemProps) {
               {file.file_id}
             </code>
           </div>
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={() => handleDelete(file.file_id!, file.file_name!)}
-            disabled={isDeleting}
-          >
-            {isDeleting ? (
-              <Loader2 className="size-5 text-muted-foreground animate-spin" />
-            ) : (
-              <Trash2 className="size-5 text-muted-foreground" />
-            )}
-          </Button>
+          <DeleteConfirmationDialog
+            title="Delete document?"
+            description={
+              <>
+                <p>
+                  This removes <span className="font-medium">{fileName}</span>{" "}
+                  from Memora and deletes its stored file and embeddings.
+                </p>
+                <p>You cannot undo this from the dashboard.</p>
+              </>
+            }
+            confirmLabel="Delete document"
+            trigger={
+              <Button
+                variant="ghost"
+                size="icon"
+                disabled={isDeleting || !fileId}
+                aria-label={`Delete ${fileName}`}
+              >
+                {isDeleting ? (
+                  <Loader2 className="size-5 text-muted-foreground animate-spin" />
+                ) : (
+                  <Trash2 className="size-5 text-muted-foreground" />
+                )}
+              </Button>
+            }
+            onConfirm={() => {
+              if (!fileId) return;
+
+              return handleDelete(fileId);
+            }}
+          />
         </div>
       </div>
     </li>

@@ -1,26 +1,19 @@
-import axios from "redaxios";
-import { loadStripe } from "@stripe/stripe-js";
-
 export const subscribe = async (priceId: string) => {
   try {
-    // @ts-expect-error - Stripe is not typed
-    const stripe = await loadStripe(process.env.NEXT_PUBLIC_STRIPE_KEY);
-
-    const { data } = await axios.post(
-      `${process.env.NEXT_PUBLIC_APP_URL}/api/protected/subscription/${priceId}`,
-      {
-        timeout: 10000,
-        headers: {
-          "Content-Type": "application/json",
-        },
+    const response = await fetch(`/api/protected/subscription/${priceId}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
       },
-    );
+    });
 
-    if (!data || !data.id) {
+    const data = await response.json();
+
+    if (!response.ok || !data?.url) {
       throw new Error("Invalid response from subscription API");
     }
 
-    await stripe?.redirectToCheckout({ sessionId: data.id });
+    window.location.assign(data.url);
   } catch (err) {
     throw new Error((err as Error).message);
   }

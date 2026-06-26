@@ -1,14 +1,11 @@
-import initStripe from "stripe";
+import { getOrCreateStripeCustomer } from "@/lib/billing";
+import { isAllowedStripePriceId, stripe } from "@/lib/stripe";
 import { NextResponse } from "next/server";
 import { createClient } from "@/utils/supabase/server";
-import { supabaseAdmin } from "@/utils/supabase/admin";
-
-// @ts-expect-error - Stripe is not typed
-const stripe = initStripe(process.env.STRIPE_SECRET_KEY);
 
 export async function POST(
-  req: Request,
-  { params }: { params: Promise<{ priceId: string }> }
+  _req: Request,
+  { params }: { params: Promise<unknown> },
 ) {
   try {
     const supabase = await createClient();
@@ -25,7 +22,7 @@ export async function POST(
 
     const { data, error } = await supabase
       .from("profiles")
-      .select("stripe_customer_id")
+      .select("stripe_customer_id, name")
       .match({ id: user.id })
       .single();
 
@@ -37,75 +34,69 @@ export async function POST(
       );
     }
 
-    const priceId = (await params).priceId;
-    const lineItems = [
-      {
-        price: priceId,
-        quantity: 1,
-      },
-    ];
+    const routeParams = await params;
+    const priceId =
+      typeof routeParams === "object" &&
+      routeParams !== null &&
+      "priceId" in routeParams
+        ? String(routeParams.priceId)
+        : "";
 
-    let stripeCustomerId = data.stripe_customer_id ?? null;
-
-    if (!stripeCustomerId) {
-      // search if Stripe already has this customer on their end
-      const customers = await stripe.customers.search({
-        query: `email:'${user.email}'`,
-      });
-
-      if (customers.data.length === 0) {
-        console.log(
-          `This user ${user.id} doesn't exist on Stripe. Thus creating...`
-        );
-        const res = await stripe.customers.create({
-          email: user.email,
-        });
-
-        stripeCustomerId = res.id;
-      } else {
-        console.log(
-          `It seems this user ${user.id} exists on Stripe but the customer ID isn't exist on our Supabase DB. Thus it's going to use the existing Stripe customer ID instead of creating a new one.`
-        );
-        stripeCustomerId = customers.data[0].id;
-      }
-
-      console.log(`Save Stripe customer ID of this user ${user.id}`);
-      const { error: saveStripeCustomerIdError } = await supabaseAdmin
-        .from("profiles")
-        .update({
-          stripe_customer_id: stripeCustomerId,
-        })
-        .match({
-          id: user.id,
-        });
-
-      if (saveStripeCustomerIdError) {
-        console.error(
-          `saveStirpeCustomerIdError: ${saveStripeCustomerIdError.message}`
-        );
-
-        return NextResponse.json(
-          {
-            result: "error",
-            message: "Failed to save Stripe customer ID",
-          },
-          { status: 500 }
-        );
-      }
+    if (!isAllowedStripePriceId(priceId)) {
+      return NextResponse.json(
+        { result: "error", message: "Unknown subscription price" },
+        { status: 400 },
+      );
     }
+
+    const stripeCustomerId = await getOrCreateStripeCustomer({
+      userId: user.id,
+      email: user.email,
+      name: data.name,
+      existingCustomerId: data.stripe_customer_id,
+    });
+
+    const appUrl = process.env.NEXT_PUBLIC_APP_URL;
 
     console.log(`Creating Stripe checkout session for user ${user.id}`);
     const session = await stripe.checkout.sessions.create({
       customer: stripeCustomerId,
+      client_reference_id: user.id,
       mode: "subscription",
-      payment_method_types: ["card"],
-      line_items: lineItems,
-      success_url: `${process.env.NEXT_PUBLIC_APP_URL}/dashboard/settings/success`,
-      cancel_url: `${process.env.NEXT_PUBLIC_APP_URL}/pricing`,
+      line_items: [
+        {
+          price: priceId,
+          quantity: 1,
+        },
+      ],
+      success_url:
+        `${appUrl}/dashboard/settings/success?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${appUrl}/pricing`,
       allow_promotion_codes: true,
+      metadata: {
+        supabase_user_id: user.id,
+        stripe_price_id: priceId,
+      },
+      subscription_data: {
+        metadata: {
+          supabase_user_id: user.id,
+          stripe_price_id: priceId,
+        },
+      },
     });
 
-    return NextResponse.json({ result: "success", id: session.id });
+    if (!session.url) {
+      return NextResponse.json(
+        { result: "error", message: "Stripe did not return a checkout URL" },
+        { status: 500 },
+      );
+    }
+
+    return NextResponse.json({
+      result: "success",
+      id: session.id,
+      url: session.url,
+    });
   } catch (err) {
     return NextResponse.json(
       { result: "error", message: (err as Error)?.message ?? "" },

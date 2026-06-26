@@ -40,3 +40,5 @@ apps/web/**
 !apps/web/src
 !apps/web/src/types
 !apps/web/src/types/supabase.ts
+!packages/common/dist
+!packages/common/dist/**

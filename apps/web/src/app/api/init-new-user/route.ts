@@ -1,10 +1,7 @@
 import { supabaseAdmin } from "@/utils/supabase/admin";
 import { NextRequest, NextResponse } from "next/server";
 import axios from "redaxios";
-import initStripe from "stripe";
-
-// @ts-expect-error - Stripe is not typed
-const stripe = initStripe(process.env.STRIPE_SECRET_KEY!);
+import { stripe } from "@/lib/stripe";
 
 export async function POST(req: NextRequest) {
   const { searchParams } = new URL(req.url);
@@ -19,6 +16,10 @@ export async function POST(req: NextRequest) {
     // Stripe
     stripe.customers.create({
       email: reqJson.record.email,
+      name: reqJson.record.name ?? undefined,
+      metadata: {
+        supabase_user_id: reqJson.record.id,
+      },
     }),
 
     // Loops
