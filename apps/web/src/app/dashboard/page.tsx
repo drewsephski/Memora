@@ -83,12 +83,17 @@ export default async function Page() {
             )}
           </div>
         </header>
-        <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
-          <div className="rounded-xl p-4">
-            <h2 className="text-2xl font-bold mb-4">Welcome to Memora Beta</h2>
-            <p>Generate your API key to get started with Memora.</p>
+        <div className="flex flex-1 flex-col gap-5 p-4 pt-0">
+          <div className="rounded-xl px-1 py-4">
+            <h2 className="mb-2 text-2xl font-bold tracking-tight">
+              Welcome to Memora Beta
+            </h2>
+            <p className="max-w-2xl text-sm text-muted-foreground">
+              Generate your API key, upload documents, and test retrieval in the
+              playground.
+            </p>
           </div>
-          <div className="min-h-[100vh] flex-1 rounded-xl md:min-h-min p-4">
+          <div className="min-h-[100vh] flex-1 rounded-xl md:min-h-min">
             <div className="flex flex-col md:flex-row gap-4">
               <div className="p-4 rounded-xl border basis-full md:basis-1/2 bg-muted/10">
                 <h3 className="text-xl font-semibold mb-4">
@@ -110,9 +115,14 @@ export default async function Page() {
               />
             </div>
             {Array.isArray(apiKeys) && apiKeys?.length > 0 && (
-              <div className="flex gap-4 flex-col">
-                <h3 className="text-xl font-semibold mb-4 mt-8">Playground</h3>
-                <div className="min-h-[50vh] flex-1 rounded-xl bg-muted/50 md:min-h-min p-4 border">
+              <div className="mt-8 flex flex-col gap-4">
+                <div className="flex flex-col gap-1 px-1">
+                  <h3 className="text-xl font-semibold">Playground</h3>
+                  <p className="text-sm text-muted-foreground">
+                    Upload content, then ask questions against a selected file.
+                  </p>
+                </div>
+                <div className="min-h-[50vh] flex-1 rounded-xl border bg-muted/30 p-4 md:min-h-min">
                   <Tabs defaultValue="upload" className="space-y-4">
                     <TabsList>
                       <TabsTrigger value="upload">Upload files</TabsTrigger>
@@ -138,7 +148,7 @@ export default async function Page() {
                     </TabsContent>
                   </Tabs>
                 </div>
-                <div className="min-h-[50vh] flex-1 rounded-xl bg-muted/50 md:min-h-min p-4 border">
+                <div className="min-h-[50vh] flex-1 rounded-xl border bg-muted/30 p-3 md:min-h-min">
                   <ChatInterface
                     uploadedFiles={uploadedFiles}
                     apiKey={apiKeys[0].api_key!}

@@ -97,14 +97,22 @@ export function ChatInterface({
   const handleFileSelect = (file: string) => {
     setSelectedFile(file);
     setMessages([]);
+    setEmbeddingFromAPI(null);
   };
 
+  const selectedFileName =
+    uploadedFiles?.find((file) => file.file_id === selectedFile)?.file_name ??
+    null;
+  const embeddingPayload = embeddingFromAPI
+    ? JSON.stringify(embeddingFromAPI, null, 2)
+    : "";
+
   return (
-    <div className="grid grid-cols-2 gap-4 p-4 relative">
+    <div className="relative grid gap-4 lg:grid-cols-[minmax(0,1fr)_minmax(260px,360px)]">
       {(!uploadedFiles || uploadedFiles.length === 0) && (
-        <div className="absolute inset-0 bg-background/80 backdrop-blur-sm flex items-center justify-center z-10 rounded-lg">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full h-full p-4 md:p-8">
-            <div className="flex flex-col items-center justify-center border-2 border-dashed border-muted rounded-lg p-4">
+        <div className="absolute inset-0 z-10 flex items-center justify-center rounded-xl bg-background/80 backdrop-blur-sm">
+          <div className="grid h-full w-full grid-cols-1 gap-4 p-4 md:grid-cols-[minmax(0,1fr)_minmax(240px,320px)] md:p-8">
+            <div className="flex flex-col items-center justify-center rounded-lg border-2 border-dashed border-muted p-4">
               <MessageCircle className="size-8 text-muted-foreground mb-2" />
               <p className="text-lg font-medium text-muted-foreground">
                 Chat Interface
@@ -113,7 +121,7 @@ export function ChatInterface({
                 Upload files to start chatting with them using AI
               </p>
             </div>
-            <div className="flex flex-col items-center justify-center border-2 border-dashed border-muted rounded-lg p-4">
+            <div className="flex flex-col items-center justify-center rounded-lg border-2 border-dashed border-muted p-4">
               <Code className="size-8 text-muted-foreground mb-2" />
               <p className="text-lg font-medium text-muted-foreground">
                 Embedding Viewer
@@ -125,27 +133,36 @@ export function ChatInterface({
           </div>
         </div>
       )}
-      <Card className="col-span-2 md:col-span-1 h-[600px] flex flex-col bg-background">
-        <div className="p-4 border-b flex justify-between items-center">
-          <h2 className="text-lg font-semibold flex items-center gap-2">
-            <MessageCircle className="size-5" />
-            Chat with your files
-          </h2>
-          <Select onValueChange={handleFileSelect} value={selectedFile}>
-            <SelectTrigger className="w-[200px]">
-              <SelectValue placeholder="Choose a file" />
-            </SelectTrigger>
-            <SelectContent>
-              {uploadedFiles?.map((file) => (
-                <SelectItem key={file.id} value={file.file_id!}>
-                  {file.file_name}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
+      <Card className="flex h-[640px] min-w-0 flex-col overflow-hidden bg-background shadow-sm">
+        <div className="flex flex-col gap-3 border-b p-4 sm:flex-row sm:items-center sm:justify-between">
+          <div className="min-w-0">
+            <h2 className="flex items-center gap-2 text-lg font-semibold">
+              <MessageCircle className="size-5 shrink-0" />
+              Chat with your files
+            </h2>
+            <p className="mt-1 truncate text-sm text-muted-foreground">
+              {selectedFileName
+                ? selectedFileName
+                : "Choose a file to start a scoped conversation."}
+            </p>
+          </div>
+          <div className="shrink-0">
+            <Select onValueChange={handleFileSelect} value={selectedFile}>
+              <SelectTrigger className="w-full sm:w-[240px]">
+                <SelectValue placeholder="Choose a file" />
+              </SelectTrigger>
+              <SelectContent>
+                {uploadedFiles?.map((file) => (
+                  <SelectItem key={file.id} value={file.file_id!}>
+                    {file.file_name}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
         </div>
         <div
-          className="flex-1 p-4 h-full w-full rounded-[inherit] overflow-auto"
+          className="h-full w-full flex-1 overflow-auto rounded-[inherit] p-4"
           ref={messagesContainerRef}
         >
           {!selectedFile && (
@@ -163,7 +180,7 @@ export function ChatInterface({
                   className={`max-w-[80%] rounded-lg px-4 py-2 ${
                     message.role === "user"
                       ? "bg-primary text-primary-foreground"
-                      : "bg-muted"
+                      : "bg-muted text-foreground"
                   }`}
                 >
                   {message.content}
@@ -209,26 +226,27 @@ export function ChatInterface({
         </form>
       </Card>
 
-      <Card className="col-span-2 md:col-span-1 h-[600px] overflow-auto flex flex-col bg-background">
-        <div className="p-4 border-b">
-          <h2 className="text-lg font-semibold flex items-center gap-2">
-            <Code className="size-5" />
+      <Card className="flex h-[640px] min-w-0 flex-col overflow-hidden bg-background shadow-sm">
+        <div className="border-b p-3">
+          <h2 className="flex items-center gap-2 text-sm font-semibold">
+            <Code className="size-4 shrink-0" />
             Embedding data from API
           </h2>
+          <p className="mt-1 text-xs text-muted-foreground">
+            Raw matches returned for the latest query.
+          </p>
         </div>
-        <div className="flex-1">
-          <ScrollArea className="flex-1" scrollHideDelay={0}>
-            <div className="p-4">
+        <div className="min-h-0 flex-1">
+          <ScrollArea className="h-full" scrollHideDelay={0}>
+            <div className="p-3">
               {embeddingFromAPI ? (
-                <div className="font-mono text-sm bg-muted p-4 rounded-lg">
-                  <ScrollArea className="w-full whitespace-nowrap">
-                    <pre className="whitespace-pre">
-                      {JSON.stringify(embeddingFromAPI, null, 2)}
-                    </pre>
-                  </ScrollArea>
+                <div className="rounded-lg bg-muted p-3 font-mono text-[10px] leading-4 text-muted-foreground">
+                  <div className="overflow-x-auto">
+                    <pre className="whitespace-pre">{embeddingPayload}</pre>
+                  </div>
                 </div>
               ) : (
-                <div className="text-center text-muted-foreground p-4">
+                <div className="rounded-lg border border-dashed p-4 text-center text-xs text-muted-foreground">
                   Response from Memora embeddings API will be shown here.
                 </div>
               )}
