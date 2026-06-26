@@ -5,26 +5,31 @@ import { client } from "../utils/posthog";
 import { logApiUsageAsync } from "../utils/async-logger";
 import { supabase } from "../utils/supabase";
 import { storeDocumentsWithFileId } from "../utils/vector-store";
+import {
+  getApiKeyFromRequest,
+  type AuthenticatedRequest,
+} from "../middleware/auth";
 
-type ValidatedRequest = Request & {
-  body: {
-    validatedData: {
-      file_id: string;
-      contents: string;
-      name: string;
-      chunk_size: number;
-      chunk_overlap: number;
-      teamId: string;
-      apiKeyData: {
-        team_id: string;
-        user_id: string | null;
-        profiles: {
-          email: string | null;
-        } | null;
+type ValidatedRequest = Request &
+  AuthenticatedRequest & {
+    body: {
+      validatedData: {
+        file_id: string;
+        contents: string;
+        name: string;
+        chunk_size: number;
+        chunk_overlap: number;
+        teamId: string;
+        apiKeyData: {
+          team_id: string;
+          user_id: string | null;
+          profiles: {
+            email: string | null;
+          } | null;
+        };
       };
     };
   };
-};
 
 export const overwriteText = async (req: ValidatedRequest, res: Response) => {
   console.log("[OVERWRITE-TEXT] Request received");
@@ -167,10 +172,15 @@ export const overwriteText = async (req: ValidatedRequest, res: Response) => {
     });
 
     console.log("[OVERWRITE-TEXT] Splitting text into chunks");
-    const docs = await splitter.createDocuments([contents], [{
-      source: name,
-      file_id: file_id,
-    }]);
+    const docs = await splitter.createDocuments(
+      [contents],
+      [
+        {
+          source: name,
+          file_id: file_id,
+        },
+      ],
+    );
     console.log("[OVERWRITE-TEXT] Text split into chunks", {
       chunkCount: docs.length,
     });
@@ -228,8 +238,8 @@ export const overwriteText = async (req: ValidatedRequest, res: Response) => {
   } catch (error) {
     console.error("[OVERWRITE-TEXT] Error overwriting file:", error);
 
-    if (req.headers.authorization) {
-      const apiKey = req.headers.authorization as string;
+    const apiKey = getApiKeyFromRequest(req);
+    if (apiKey) {
       console.log("[OVERWRITE-TEXT] Attempting to log error with user ID");
       const { data: apiKeyData } = await supabase
         .from("api_keys")

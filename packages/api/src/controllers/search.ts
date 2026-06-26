@@ -1,10 +1,14 @@
 import { SupabaseVectorStore } from "@langchain/community/vectorstores/supabase";
-import { Request, Response } from "express";
+import { Response } from "express";
 import { z } from "zod";
 import { client } from "../utils/posthog";
 import { logApiUsageAsync } from "../utils/async-logger";
 import { supabase } from "../utils/supabase";
 import { createEmbeddings } from "../utils/embeddings";
+import {
+  getApiKeyFromRequest,
+  type AuthenticatedRequest,
+} from "../middleware/auth";
 
 type MatchDocumentResult = {
   id: number;
@@ -18,15 +22,14 @@ const searchSchema = z.object({
   query: z.string().min(1, "Query is required"),
   k: z.number().int().positive().default(3),
   include_embeddings: z.boolean().optional().default(false),
-  file_ids: z.array(z.string().uuid()).min(
-    1,
-    "At least one file ID is required",
-  ),
+  file_ids: z
+    .array(z.string().uuid())
+    .min(1, "At least one file ID is required"),
 });
 
 type SearchRequest = z.infer<typeof searchSchema>;
 
-async function validateRequest(req: Request): Promise<{
+async function validateRequest(req: AuthenticatedRequest): Promise<{
   success: boolean;
   data?: SearchRequest;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -56,7 +59,7 @@ async function validateRequest(req: Request): Promise<{
   });
 
   // Validate API key and get team ID
-  const apiKey = req.headers.authorization as string;
+  const apiKey = getApiKeyFromRequest(req);
   console.log("[SEARCH] Verifying API key");
   const { data: apiKeyData, error: apiKeyError } = await supabase
     .from("api_keys")
@@ -111,7 +114,7 @@ async function validateRequest(req: Request): Promise<{
   };
 }
 
-export const search = async (req: Request, res: Response) => {
+export const search = async (req: AuthenticatedRequest, res: Response) => {
   console.log("[SEARCH] Request received");
   try {
     const validation = await validateRequest(req);
@@ -135,15 +138,12 @@ export const search = async (req: Request, res: Response) => {
     });
 
     console.log("[SEARCH] Creating vector store");
-    const vectorStore = new SupabaseVectorStore(
-      createEmbeddings(),
-      {
-        client: supabase,
-        tableName: "documents",
-        queryName: "match_documents",
-        filter: { file_id: { in: file_ids } },
-      },
-    );
+    const vectorStore = new SupabaseVectorStore(createEmbeddings(), {
+      client: supabase,
+      tableName: "documents",
+      queryName: "match_documents",
+      filter: { file_id: { in: file_ids } },
+    });
 
     console.log("[SEARCH] Performing similarity search");
 
@@ -171,7 +171,7 @@ export const search = async (req: Request, res: Response) => {
         throw new Error(`Error in similarity search: ${error.message}`);
       }
 
-      const rawResults = data as MatchDocumentResult[] || [];
+      const rawResults = (data as MatchDocumentResult[]) || [];
 
       console.log("[SEARCH] Raw similarity search completed", {
         resultCount: rawResults.length,
@@ -184,19 +184,19 @@ export const search = async (req: Request, res: Response) => {
         embedding: result.embedding,
       }));
     } else {
-      const similaritySearchWithScoreResults = await vectorStore
-        .similaritySearchWithScore(query, k);
+      const similaritySearchWithScoreResults =
+        await vectorStore.similaritySearchWithScore(query, k);
       console.log("[SEARCH] Similarity search completed", {
         resultCount: similaritySearchWithScoreResults.length,
       });
 
-      documentsResponse = similaritySearchWithScoreResults.map((
-        [doc, score],
-      ) => ({
-        content: doc.pageContent,
-        file_id: doc.metadata.file_id,
-        score: score.toFixed(3),
-      }));
+      documentsResponse = similaritySearchWithScoreResults.map(
+        ([doc, score]) => ({
+          content: doc.pageContent,
+          file_id: doc.metadata.file_id,
+          score: score.toFixed(3),
+        }),
+      );
     }
 
     console.log("[SEARCH] Capturing PostHog event");
@@ -222,8 +222,8 @@ export const search = async (req: Request, res: Response) => {
   } catch (error) {
     console.error("[SEARCH] Error in search endpoint:", error);
 
-    if (req.headers.authorization) {
-      const apiKey = req.headers.authorization as string;
+    const apiKey = getApiKeyFromRequest(req);
+    if (apiKey) {
       console.log("[SEARCH] Attempting to log error with user ID");
       const { data: apiKeyData } = await supabase
         .from("api_keys")

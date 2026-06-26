@@ -6,24 +6,44 @@ export interface AuthenticatedRequest extends Request {
   userId?: string;
 }
 
+export function getApiKeyFromAuthorizationHeader(
+  authHeader: string | undefined,
+): string | undefined {
+  const value = authHeader?.trim();
+  if (!value) {
+    return undefined;
+  }
+
+  const bearerMatch = value.match(/^Bearer\s+(.+)$/i);
+  return (bearerMatch?.[1] ?? value).trim() || undefined;
+}
+
+export function getApiKeyFromRequest(req: AuthenticatedRequest) {
+  return (
+    req.apiKey ?? getApiKeyFromAuthorizationHeader(req.headers.authorization)
+  );
+}
+
 export const apiKeyAuth = () => {
   return async (
     req: AuthenticatedRequest,
     res: Response,
     next: NextFunction,
   ) => {
-    const authHeader = req.headers.authorization;
+    const apiKey = getApiKeyFromAuthorizationHeader(req.headers.authorization);
 
-    if (!authHeader) {
+    if (!apiKey) {
       return res.status(401).json({
         status: "error",
         message: "Missing API key in authorization header",
       });
     }
 
-    const { data, error } = await supabase.from("api_keys").select("id")
+    const { data, error } = await supabase
+      .from("api_keys")
+      .select("id")
       .match({
-        api_key: authHeader,
+        api_key: apiKey,
       })
       .single();
 
@@ -34,7 +54,7 @@ export const apiKeyAuth = () => {
       });
     }
 
-    req.apiKey = authHeader;
+    req.apiKey = apiKey;
     return next();
   };
 };

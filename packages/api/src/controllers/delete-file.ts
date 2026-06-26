@@ -2,17 +2,22 @@ import { Request, Response } from "express";
 import { client } from "../utils/posthog";
 import { logApiUsageAsync } from "../utils/async-logger";
 import { supabase } from "../utils/supabase";
+import {
+  getApiKeyFromRequest,
+  type AuthenticatedRequest,
+} from "../middleware/auth";
 
-type ValidatedRequest = Request & {
-  body: {
-    validatedData: {
-      file_id: string;
-      teamId: string;
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      apiKeyData: any;
+type ValidatedRequest = Request &
+  AuthenticatedRequest & {
+    body: {
+      validatedData: {
+        file_id: string;
+        teamId: string;
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        apiKeyData: any;
+      };
     };
   };
-};
 
 async function getFileData(fileId: string, teamId: string) {
   console.log("[DELETE-FILE] Fetching file data", { fileId, teamId });
@@ -67,8 +72,7 @@ export const deleteFile = async (req: ValidatedRequest, res: Response) => {
         console.log("[DELETE-FILE] Error deleting from storage", {
           error: deleteError,
         });
-        storageError =
-          `Failed to delete ${file.storage_path}: ${deleteError.message}`;
+        storageError = `Failed to delete ${file.storage_path}: ${deleteError.message}`;
       } else {
         console.log("[DELETE-FILE] File deleted from storage");
       }
@@ -132,8 +136,8 @@ export const deleteFile = async (req: ValidatedRequest, res: Response) => {
   } catch (error: unknown) {
     console.error("[DELETE-FILE] Error deleting file:", error);
 
-    if (req.headers.authorization) {
-      const apiKey = req.headers.authorization as string;
+    const apiKey = getApiKeyFromRequest(req);
+    if (apiKey) {
       console.log("[DELETE-FILE] Attempting to log error with user ID");
       const { data: apiKeyData } = await supabase
         .from("api_keys")

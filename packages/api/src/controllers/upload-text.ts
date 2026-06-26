@@ -7,7 +7,7 @@ import { logApiUsageAsync } from "../utils/async-logger";
 import { supabase } from "../utils/supabase";
 import { storeDocumentsWithFileId } from "../utils/vector-store";
 import { type Document } from "@langchain/core/documents";
-import { AuthenticatedRequest } from "../middleware/auth";
+import { AuthenticatedRequest, getApiKeyFromRequest } from "../middleware/auth";
 
 const DEFAULT_CHUNK_SIZE = 1000;
 const DEFAULT_CHUNK_OVERLAP = 200;
@@ -58,9 +58,8 @@ export const uploadText = async (
     });
 
     const fileId = randomUUID();
-    const fileName = segments && segments.length
-      ? `${fileId}.json`
-      : `${fileId}.txt`;
+    const fileName =
+      segments && segments.length ? `${fileId}.json` : `${fileId}.txt`;
     console.log("[UPLOAD-TEXT] Generated file ID", { fileId, fileName });
 
     // Decide how we will build the document array
@@ -69,17 +68,18 @@ export const uploadText = async (
 
     if (segments?.length) {
       console.log("[UPLOAD-TEXT] Using caller provided segments");
-      docs = segments.map((
-        seg: { content: string; metadata?: Record<string, unknown> },
-      ) => ({
-        pageContent: seg.content,
-        metadata: {
-          ...(seg.metadata ?? {}),
-          source: name,
-          file_id: fileId,
-        },
-      }));
-      storagePayload = segments.map((seg: { content: string }) => seg.content)
+      docs = segments.map(
+        (seg: { content: string; metadata?: Record<string, unknown> }) => ({
+          pageContent: seg.content,
+          metadata: {
+            ...(seg.metadata ?? {}),
+            source: name,
+            file_id: fileId,
+          },
+        }),
+      );
+      storagePayload = segments
+        .map((seg: { content: string }) => seg.content)
         .join("\n\n");
     } else {
       console.log(
@@ -89,9 +89,10 @@ export const uploadText = async (
         chunkSize: chunk_size ?? DEFAULT_CHUNK_SIZE,
         chunkOverlap: chunk_overlap ?? DEFAULT_CHUNK_OVERLAP,
       });
-      docs = await splitter.createDocuments([contents!], [
-        { source: name, file_id: fileId },
-      ]);
+      docs = await splitter.createDocuments(
+        [contents!],
+        [{ source: name, file_id: fileId }],
+      );
       storagePayload = contents!;
     }
     console.log("[UPLOAD-TEXT] Documents prepared", {
@@ -145,7 +146,9 @@ export const uploadText = async (
     });
 
     if (fileInsertError) {
-      throw new Error(`Failed to insert file record: ${fileInsertError.message}`);
+      throw new Error(
+        `Failed to insert file record: ${fileInsertError.message}`,
+      );
     }
 
     console.log("[UPLOAD-TEXT] File record inserted");
@@ -171,7 +174,8 @@ export const uploadText = async (
       properties: {
         file_name: fileName,
         file_type: "text",
-        file_size: contents?.length ||
+        file_size:
+          contents?.length ||
           segments?.reduce(
             (sum: number, seg: { content: string }) => sum + seg.content.length,
             0,
@@ -198,8 +202,8 @@ export const uploadText = async (
   } catch (error) {
     console.error("[UPLOAD-TEXT] Error processing text upload:", error);
 
-    if (req.headers.authorization) {
-      const apiKey = req.headers.authorization as string;
+    const apiKey = getApiKeyFromRequest(req);
+    if (apiKey) {
       console.log("[UPLOAD-TEXT] Attempting to log error with user ID");
       const { data: apiKeyData } = await supabase
         .from("api_keys")

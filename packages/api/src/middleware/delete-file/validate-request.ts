@@ -1,17 +1,14 @@
 import { z } from "zod";
 import type { NextFunction, Request, Response } from "express";
 import { supabase } from "../../utils/supabase";
+import { getApiKeyFromRequest, type AuthenticatedRequest } from "../auth";
 
 const requestSchema = z.object({
   file_id: z.string().uuid(),
 });
 
 export const validateRequestMiddleware = () => {
-  return async (
-    req: Request,
-    res: Response,
-    next: NextFunction,
-  ) => {
+  return async (req: Request, res: Response, next: NextFunction) => {
     try {
       const validation = requestSchema.safeParse(req.body);
       if (!validation.success) {
@@ -23,7 +20,7 @@ export const validateRequestMiddleware = () => {
       }
 
       const { file_id } = validation.data;
-      const apiKey = req.headers.authorization as string;
+      const apiKey = getApiKeyFromRequest(req as AuthenticatedRequest);
 
       const { data: apiKeyData, error: apiKeyError } = await supabase
         .from("api_keys")

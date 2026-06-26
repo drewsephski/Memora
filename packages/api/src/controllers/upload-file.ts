@@ -11,7 +11,7 @@ import { client } from "../utils/posthog";
 import { logApiUsageAsync } from "../utils/async-logger";
 import { supabase } from "../utils/supabase";
 import { storeDocumentsWithFileId } from "../utils/vector-store";
-import { AuthenticatedRequest } from "../middleware/auth";
+import { AuthenticatedRequest, getApiKeyFromRequest } from "../middleware/auth";
 
 type ValidatedUploadRequest = AuthenticatedRequest & {
   body: {
@@ -37,13 +37,8 @@ export const uploadFile = async (
 ) => {
   console.log("[UPLOAD-FILE] Request received");
   try {
-    const {
-      chunk_size,
-      chunk_overlap,
-      teamId,
-      apiKeyData,
-      file,
-    } = req.body.validatedData;
+    const { chunk_size, chunk_overlap, teamId, apiKeyData, file } =
+      req.body.validatedData;
 
     console.log("[UPLOAD-FILE] Using validated data", {
       teamId,
@@ -54,8 +49,8 @@ export const uploadFile = async (
     const buffer = file.buffer;
     const fileId = randomUUID();
     const isTextFile = file.mimetype === "text/plain";
-    const isMarkdownFile = file.mimetype === "text/markdown" ||
-      file.originalname.endsWith(".md");
+    const isMarkdownFile =
+      file.mimetype === "text/markdown" || file.originalname.endsWith(".md");
     const fileExtension = isTextFile ? "txt" : isMarkdownFile ? "md" : "pdf";
     const fileName = file.originalname;
     const tempFileName = `${fileId}.${fileExtension}`;
@@ -80,8 +75,8 @@ export const uploadFile = async (
         contentType: isTextFile
           ? "text/plain"
           : isMarkdownFile
-          ? "text/markdown"
-          : "application/pdf",
+            ? "text/markdown"
+            : "application/pdf",
         upsert: false,
       });
 
@@ -167,7 +162,9 @@ export const uploadFile = async (
       });
 
       if (fileInsertError) {
-        throw new Error(`Failed to insert file record: ${fileInsertError.message}`);
+        throw new Error(
+          `Failed to insert file record: ${fileInsertError.message}`,
+        );
       }
 
       console.log("[UPLOAD-FILE] File record inserted");
@@ -218,9 +215,8 @@ export const uploadFile = async (
       });
     } catch (vectorError) {
       console.log("[UPLOAD-FILE] Error processing vectors", {
-        error: vectorError instanceof Error
-          ? vectorError.message
-          : "Unknown error",
+        error:
+          vectorError instanceof Error ? vectorError.message : "Unknown error",
       });
       throw new Error(
         vectorError instanceof Error
@@ -231,8 +227,8 @@ export const uploadFile = async (
   } catch (error) {
     console.error("[UPLOAD-FILE] Error processing file:", error);
 
-    if (req.headers.authorization) {
-      const apiKey = req.headers.authorization as string;
+    const apiKey = getApiKeyFromRequest(req);
+    if (apiKey) {
       console.log("[UPLOAD-FILE] Attempting to log error with user ID");
       const { data: apiKeyData } = await supabase
         .from("api_keys")

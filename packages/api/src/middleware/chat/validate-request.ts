@@ -1,15 +1,14 @@
 import { z } from "zod";
 import type { NextFunction, Response } from "express";
 import { supabase } from "../../utils/supabase";
-import type { AuthenticatedRequest } from "../auth";
+import { getApiKeyFromRequest, type AuthenticatedRequest } from "../auth";
 
 const requestSchema = z.object({
   query: z.string().min(1, "Query is required"),
   k: z.number().int().positive().default(3),
-  file_ids: z.array(z.string().uuid()).min(
-    1,
-    "At least one file ID is required",
-  ),
+  file_ids: z
+    .array(z.string().uuid())
+    .min(1, "At least one file ID is required"),
   stream: z.boolean().default(false),
 });
 
@@ -45,7 +44,7 @@ export const validateRequestMiddleware = () => {
       }
 
       const { query, k, file_ids, stream } = validation.data;
-      const apiKey = req.headers.authorization;
+      const apiKey = getApiKeyFromRequest(req);
       if (!apiKey) {
         return res.status(401).json({
           success: false,

@@ -1,8 +1,12 @@
-import { Request, Response } from "express";
+import { Response } from "express";
 import { z } from "zod";
 import { client } from "../utils/posthog";
 import { logApiUsageAsync } from "../utils/async-logger";
 import { supabase } from "../utils/supabase";
+import {
+  getApiKeyFromRequest,
+  type AuthenticatedRequest,
+} from "../middleware/auth";
 
 const requestSchema = z.object({
   pagination: z
@@ -14,7 +18,7 @@ const requestSchema = z.object({
   order_dir: z.enum(["asc", "desc"]).default("desc"),
 });
 
-export const userFiles = async (req: Request, res: Response) => {
+export const userFiles = async (req: AuthenticatedRequest, res: Response) => {
   console.log("[USER-FILES] Request received", { body: req.body });
   try {
     const validation = requestSchema.safeParse(req.body);
@@ -34,7 +38,7 @@ export const userFiles = async (req: Request, res: Response) => {
     });
 
     // Get team ID from API key
-    const apiKey = req.headers.authorization as string;
+    const apiKey = getApiKeyFromRequest(req);
     console.log("[USER-FILES] Verifying API key");
     const { data: apiKeyData, error: apiKeyError } = await supabase
       .from("api_keys")
@@ -112,8 +116,8 @@ export const userFiles = async (req: Request, res: Response) => {
   } catch (error) {
     console.error("[USER-FILES] Error fetching user files:", error);
 
-    if (req.headers.authorization) {
-      const apiKey = req.headers.authorization as string;
+    const apiKey = getApiKeyFromRequest(req);
+    if (apiKey) {
       console.log("[USER-FILES] Attempting to log error with user ID");
       const { data: apiKeyData } = await supabase
         .from("api_keys")

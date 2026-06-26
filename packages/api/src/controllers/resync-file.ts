@@ -10,24 +10,29 @@ import { client } from "../utils/posthog";
 import { logApiUsageAsync } from "../utils/async-logger";
 import { supabase } from "../utils/supabase";
 import { storeDocumentsWithFileId } from "../utils/vector-store";
+import {
+  getApiKeyFromRequest,
+  type AuthenticatedRequest,
+} from "../middleware/auth";
 
-type ValidatedRequest = Request & {
-  body: {
-    validatedData: {
-      file_id: string;
-      chunk_size?: number;
-      chunk_overlap?: number;
-      teamId: string;
-      apiKeyData: {
-        user_id?: string;
-        profiles?: {
-          email?: string;
+type ValidatedRequest = Request &
+  AuthenticatedRequest & {
+    body: {
+      validatedData: {
+        file_id: string;
+        chunk_size?: number;
+        chunk_overlap?: number;
+        teamId: string;
+        apiKeyData: {
+          user_id?: string;
+          profiles?: {
+            email?: string;
+          };
+          [key: string]: unknown;
         };
-        [key: string]: unknown;
       };
     };
   };
-};
 
 async function getFileData(fileId: string, teamId: string) {
   console.log("[RESYNC-FILE] Fetching file data", { fileId, teamId });
@@ -198,9 +203,14 @@ export const resyncFile = async (req: ValidatedRequest, res: Response) => {
           }
         }
       } catch (error) {
-        documentsUpdateError = error instanceof Error ? error : new Error(
-          typeof error === "object" ? JSON.stringify(error) : String(error),
-        );
+        documentsUpdateError =
+          error instanceof Error
+            ? error
+            : new Error(
+                typeof error === "object"
+                  ? JSON.stringify(error)
+                  : String(error),
+              );
         console.log(
           `[RESYNC-FILE] Exception during document update (attempt ${
             retryCount + 1
@@ -282,9 +292,8 @@ export const resyncFile = async (req: ValidatedRequest, res: Response) => {
       });
     } catch (vectorError) {
       console.log("[RESYNC-FILE] Error processing vectors", {
-        error: vectorError instanceof Error
-          ? vectorError.message
-          : "Unknown error",
+        error:
+          vectorError instanceof Error ? vectorError.message : "Unknown error",
       });
       throw new Error(
         vectorError instanceof Error
@@ -295,8 +304,8 @@ export const resyncFile = async (req: ValidatedRequest, res: Response) => {
   } catch (error) {
     console.error("[RESYNC-FILE] Error resyncing file:", error);
 
-    if (req.headers.authorization) {
-      const apiKey = req.headers.authorization as string;
+    const apiKey = getApiKeyFromRequest(req);
+    if (apiKey) {
       console.log("[RESYNC-FILE] Attempting to log error with user ID");
       const { data: apiKeyData } = await supabase
         .from("api_keys")

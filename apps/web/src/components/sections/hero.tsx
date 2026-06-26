@@ -21,17 +21,71 @@ import { lazy, Suspense, useEffect, useState } from "react";
 import { toast } from "sonner";
 
 const ease = [0.16, 1, 0.3, 1];
+const MEMORA_API_EXAMPLE_URL = "https://memora-api-drew.fly.dev";
+const HERO_COMMAND = `API_KEY="YOUR_MEMORA_API_KEY"
+
+UPLOAD_RESPONSE=$(curl -s -X POST ${MEMORA_API_EXAMPLE_URL}/upload_text \\
+  -H "Authorization: $API_KEY" \\
+  -H "Content-Type: application/json" \\
+  -d '{"name":"quickstart","contents":"Memora stores context for my LLM app."}')
+
+FILE_ID=$(echo "$UPLOAD_RESPONSE" | jq -r '.file_id')
+
+curl -X POST ${MEMORA_API_EXAMPLE_URL}/search \\
+  -H "Authorization: $API_KEY" \\
+  -H "Content-Type: application/json" \\
+  -d '{"query":"What does Memora store?","file_ids":["'"$FILE_ID"'"],"k":3}'`;
+
+async function copyTextToClipboard(text: string) {
+  if (navigator.clipboard?.writeText) {
+    try {
+      await navigator.clipboard.writeText(text);
+      return;
+    } catch {
+      // Fall back below for browser contexts that expose but block Clipboard API.
+    }
+  }
+
+  const textArea = document.createElement("textarea");
+  textArea.value = text;
+  textArea.setAttribute("readonly", "");
+  textArea.style.position = "fixed";
+  textArea.style.top = "0";
+  textArea.style.left = "-9999px";
+  document.body.appendChild(textArea);
+  textArea.focus();
+  textArea.select();
+
+  try {
+    const copied = document.execCommand("copy");
+    if (!copied) {
+      throw new Error("Copy command failed");
+    }
+  } finally {
+    document.body.removeChild(textArea);
+  }
+}
+
 const AGENT_PROMPT = `You are an AI agent helping me get started with Memora.
 
 I am not technical, so keep the instructions simple and step by step.
 
 First, explain the fastest way to try Memora with my own content.
-Then, if I want to test the API directly, show me this request and explain what each part does:
+Then, if I want to test the API directly, show me this two-step request and explain what each part does:
 
-curl -X POST https://api.memoralabs.dev/upload_text \\
-  -H "Authorization: Bearer YOUR_KEY" \\
+API_KEY="YOUR_MEMORA_API_KEY"
+
+UPLOAD_RESPONSE=$(curl -s -X POST ${MEMORA_API_EXAMPLE_URL}/upload_text \\
+  -H "Authorization: $API_KEY" \\
   -H "Content-Type: application/json" \\
-  -d '{"contents": "your text here"}'
+  -d '{"name":"quickstart","contents":"Memora stores context for my LLM app."}')
+
+FILE_ID=$(echo "$UPLOAD_RESPONSE" | jq -r '.file_id')
+
+curl -X POST ${MEMORA_API_EXAMPLE_URL}/search \\
+  -H "Authorization: $API_KEY" \\
+  -H "Content-Type: application/json" \\
+  -d '{"query":"What does Memora store?","file_ids":["'"$FILE_ID"'"],"k":3}'
 
 Ask me one question at a time and help me get to a working first test.`;
 
@@ -85,7 +139,7 @@ function HeroCTA() {
 
   const handleCopyPrompt = async () => {
     try {
-      await navigator.clipboard.writeText(AGENT_PROMPT);
+      await copyTextToClipboard(AGENT_PROMPT);
       setCopied(true);
       toast.success("Agent prompt copied");
     } catch {
@@ -104,7 +158,7 @@ function HeroCTA() {
         <AuthCtaLink
           className={cn(
             buttonVariants({ variant: "default" }),
-            "w-full sm:w-auto text-background flex gap-2 rounded-lg"
+            "w-full sm:w-auto text-background flex gap-2 rounded-lg",
           )}
         >
           <Icons.logo className="h-6 w-6" />
@@ -177,10 +231,7 @@ function HeroCTA() {
             </Dialog>
           </div>
           <pre className="text-foreground whitespace-pre-wrap">
-            {`curl -X POST https://api.memoralabs.dev/upload_text \\
-  -H "Authorization: Bearer YOUR_KEY" \\
-  -H "Content-Type: application/json" \\
-  -d '{"contents": "your text here"}'`}
+            {HERO_COMMAND}
           </pre>
         </div>
       </motion.div>

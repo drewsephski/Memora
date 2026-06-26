@@ -1,34 +1,31 @@
 import { z } from "zod";
 import type { NextFunction, Request, Response } from "express";
 import { supabase } from "../../utils/supabase";
+import { getApiKeyFromRequest, type AuthenticatedRequest } from "../auth";
 
 const DEFAULT_CHUNK_SIZE = 1000;
 const DEFAULT_CHUNK_OVERLAP = 200;
 
-const requestSchema = z.object({
-  file_id: z.string().uuid(),
-  contents: z.string().min(5, "Content must be at least 5 characters long"),
-  name: z.string().min(1).optional().default("Untitled Document"),
-  chunk_size: z.number().positive().default(DEFAULT_CHUNK_SIZE),
-  chunk_overlap: z.number()
-    .positive()
-    .default(DEFAULT_CHUNK_OVERLAP),
-}).refine(
-  (data) => {
-    return data.chunk_overlap < data.chunk_size;
-  },
-  {
-    message: "chunk_overlap must be less than chunk_size",
-    path: ["chunk_overlap"],
-  },
-);
+const requestSchema = z
+  .object({
+    file_id: z.string().uuid(),
+    contents: z.string().min(5, "Content must be at least 5 characters long"),
+    name: z.string().min(1).optional().default("Untitled Document"),
+    chunk_size: z.number().positive().default(DEFAULT_CHUNK_SIZE),
+    chunk_overlap: z.number().positive().default(DEFAULT_CHUNK_OVERLAP),
+  })
+  .refine(
+    (data) => {
+      return data.chunk_overlap < data.chunk_size;
+    },
+    {
+      message: "chunk_overlap must be less than chunk_size",
+      path: ["chunk_overlap"],
+    },
+  );
 
 export const validateRequestMiddleware = () => {
-  return async (
-    req: Request,
-    res: Response,
-    next: NextFunction,
-  ) => {
+  return async (req: Request, res: Response, next: NextFunction) => {
     try {
       const validation = requestSchema.safeParse(req.body);
       if (!validation.success) {
@@ -41,7 +38,7 @@ export const validateRequestMiddleware = () => {
 
       const { file_id, contents, name, chunk_size, chunk_overlap } =
         validation.data;
-      const apiKey = req.headers.authorization as string;
+      const apiKey = getApiKeyFromRequest(req as AuthenticatedRequest);
 
       const { data: apiKeyData, error: apiKeyError } = await supabase
         .from("api_keys")

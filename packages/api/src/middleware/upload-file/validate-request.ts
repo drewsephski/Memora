@@ -1,31 +1,28 @@
 import { z } from "zod";
 import type { NextFunction, Request, Response } from "express";
 import { supabase } from "../../utils/supabase";
+import { getApiKeyFromRequest, type AuthenticatedRequest } from "../auth";
 
 const DEFAULT_CHUNK_SIZE = 1000;
 const DEFAULT_CHUNK_OVERLAP = 200;
 
-const uploadQuerySchema = z.object({
-  chunk_size: z.coerce.number().positive().default(DEFAULT_CHUNK_SIZE),
-  chunk_overlap: z.coerce.number()
-    .positive()
-    .default(DEFAULT_CHUNK_OVERLAP),
-}).refine(
-  (data) => {
-    return data.chunk_overlap < data.chunk_size;
-  },
-  {
-    message: "chunk_overlap must be less than chunk_size",
-    path: ["chunk_overlap"],
-  },
-);
+const uploadQuerySchema = z
+  .object({
+    chunk_size: z.coerce.number().positive().default(DEFAULT_CHUNK_SIZE),
+    chunk_overlap: z.coerce.number().positive().default(DEFAULT_CHUNK_OVERLAP),
+  })
+  .refine(
+    (data) => {
+      return data.chunk_overlap < data.chunk_size;
+    },
+    {
+      message: "chunk_overlap must be less than chunk_size",
+      path: ["chunk_overlap"],
+    },
+  );
 
 export const validateRequestMiddleware = () => {
-  return async (
-    req: Request,
-    res: Response,
-    next: NextFunction,
-  ) => {
+  return async (req: Request, res: Response, next: NextFunction) => {
     try {
       // Validate query parameters
       const queryValidation = uploadQuerySchema.safeParse(req.query);
@@ -38,7 +35,7 @@ export const validateRequestMiddleware = () => {
       }
 
       const { chunk_size, chunk_overlap } = queryValidation.data;
-      const apiKey = req.headers.authorization as string;
+      const apiKey = getApiKeyFromRequest(req as AuthenticatedRequest);
 
       // Validate API key and get team data
       const { data: apiKeyData, error: apiKeyError } = await supabase

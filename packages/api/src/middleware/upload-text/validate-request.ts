@@ -1,52 +1,48 @@
 import { z } from "zod";
 import type { NextFunction, Request, Response } from "express";
 import { supabase } from "../../utils/supabase";
+import { getApiKeyFromRequest, type AuthenticatedRequest } from "../auth";
 
 const DEFAULT_CHUNK_SIZE = 1000;
 const DEFAULT_CHUNK_OVERLAP = 200;
 
-const uploadTextSchema = z.object({
-  // OPTION A – raw text
-  contents: z.string().min(5, "Content must be at least 5 characters long")
-    .optional(),
+const uploadTextSchema = z
+  .object({
+    // OPTION A – raw text
+    contents: z
+      .string()
+      .min(5, "Content must be at least 5 characters long")
+      .optional(),
 
-  // OPTION B – caller‑provided, already‑chunked segments
-  segments: z.array(
-    z.object({
-      content: z.string().min(1),
-      metadata: z.record(z.any()).optional(),
-    }),
-  ).optional(),
+    // OPTION B – caller‑provided, already‑chunked segments
+    segments: z
+      .array(
+        z.object({
+          content: z.string().min(1),
+          metadata: z.record(z.any()).optional(),
+        }),
+      )
+      .optional(),
 
-  name: z.string().min(1).optional().default("Untitled Document"),
+    name: z.string().min(1).optional().default("Untitled Document"),
 
-  // legacy split knobs (only used when `contents` is present)
-  chunk_size: z.number().positive().default(DEFAULT_CHUNK_SIZE),
-  chunk_overlap: z.number().positive().default(DEFAULT_CHUNK_OVERLAP),
-})
+    // legacy split knobs (only used when `contents` is present)
+    chunk_size: z.number().positive().default(DEFAULT_CHUNK_SIZE),
+    chunk_overlap: z.number().positive().default(DEFAULT_CHUNK_OVERLAP),
+  })
   // require ONE of contents or segments
-  .refine(
-    (d) => Boolean(d.contents) !== Boolean(d.segments),
-    {
-      message:
-        "Must provide either `contents` (raw text) or `segments` (pre-chunked), but not both.",
-    },
-  )
+  .refine((d) => Boolean(d.contents) !== Boolean(d.segments), {
+    message:
+      "Must provide either `contents` (raw text) or `segments` (pre-chunked), but not both.",
+  })
   // overlap rule only matters when splitting raw contents
-  .refine(
-    (d) => !d.contents || d.chunk_overlap < d.chunk_size,
-    {
-      message: "chunk_overlap must be less than chunk_size",
-      path: ["chunk_overlap"],
-    },
-  );
+  .refine((d) => !d.contents || d.chunk_overlap < d.chunk_size, {
+    message: "chunk_overlap must be less than chunk_size",
+    path: ["chunk_overlap"],
+  });
 
 export const validateRequestMiddleware = () => {
-  return async (
-    req: Request,
-    res: Response,
-    next: NextFunction,
-  ) => {
+  return async (req: Request, res: Response, next: NextFunction) => {
     try {
       // Validate body parameters
       const bodyValidation = uploadTextSchema.safeParse(req.body);
@@ -58,7 +54,7 @@ export const validateRequestMiddleware = () => {
         });
       }
 
-      const apiKey = req.headers.authorization as string;
+      const apiKey = getApiKeyFromRequest(req as AuthenticatedRequest);
 
       // Validate API key and get team data
       const { data: apiKeyData, error: apiKeyError } = await supabase

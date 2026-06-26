@@ -11,10 +11,19 @@ Ingest calls, docs, or tickets in minutes and retrieve laser-accurate context at
 GET STARTED IN SECONDS
 
 ```
-curl -X POST https://api.memoralabs.dev/upload_text \
-  -H "Authorization: Bearer YOUR_KEY" \
+API_KEY="YOUR_MEMORA_API_KEY"
+
+UPLOAD_RESPONSE=$(curl -s -X POST https://memora-api-drew.fly.dev/upload_text \
+  -H "Authorization: $API_KEY" \
   -H "Content-Type: application/json" \
-  -d '{"contents": "your text here"}'
+  -d '{"name":"quickstart","contents":"Memora stores context for my LLM app."}')
+
+FILE_ID=$(echo "$UPLOAD_RESPONSE" | jq -r '.file_id')
+
+curl -X POST https://memora-api-drew.fly.dev/search \
+  -H "Authorization: $API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"query":"What does Memora store?","file_ids":["'"$FILE_ID"'"],"k":3}'
 ```
 
 ## Use Cases
@@ -64,21 +73,27 @@ Start for free | View documentation
 Simple pricing for every developer. Choose a plan that fits your API usage needs, from experimenting to building production-ready applications.
 
 ### Free Plan
+
 $0/year
+
 - 100 API calls per month
 - All supported file types
 - 5 requests per minute
 - Community support
 
 ### Basic Plan (Most Popular)
+
 $190/year ($15.83/month when billed yearly)
+
 - 750 API calls per month
 - All supported file types
 - 15 requests per minute
 - Email support
 
 ### Enterprise Plan
+
 $1,490/year ($124.17/month when billed yearly)
+
 - 5,000 API calls per month
 - 50 requests per minute
 - Priority processing
@@ -95,15 +110,19 @@ We're grateful for the amazing community that helps make our project better ever
 ## Frequently Asked Questions
 
 ### How does the 14-day refund policy work?
+
 If you're not satisfied with our service for any reason, simply contact our support team within 14 days of your purchase for a full refund. No questions asked.
 
 ### Can I switch between plans?
+
 Yes, you can upgrade or downgrade your plan at any time. When upgrading, you'll be prorated for the remainder of your billing cycle. When downgrading, changes will take effect at the start of your next billing cycle.
 
 ### Do you offer team discounts?
+
 Yes, we offer special pricing for teams of 5 or more. Contact our sales team for more information about team discounts and enterprise plans.
 
 ### What payment methods do you accept?
+
 We accept all major credit cards, PayPal, and bank transfers for annual plans. All payments are securely processed and your information is never stored on our servers.
 
 ## Sales Coaching AI Example
@@ -117,20 +136,24 @@ Upload a PDF document to chat with it and get instant answers powered by Memora 
 ## Blog Posts
 
 ### Memora Performance Update: 90,000x Faster Queries
+
 March 20, 2025 • Taishi
 
 We recently made a significant database optimization to Memora that has dramatically improved query performance. What started as an investigation into slow API responses ended with a solution that made our document retrieval 90,985 times faster.
 
 #### Identifying the Problem
+
 As more users joined Memora and started uploading documents, we noticed our API response times gradually degrading. The culprit was filtering documents using metadata(jsonb)->>file_id patterns, forcing PostgreSQL to perform full sequential scans.
 
 #### Our Solution
+
 We implemented a two-part solution:
 
 1. **Schema Improvement**: Added a dedicated file_id column instead of storing this identifier in a JSON metadata field
 2. **Strategic Indexing**: Added a partial index focusing on active documents
 
 #### The Results
+
 - Before: 10,008.379 ms execution time
 - After: 0.110 ms execution time
 - **90,985x speed improvement**
@@ -138,14 +161,17 @@ We implemented a two-part solution:
 This means significantly faster API response times, better handling of concurrent requests, and improved scalability as document collections grow.
 
 ### Introducing Memora MCP Server: Fetch relevant content from Memora in LLMs
+
 March 5, 2025 • Taishi
 
 Memora MCP Server is a new way to fetch relevant content from Memora in LLMs using Model Context Protocol (MCP). MCP is a protocol that connects AI to external data sources like Google Drive and websites.
 
 #### What is MCP?
+
 Model Context Protocol (MCP) is a universal plug that connects AI to third-party data and tools, solving the problem of AI being isolated from real data.
 
 #### How to use Memora MCP Server:
+
 1. Download the MCP server from GitHub
 2. Build with npm i && npm run build
 3. Get your Memora API key
@@ -155,48 +181,62 @@ Model Context Protocol (MCP) is a universal plug that connects AI to third-party
 ## Terms of Service
 
 ### 1. Introduction
+
 Welcome to Memora. These Terms of Service govern your access to and use of the Memora platform, website, APIs, and services. By accessing or using the Service, you agree to be bound by these Terms.
 
 ### 2. Definitions
+
 - "Memora", "we", "us", or "our" refers to Memora, the provider of the Service
 - "You" or "your" refers to the individual or entity using the Service
 - "Content" refers to any data, text, files, information, or materials you upload, process, or store
 - "RAG" refers to Retrieval-Augmented Generation, the AI technology used in our Service
 
 ### 3. Account Registration
+
 To use certain features, you must register for an account. You agree to provide accurate, current, and complete information and maintain account security. The Service is not intended for individuals under 18.
 
 ### 4. Service Description
+
 Memora helps developers integrate AI with their data. Users can upload documents via API and query them using natural language.
 
 ### 5. Pricing and Payment
+
 We offer a free tier with limited features and paid subscription plans with additional features. All payments are non-refundable except as expressly set forth in these Terms.
 
 ### 6. Your Content
+
 You retain all rights to your Content. By uploading Content, you grant Memora a license to use, copy, store, transmit, and process your Content solely to provide the Service. Content must not infringe on others' rights, violate laws, contain harmful code, or be otherwise objectionable.
 
 ### 7. Intellectual Property Rights
+
 The Service and its original content are owned by Memora and protected by international intellectual property laws. Portions of our software are available under the MIT license.
 
 ### 8. Acceptable Use
+
 Use the Service only for lawful purposes. Do not use it to harm others, interfere with the Service, gain unauthorized access, or develop competing products.
 
 ### 9. Third-Party Services
+
 The Service may integrate with third-party services governed by their own terms and privacy policies.
 
 ### 10. Disclaimer of Warranties
+
 THE SERVICE IS PROVIDED "AS IS" WITHOUT WARRANTIES OF ANY KIND.
 
 ### 11. Limitation of Liability
+
 IN NO EVENT SHALL MEMORA LABS BE LIABLE FOR INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES.
 
 ### 12. Indemnification
+
 You agree to defend and indemnify Memora from claims arising from your violation of these Terms or use of the Service.
 
 ### 13. Term and Termination
+
 These Terms remain in effect while you use the Service. Either party may terminate the agreement, with surviving provisions continuing after termination.
 
 ### 14-18. Additional Provisions
+
 The Terms may be modified with notice. They're governed by Delaware law, with disputes resolved through binding arbitration. No class actions are permitted.
 
 Contact us at hello@memoralabs.dev for questions.
@@ -204,14 +244,17 @@ Contact us at hello@memoralabs.dev for questions.
 ## Privacy Policy
 
 ### Introduction
+
 We are committed to protecting your privacy and handling your data with transparency. This Privacy Policy explains how we collect, use, disclose, and safeguard your information.
 
 ### Information We Collect
+
 - **Personal Information**: Name, email, job title, company, account credentials, payment information
 - **Usage Data**: IP address, browser type, device type, pages visited, time spent
 - **File Data**: Content of uploaded files, generated embeddings, file metadata
 
 ### How We Use Your Information
+
 - Provide, maintain, and improve our Service
 - Process transactions and handle payments
 - Provide customer support
@@ -220,19 +263,24 @@ We are committed to protecting your privacy and handling your data with transpar
 - Protect against malicious activity
 
 ### Data Retention
+
 We store information for as long as your account is active or as needed to provide the Service. You can request deletion at any time.
 
 ### Data Security
+
 We implement appropriate technical and organizational measures to protect your information, though no method is 100% secure.
 
 ### Sharing Your Information
+
 We may share information with:
+
 - Service providers who work on our behalf
 - In business transfers
 - For legal requirements
 - With your consent
 
 ### Data Processing Subprocessors
+
 - Supabase: Database hosting and storage
 - Upstash: Rate limiting and queue management
 - OpenAI: Generating embeddings and AI responses
@@ -241,9 +289,11 @@ We may share information with:
 - Stripe: Payment processing
 
 ### Your Rights
+
 Depending on your location, you may have rights to access, correct, delete, restrict processing, or port your data. Contact us at hello@memoralabs.dev to exercise these rights.
 
 ### Additional Information
+
 - Not intended for children under 18
 - Information may be transferred internationally
 - California residents have specific rights under CCPA
@@ -256,4 +306,4 @@ Contact us at hello@memoralabs.dev for questions about privacy.
 - Email: hello@memoralabs.dev
 - Website: https://memoralabs.dev
 
-Built with Supabase, Bun, Next.js, Vercel, Railway, and TypeScript. We make it easy to connect your data to AI. 
+Built with Supabase, Bun, Next.js, Vercel, Railway, and TypeScript. We make it easy to connect your data to AI.

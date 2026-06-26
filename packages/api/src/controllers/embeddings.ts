@@ -1,25 +1,28 @@
 import { SupabaseVectorStore } from "@langchain/community/vectorstores/supabase";
-import { Request, Response } from "express";
+import { Response } from "express";
 import { z } from "zod";
 import { client } from "../utils/posthog";
 import { logApiUsageAsync } from "../utils/async-logger";
 import { supabase } from "../utils/supabase";
 import { createEmbeddings } from "../utils/embeddings";
+import {
+  getApiKeyFromRequest,
+  type AuthenticatedRequest,
+} from "../middleware/auth";
 
 const embeddingsSchema = z.object({
   query: z.string().min(1, "Query is required"),
   k: z.number().int().positive().default(3),
   include_vectors: z.boolean().optional(),
   include_raw_file: z.boolean().optional(),
-  file_ids: z.array(z.string().uuid()).min(
-    1,
-    "At least one file ID is required",
-  ),
+  file_ids: z
+    .array(z.string().uuid())
+    .min(1, "At least one file ID is required"),
 });
 
 type EmbeddingsRequest = z.infer<typeof embeddingsSchema>;
 
-async function validateRequest(req: Request): Promise<{
+async function validateRequest(req: AuthenticatedRequest): Promise<{
   success: boolean;
   data?: EmbeddingsRequest;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -49,7 +52,7 @@ async function validateRequest(req: Request): Promise<{
   });
 
   // Validate API key and get team ID
-  const apiKey = req.headers.authorization as string;
+  const apiKey = getApiKeyFromRequest(req);
   console.log("[EMBEDDINGS] Verifying API key");
   const { data: apiKeyData, error: apiKeyError } = await supabase
     .from("api_keys")
@@ -104,7 +107,10 @@ async function validateRequest(req: Request): Promise<{
   };
 }
 
-export const getEmbeddings = async (req: Request, res: Response) => {
+export const getEmbeddings = async (
+  req: AuthenticatedRequest,
+  res: Response,
+) => {
   console.log("[EMBEDDINGS] Request received");
   try {
     const validation = await validateRequest(req);
@@ -127,19 +133,16 @@ export const getEmbeddings = async (req: Request, res: Response) => {
     });
 
     console.log("[EMBEDDINGS] Creating vector store");
-    const vectorStore = new SupabaseVectorStore(
-      createEmbeddings(),
-      {
-        client: supabase,
-        tableName: "documents",
-        queryName: "match_documents",
-        filter: file_ids ? { file_id: { in: file_ids } } : undefined,
-      },
-    );
+    const vectorStore = new SupabaseVectorStore(createEmbeddings(), {
+      client: supabase,
+      tableName: "documents",
+      queryName: "match_documents",
+      filter: file_ids ? { file_id: { in: file_ids } } : undefined,
+    });
 
     console.log("[EMBEDDINGS] Performing similarity search");
-    const similaritySearchWithScoreResults = await vectorStore
-      .similaritySearchWithScore(query, k);
+    const similaritySearchWithScoreResults =
+      await vectorStore.similaritySearchWithScore(query, k);
     console.log("[EMBEDDINGS] Similarity search completed", {
       resultCount: similaritySearchWithScoreResults.length,
     });
@@ -176,8 +179,8 @@ export const getEmbeddings = async (req: Request, res: Response) => {
   } catch (error) {
     console.error("[EMBEDDINGS] Error in embeddings endpoint:", error);
 
-    if (req.headers.authorization) {
-      const apiKey = req.headers.authorization as string;
+    const apiKey = getApiKeyFromRequest(req);
+    if (apiKey) {
       console.log("[EMBEDDINGS] Attempting to log error with user ID");
       const { data: apiKeyData } = await supabase
         .from("api_keys")
