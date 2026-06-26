@@ -12,11 +12,23 @@ export function getMemoraApiKey(): string {
   );
 }
 
+function normalizeLocalApiUrl(url: string): string {
+  // `localhost` often resolves to IPv6 (::1) while the API binds on IPv4.
+  // Next.js can also listen on the same port over IPv6, so server-side fetches
+  // to `localhost:PORT` may hit Next instead of the Express API.
+  return url.replace("://localhost", "://127.0.0.1");
+}
+
 export function getMemoraApiUrl(fallback = "https://api.memoralabs.dev"): string {
-  return (
+  const url =
     process.env.MEMORA_API_URL ??
     process.env.NEXT_PUBLIC_API_URL ??
     process.env[LEGACY_MEMORA_API_URL] ??
-    fallback
-  );
+    fallback;
+
+  return normalizeLocalApiUrl(url);
+}
+
+export function getPublicMemoraApiUrl(): string {
+  return getMemoraApiUrl();
 }
