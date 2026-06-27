@@ -112,6 +112,7 @@ export default async function Page() {
               </div>
 
               <UsageCard
+                isSubscribed={hasProSubscription}
                 subscribedProductId={data?.stripe_subscribed_product_id}
                 lastUsageResetAt={data?.last_usage_reset_at}
               />

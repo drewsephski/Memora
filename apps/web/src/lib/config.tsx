@@ -14,6 +14,11 @@ import {
   Shield,
   FileText,
 } from "lucide-react";
+import {
+  API_CALL_LIMITS as SHARED_API_CALL_LIMITS,
+  SUBSCRIPTION_TIER_LABELS,
+  SUBSCRIPTION_TIERS,
+} from "@memora/common/billing";
 
 export const BLUR_FADE_DELAY = 0.15;
 
@@ -52,17 +57,17 @@ export const STRIPE_PRODUCT_IDS = {
 
 // API call limits for different subscription tiers
 export const API_CALL_LIMITS = {
-  FREE: 100, // Free tier: 100 API calls per month
-  BASIC: 750, // Basic tier: 750 API calls per month
-  ENTERPRISE: 5000, // Enterprise tier: 5,000 API calls per month
+  FREE: SHARED_API_CALL_LIMITS[SUBSCRIPTION_TIERS.FREE],
+  BASIC: SHARED_API_CALL_LIMITS[SUBSCRIPTION_TIERS.BASIC],
+  ENTERPRISE: SHARED_API_CALL_LIMITS[SUBSCRIPTION_TIERS.ENTERPRISE],
 };
 
 // Subscription tier names
-export enum SUBSCRIPTION_TIER {
-  FREE = "Free",
-  BASIC = "Basic",
-  ENTERPRISE = "Enterprise",
-}
+export const SUBSCRIPTION_TIER = {
+  FREE: SUBSCRIPTION_TIER_LABELS[SUBSCRIPTION_TIERS.FREE],
+  BASIC: SUBSCRIPTION_TIER_LABELS[SUBSCRIPTION_TIERS.BASIC],
+  ENTERPRISE: SUBSCRIPTION_TIER_LABELS[SUBSCRIPTION_TIERS.ENTERPRISE],
+} as const;
 
 export const siteConfig = {
   name: "Memora",
@@ -164,7 +169,7 @@ export const siteConfig = {
       },
       description: "Try Memora with limited usage.",
       features: [
-        "100 API calls per month",
+        `${API_CALL_LIMITS.FREE.toLocaleString()} API calls per month`,
         "All supported file types",
         "5 requests per minute",
         "Community support",
@@ -182,7 +187,7 @@ export const siteConfig = {
       description:
         "For developers with regular usage needs. ($15.83/month when billed yearly)",
       features: [
-        "750 API calls per month",
+        `${API_CALL_LIMITS.BASIC.toLocaleString()} API calls per month`,
         "All supported file types",
         "15 requests per minute",
         "Email support",
@@ -205,7 +210,7 @@ export const siteConfig = {
       description:
         "For businesses with high-volume needs. ($124.17/month when billed yearly)",
       features: [
-        "5,000 API calls per month",
+        `${API_CALL_LIMITS.ENTERPRISE.toLocaleString()} API calls per month`,
         "50 requests per minute",
         "Priority processing",
         "Priority email support",

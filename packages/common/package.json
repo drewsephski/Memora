@@ -15,6 +15,10 @@
     "build": "tsc"
   },
   "exports": {
+    "./billing": {
+      "types": "./src/billing.ts",
+      "default": "./dist/billing.js"
+    },
     "./usage": {
       "types": "./src/usage.ts",
       "default": "./dist/usage.js"

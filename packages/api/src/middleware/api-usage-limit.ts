@@ -1,12 +1,14 @@
 import { NextFunction, Response } from "express";
 import { supabase } from "../utils/supabase";
 import { AuthenticatedRequest } from "./auth";
-import {
-  API_CALL_LIMITS,
-  STRIPE_PRODUCT_IDS,
-  SUBSCRIPTION_TIER,
-} from "../utils/config";
+import { STRIPE_PRODUCT_IDS } from "../utils/config";
 import { getStartDateForApiUsage } from "../../../common/src/usage";
+import {
+  getApiCallLimitForTier,
+  getSubscriptionTierLabel,
+  isUnknownPaidTier,
+  resolveSubscriptionTier,
+} from "../../../common/src/billing";
 
 export const apiUsageLimit = () => {
   return async (
@@ -110,23 +112,25 @@ export const apiUsageLimit = () => {
         });
       }
 
-      // Determine the subscription tier and corresponding API call limit
-      let apiCallLimit = API_CALL_LIMITS.FREE; // Default to Free tier
-      let tierName = SUBSCRIPTION_TIER.FREE;
-
       const hasSubscription = profileData?.stripe_is_subscribed ?? false;
       const productId = profileData?.stripe_subscribed_product_id;
+      const subscriptionTier = resolveSubscriptionTier({
+        isSubscribed: hasSubscription,
+        productId,
+        stripeProductIds: {
+          basic: STRIPE_PRODUCT_IDS.BASIC,
+          enterprise: STRIPE_PRODUCT_IDS.ENTERPRISE,
+        },
+      });
+      const apiCallLimit = getApiCallLimitForTier(subscriptionTier);
+      const tierName = getSubscriptionTierLabel(subscriptionTier);
 
-      if (hasSubscription && productId) {
-        if (productId === STRIPE_PRODUCT_IDS.BASIC) {
-          apiCallLimit = API_CALL_LIMITS.BASIC;
-          tierName = SUBSCRIPTION_TIER.BASIC;
-        } else if (
-          productId === STRIPE_PRODUCT_IDS.ENTERPRISE
-        ) {
-          apiCallLimit = API_CALL_LIMITS.ENTERPRISE;
-          tierName = SUBSCRIPTION_TIER.ENTERPRISE;
-        }
+      if (isUnknownPaidTier(subscriptionTier)) {
+        console.error(
+          `[API-LIMIT][${requestId}] Active subscription has an unrecognized Stripe product ID: ${
+            productId || "not set"
+          }. Falling back to the paid baseline limit.`,
+        );
       }
 
       console.log(

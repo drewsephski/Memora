@@ -26,6 +26,10 @@ import {
 import Link from "next/link";
 import { ManageSubscriptionButton } from "./manage-subscription-button";
 import { STRIPE_PRODUCT_IDS } from "@/lib/config";
+import {
+  getSubscriptionTierLabel,
+  resolveSubscriptionTier,
+} from "@memora/common/billing";
 
 export const metadata = {
   title: "Settings",
@@ -56,18 +60,16 @@ export default async function SettingsPage() {
 
   const hasSubscription = profile?.stripe_is_subscribed ?? false;
 
-  // Determine the subscription tier based on the product ID
-  let subscriptionTier = "Free";
-
-  if (hasSubscription && profile?.stripe_subscribed_product_id) {
-    if (profile.stripe_subscribed_product_id === STRIPE_PRODUCT_IDS.BASIC) {
-      subscriptionTier = "Basic";
-    } else if (
-      profile.stripe_subscribed_product_id === STRIPE_PRODUCT_IDS.ENTERPRISE
-    ) {
-      subscriptionTier = "Enterprise";
-    }
-  }
+  const subscriptionTier = getSubscriptionTierLabel(
+    resolveSubscriptionTier({
+      isSubscribed: hasSubscription,
+      productId: profile?.stripe_subscribed_product_id,
+      stripeProductIds: {
+        basic: STRIPE_PRODUCT_IDS.BASIC,
+        enterprise: STRIPE_PRODUCT_IDS.ENTERPRISE,
+      },
+    }),
+  );
 
   return (
     <SidebarProvider>

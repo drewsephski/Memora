@@ -21,6 +21,10 @@ import {
   SidebarRail,
 } from "@/components/ui/sidebar";
 import { STRIPE_PRODUCT_IDS, siteConfig } from "@/lib/config";
+import {
+  getSubscriptionTierLabel,
+  resolveSubscriptionTier,
+} from "@memora/common/billing";
 
 export function AppSidebar({
   user,
@@ -46,15 +50,16 @@ export function AppSidebar({
   const isDashboardActive = pathname === "/dashboard";
   const isSettingsActive = pathname === "/dashboard/settings";
 
-  let subscriptionTier = "Free";
-
-  if (hasProSubscription && subscribedProductId) {
-    if (subscribedProductId === STRIPE_PRODUCT_IDS.BASIC) {
-      subscriptionTier = "Basic";
-    } else if (subscribedProductId === STRIPE_PRODUCT_IDS.ENTERPRISE) {
-      subscriptionTier = "Enterprise";
-    }
-  }
+  const subscriptionTier = getSubscriptionTierLabel(
+    resolveSubscriptionTier({
+      isSubscribed: hasProSubscription,
+      productId: subscribedProductId,
+      stripeProductIds: {
+        basic: STRIPE_PRODUCT_IDS.BASIC,
+        enterprise: STRIPE_PRODUCT_IDS.ENTERPRISE,
+      },
+    }),
+  );
 
   const data = {
     teams: [
